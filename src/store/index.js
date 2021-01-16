@@ -5,15 +5,12 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: () => ({
-    drawer: false,
-    group: null,
-  }),
-  mutations: {
-    showDrawer(state) {
-      state.drawer = true;
-      console.log("Showing drawer");
+    NavState: {
+      drawerState: false,
+      listGroup: null,
     },
-  },
+  }),
+  mutations: {},
   actions: {},
   modules: {},
 });

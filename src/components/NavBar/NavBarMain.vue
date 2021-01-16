@@ -12,13 +12,15 @@
       </v-btn>
     </v-app-bar>
 
-    <NavBarNavigationDrawer />
+    <div>
+      <NavBarNavigationDrawer :drawer-state="true" :list-group="null" />
+    </div>
   </div>
 </template>
 
 <script>
 //% Vuex
-import { mapMutations } from "vuex";
+import { mapMutations, mapState } from "vuex";
 
 //% Components
 import NavBarNavigationDrawer from "./NavBarNavigationDrawer.vue";
@@ -29,9 +31,8 @@ export default {
     NavBarNavigationDrawer,
   },
   data: () => ({}),
-  methods: {
-    ...mapMutations(["showDrawer"]),
-  },
+  methods: {},
+  computed: {},
 };
 </script>
 
