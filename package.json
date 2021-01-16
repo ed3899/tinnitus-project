@@ -2,6 +2,14 @@
   "name": "tinnitus-project",
   "version": "0.1.0",
   "private": true,
+  "repository": {
+    "url": "https://github.com/ed3899/tinnitus-project",
+    "type": "Not for profit"
+  },
+  "author": {
+    "name": "Eduardo Alfredo Casanova Lope",
+    "email": "cb.inv7613@gmail.com"
+  },
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
