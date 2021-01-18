@@ -1,13 +1,12 @@
 <template>
-  
+  <div>Contact Us</div>
 </template>
 
 <script>
 export default {
-name
-}
+  name: "ContactUsView",
+};
 </script>
 
-<style>
-
+<style lang="scss" scoped>
 </style>

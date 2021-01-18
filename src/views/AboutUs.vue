@@ -6,8 +6,8 @@
 
 <script>
 export default {
-  name: "AboutView",
+  name: "AboutUsView",
 };
 </script>
 
-<style></style>
+<style lang="scss" scoped></style>
