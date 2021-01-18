@@ -1,6 +1,6 @@
 <template>
-  <div>
-    LearnMoreView
+  <div id="learn-more-view">
+    <h1>Learn More</h1>
   </div>
 </template>
 

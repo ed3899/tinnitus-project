@@ -4,7 +4,9 @@
       <NavBarMain />
     </div>
     <div id="main-v-app__router-view">
-      <router-view></router-view>
+      <v-fade-transition mode="out-in">
+        <router-view></router-view>
+      </v-fade-transition>
     </div>
   </v-app>
 </template>
@@ -24,7 +26,5 @@ export default {
 </script>
 
 <style lang="scss">
-.temp-height {
-  height: 100vh;
-}
+
 </style>

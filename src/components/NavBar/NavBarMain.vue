@@ -15,8 +15,6 @@
       </v-btn>
     </v-app-bar>
 
-    <!-- Nav Drawer active-class="deep-purple--text text--accent-4" -->
-
     <v-navigation-drawer v-model="isDrawerOpen" absolute bottom temporary>
       <v-list nav dense rounded>
         <v-list-item-group
@@ -70,11 +68,13 @@ export default {
     }),
   },
   watch: {
+    //Closing drawer in case an option is clicked
     group: {
       handler(val, oldVal) {
         this.isDrawerOpen = false;
       },
     },
+    //Notifying central state of drawer state
     isDrawerOpen: {
       handler(val, oldVal) {
         this.toggleCentralDrawerState();
