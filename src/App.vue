@@ -3,6 +3,7 @@
     <div id="main-v-app__navbar-main">
       <NavBarMain />
     </div>
+
     <div id="main-v-app__router-view">
       <v-fade-transition mode="out-in">
         <router-view></router-view>
@@ -25,6 +26,4 @@ export default {
 };
 </script>
 
-<style lang="scss">
-
-</style>
+<style lang="scss"></style>

@@ -1,18 +1,27 @@
 <template>
   <div id="navbar-main-container include">
-    <v-system-bar color="deep-purple darken-3"></v-system-bar>
-
     <!-- Nav Bar -->
     <v-app-bar dark>
       <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>The tinnitus funding project</v-toolbar-title>
+      <v-toolbar-title>The Tinnitus Community Project</v-toolbar-title>
 
       <v-spacer></v-spacer>
 
       <v-btn icon>
         <v-icon>mdi-heart</v-icon>
       </v-btn>
+
+      <template #extension>
+        <v-tabs v-for="(item, i) in items" :key="i" align-with-title>
+          <v-tab
+            :to="{ path: item.route }"
+            v-text="item.text"
+            exact
+            exact-active-class="blue darken-3"
+          ></v-tab>
+        </v-tabs>
+      </template>
     </v-app-bar>
 
     <v-navigation-drawer v-model="isDrawerOpen" absolute bottom temporary>
