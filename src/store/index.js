@@ -5,12 +5,16 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: () => ({
-    NavState: {
-      drawerState: false,
-      listGroup: null,
+    NavBarMain: {
+      isDrawerOpen: false,
     },
   }),
-  mutations: {},
+  mutations: {
+    toggleDrawerState(state, payload) {
+      state.NavBarMain.isDrawerOpen = !state.NavBarMain.isDrawerOpen;
+      // console.log("Central state toggled");
+    },
+  },
   actions: {},
   modules: {},
 });

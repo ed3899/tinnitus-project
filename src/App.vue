@@ -1,7 +1,10 @@
 <template>
-  <v-app>
-    <div>
+  <v-app id="main-v-app">
+    <div id="main-v-app__navbar-main">
       <NavBarMain />
+    </div>
+    <div id="main-v-app__router-view">
+      <router-view></router-view>
     </div>
   </v-app>
 </template>
