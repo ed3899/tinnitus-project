@@ -9,17 +9,26 @@
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-icon>mdi-heart</v-icon>
+        <v-hover #default="{hover}">
+          <v-icon :class="{ 'blue darken-1 rounded-0': hover }"
+            >mdi-card-search</v-icon
+          >
+        </v-hover>
       </v-btn>
 
       <template #extension>
-        <v-tabs v-for="(item, i) in items" :key="i" align-with-title>
-          <v-tab
-            :to="{ path: item.route }"
-            v-text="item.text"
-            exact
-            exact-active-class="blue darken-3"
-          ></v-tab>
+        <v-tabs align-with-title fixed-tabs>
+          <v-tabs-slider color="blue"></v-tabs-slider>
+
+          <v-hover #default="{hover}" v-for="(item, i) in items" :key="i">
+            <v-tab
+              :to="{ path: item.route }"
+              exact-active-class="blue--text"
+              v-text="item.text"
+              :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+            >
+            </v-tab>
+          </v-hover>
         </v-tabs>
       </template>
     </v-app-bar>
