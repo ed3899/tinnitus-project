@@ -1,24 +1,29 @@
 <template>
-  <v-app id="main-v-app">
-    <div id="main-v-app__navbar-main">
+  <AppLayout>
+    <template #navbar>
       <NavBarMain />
-    </div>
-
-    <div id="main-v-app__router-view">
+    </template>
+    <template #v-main>
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
-    </div>
-  </v-app>
+    </template>
+    <template #v-footer>
+      <v-col class="text-center" cols="12">
+        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
+      </v-col>
+    </template>
+  </AppLayout>
 </template>
 
 <script>
 import NavBarMain from "./components/NavBar/NavBarMain.vue";
+import AppLayout from "./layouts/AppLayout.vue";
 
 export default {
   name: "App",
 
-  components: { NavBarMain },
+  components: { NavBarMain, AppLayout },
 
   data: () => ({
     //

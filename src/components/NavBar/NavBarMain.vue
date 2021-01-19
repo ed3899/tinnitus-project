@@ -1,38 +1,68 @@
 <template>
-  <div id="navbar-main-container include">
+  <v-container fluid>
     <!-- Nav Bar -->
-    <v-app-bar dark>
+
+    <v-app-bar app color="teal lighten-1" prominent>
       <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title>The Tinnitus Community Project</v-toolbar-title>
+      <v-toolbar-title class="mb-5"
+        >The Tinnitus Community Project</v-toolbar-title
+      >
 
       <v-spacer></v-spacer>
 
       <v-btn icon>
-        <v-hover #default="{hover}">
-          <v-icon :class="{ 'blue darken-1 rounded-0': hover }"
-            >mdi-card-search</v-icon
-          >
-        </v-hover>
+        <v-icon>mdi-magnify</v-icon>
       </v-btn>
 
-      <template #extension>
-        <v-tabs align-with-title fixed-tabs>
-          <v-tabs-slider color="blue"></v-tabs-slider>
+      <!-- NavTabs -->
 
-          <v-hover #default="{hover}" v-for="(item, i) in items" :key="i">
-            <v-tab
-              :to="{ path: item.route }"
-              exact-active-class="blue--text"
-              v-text="item.text"
-              :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-            >
-            </v-tab>
-          </v-hover>
+      <template #extension>
+        <v-tabs fixed-tabs slider-color="red">
+          <!-- Nav Tab Menu -->
+          <v-menu
+            v-for="(item, i) in items"
+            :key="i"
+            open-on-hover
+            offset-y
+            rounded="0"
+            close-on-content-click
+            left
+            class="mr-10"
+          >
+            <template #activator="{ on, attrs }">
+              <v-hover #default="{hover}">
+                <v-tab
+                  :to="{ path: item.route }"
+                  exact-active-class="blue--text"
+                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                  v-text="item.text"
+                  dark
+                  v-bind="attrs"
+                  v-on="on"
+                >
+                </v-tab>
+              </v-hover>
+            </template>
+
+            <v-list>
+              <v-hover v-for="(item, i) in items" :key="i" #default="{hover}">
+                <v-list-item
+                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                  class="align-self-center mr-4"
+                >
+                  <v-list-item-title
+                    v-text="item.subRoutes.title"
+                  ></v-list-item-title>
+                </v-list-item>
+              </v-hover>
+            </v-list>
+          </v-menu>
         </v-tabs>
       </template>
     </v-app-bar>
 
+    <!-- NavDrawer -->
     <v-navigation-drawer v-model="isDrawerOpen" absolute bottom temporary>
       <v-list nav dense rounded>
         <v-list-item-group
@@ -55,7 +85,7 @@
         </v-list-item-group>
       </v-list>
     </v-navigation-drawer>
-  </div>
+  </v-container>
 </template>
 
 <script>
@@ -71,10 +101,50 @@ export default {
     isDrawerOpen: false,
     group: null,
     items: [
-      { text: "Home", icon: "mdi-home", route: "/" },
-      { text: "About Us", icon: "mdi-office-building", route: "/about" },
-      { text: "Learn More", icon: "mdi-book-search", route: "/learn-more" },
-      { text: "Contact Us", icon: "mdi-email", route: "contact-us" },
+      {
+        text: "Home",
+        icon: "mdi-home",
+        route: "/",
+        subRoutes: [
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me 2" },
+        ],
+      },
+      {
+        text: "About Us",
+        icon: "mdi-office-building",
+        route: "/about",
+        subRoutes: [
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me 2" },
+        ],
+      },
+      {
+        text: "Learn More",
+        icon: "mdi-book-search",
+        route: "/learn-more",
+        subRoutes: [
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me 2" },
+        ],
+      },
+      {
+        text: "Contact Us",
+        icon: "mdi-email",
+        route: "contact-us",
+        subRoutes: [
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me" },
+          { title: "Click Me 2" },
+        ],
+      },
     ],
   }),
   methods: {
