@@ -3,6 +3,9 @@
     <v-row class="mt-n10">
       <CarouselMain />
     </v-row>
+    <v-row>
+      <router-view></router-view>
+    </v-row>
   </v-container>
 </template>
 
@@ -14,6 +17,7 @@ export default {
   components: {
     CarouselMain,
   },
+  data: () => ({}),
 };
 </script>
 

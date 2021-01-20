@@ -10,25 +10,34 @@ const lazyLoadedComponents = {
   ContactUsView: () => import("../views/ContactUs.vue"),
 };
 
-const routes = [
+import TestVue from "../components/HomeChildren/Test.vue";
+
+export const routes = [
   {
     path: "/",
+    alias: "/home",
     name: "Home",
     component: lazyLoadedComponents.HomeView,
+    children: [
+      {
+        path: "test",
+        component: TestVue,
+      },
+    ],
   },
   {
     path: "/about",
-    name: "AboutUs",
+    name: "About Us",
     component: lazyLoadedComponents.AboutUsView,
   },
   {
     path: "/learn-more",
-    name: "LearnMore",
+    name: "Learn More",
     component: lazyLoadedComponents.LearnMoreView,
   },
   {
     path: "/contact-us",
-    name: "ContactUs",
+    name: "Contact Us",
     component: lazyLoadedComponents.ContactUsView,
   },
 ];

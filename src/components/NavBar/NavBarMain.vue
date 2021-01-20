@@ -96,6 +96,18 @@
 <script>
 //% Vuex
 import { mapMutations } from "vuex";
+import { routes } from "../../router/index.js";
+
+const modifiedArray = (function modifyArray() {
+  const modifiedArray = [];
+
+  for (const { path, name } of routes) {
+    const extractedValues = { name, path };
+    modifiedArray.push(extractedValues);
+  }
+
+  return modifiedArray;
+})();
 
 //% Components
 
@@ -109,7 +121,7 @@ export default {
       {
         text: "Home",
         icon: "mdi-home",
-        route: "/",
+        route: "/home",
         subRoutes: [
           { title: "Click Me" },
           { title: "Click Me" },
