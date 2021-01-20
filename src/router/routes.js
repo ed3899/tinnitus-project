@@ -53,15 +53,28 @@ export const routes = [
     ],
   },
   {
-    path: "/learn",
-    name: "Learn More",
+    path: "/get-support",
+    name: "Get Support",
     icon: "mdi-book-search",
-    component: () => import("../views/LearnMore.vue"),
+    component: () => import("../views/GetSupportView.vue"),
+    children: [
+      {
+        name: "Where Can I Get Help",
+        path: "where-to-get-help",
+        component: () =>
+          import("../components/ViewsChildren/GetSupport/WhereToGetHelp.vue"),
+      },
+      {
+        name: "Your stories",
+        path: "your-stories",
+        component,
+      },
+    ],
   },
   {
-    path: "/contact",
-    name: "Contact Us",
+    path: "/research",
+    name: "Research",
     icon: "mdi-email",
-    component: () => import("../views/ContactUs.vue"),
+    component: () => import("../views/ResearchView.vue"),
   },
 ];

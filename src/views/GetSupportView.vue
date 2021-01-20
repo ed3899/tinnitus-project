@@ -1,12 +1,12 @@
 <template>
-  <div id="learn-more-view">
-    <h1>Learn More</h1>
-  </div>
+  <v-container>
+    <h1>Get Support</h1>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "LearnMoreView",
+  name: "GetSupportView",
 };
 </script>
 

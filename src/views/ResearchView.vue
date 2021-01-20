@@ -1,12 +1,12 @@
 <template>
-  <div id="contact-us-view">
-    <h1>Contact us</h1>
-  </div>
+  <v-container>
+    <h1>Research</h1>
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "ContactUsView",
+  name: "ResearchView",
 };
 </script>
 
