@@ -1,66 +1,71 @@
 <template>
   <v-container fluid>
     <!-- Nav Bar -->
+    <v-responsive :width="1000">
+      <v-app-bar app color="teal lighten-1" prominent>
+        <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
 
-    <v-app-bar app color="teal lighten-1" prominent>
-      <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
+        <v-app-bar-title class="mb-5"
+          >The Tinnitus Community Project</v-app-bar-title
+        >
 
-      <v-toolbar-title class="mb-5"
-        >The Tinnitus Community Project</v-toolbar-title
-      >
+        <v-spacer></v-spacer>
 
-      <v-spacer></v-spacer>
+        <v-btn icon>
+          <v-icon>mdi-magnify</v-icon>
+        </v-btn>
 
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+        <!-- NavTabs -->
 
-      <!-- NavTabs -->
+        <template #extension>
+          <v-tabs fixed-tabs slider-color="red" show-arrows>
+            <!-- Nav Tab Menu -->
+            <v-menu
+              v-for="(item, i) in items"
+              :key="i"
+              open-on-hover
+              offset-y
+              rounded="0"
+              close-on-content-click
+              left
+            >
+              <template #activator="{ on, attrs }">
+                <v-hover #default="{hover}">
+                  <v-tab
+                    :to="{ path: item.route }"
+                    exact-active-class="blue--text"
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    v-text="item.text"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    class="ms-3"
+                  >
+                  </v-tab>
+                </v-hover>
+              </template>
 
-      <template #extension>
-        <v-tabs fixed-tabs slider-color="red">
-          <!-- Nav Tab Menu -->
-          <v-menu
-            v-for="(item, i) in items"
-            :key="i"
-            open-on-hover
-            offset-y
-            rounded="0"
-            close-on-content-click
-            left
-            class="mr-10"
-          >
-            <template #activator="{ on, attrs }">
-              <v-hover #default="{hover}">
-                <v-tab
-                  :to="{ path: item.route }"
-                  exact-active-class="blue--text"
-                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                  v-text="item.text"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
+              <v-list>
+                <v-hover
+                  v-for="(subRoute, i) in item.subRoutes"
+                  :key="i"
+                  #default="{hover}"
                 >
-                </v-tab>
-              </v-hover>
-            </template>
-
-            <v-list>
-              <v-hover v-for="(item, i) in items" :key="i" #default="{hover}">
-                <v-list-item
-                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                  class="align-self-center mr-4"
-                >
-                  <v-list-item-title
-                    v-text="item.subRoutes.title"
-                  ></v-list-item-title>
-                </v-list-item>
-              </v-hover>
-            </v-list>
-          </v-menu>
-        </v-tabs>
-      </template>
-    </v-app-bar>
+                  <v-list-item
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    class="align-self-center mr-4"
+                  >
+                    <v-list-item-title
+                      v-text="subRoute.title"
+                    ></v-list-item-title>
+                  </v-list-item>
+                </v-hover>
+              </v-list>
+            </v-menu>
+          </v-tabs>
+        </template>
+      </v-app-bar>
+    </v-responsive>
 
     <!-- NavDrawer -->
     <v-navigation-drawer v-model="isDrawerOpen" absolute bottom temporary>

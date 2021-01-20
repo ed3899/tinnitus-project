@@ -1,6 +1,6 @@
 <template>
   <v-container fluid>
-    <v-row>
+    <v-row class="mt-n10">
       <CarouselMain />
     </v-row>
   </v-container>
