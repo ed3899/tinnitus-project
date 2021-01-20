@@ -1,35 +1,28 @@
-import { routesChildren } from "./routesChildren.js";
-const { QuickGuide, OvercomingIt, MoreInformation } = routesChildren;
-
-const lazyLoadedComponents = {
-  HomeView: () => import("../views/Home.vue"),
-  AboutUsView: () => import("../views/AboutUs.vue"),
-  LearnMoreView: () => import("../views/LearnMore.vue"),
-  ContactUsView: () => import("../views/ContactUs.vue"),
-};
-
 export const routes = [
   {
     path: "/",
     alias: "/home",
     name: "Home",
     icon: "mdi-home",
-    component: lazyLoadedComponents.HomeView,
+    component: () => import("../views/Home.vue"),
     children: [
       {
         name: "Quick Guide",
         path: "quick-guide",
-        component: QuickGuide,
+        component: () =>
+          import("../components/ViewsChildren/Home/QuickGuide.vue"),
       },
       {
         name: "Learning to Overcome It",
         path: "overcoming-it",
-        component: OvercomingIt,
+        component: () =>
+          import("../components/ViewsChildren/Home/OvercomingIt.vue"),
       },
       {
         name: "More Information",
-        path: "information",
-        component: MoreInformation,
+        path: "info",
+        component: () =>
+          import("../components/ViewsChildren/Home/MoreInformation.vue"),
       },
     ],
   },
@@ -37,19 +30,38 @@ export const routes = [
     path: "/about",
     name: "About Us",
     icon: "mdi-office-building",
-    component: lazyLoadedComponents.AboutUsView,
-    children: [{ name: "Our Vision", path: "vision" }],
+    component: () => import("../views/AboutUs.vue"),
+    children: [
+      {
+        name: "Our Vision",
+        path: "vision",
+        component: () =>
+          import("../components/ViewsChildren/AboutUs/OurVision.vue"),
+      },
+      {
+        name: "Our Team",
+        path: "team",
+        component: () =>
+          import("../components/ViewsChildren/AboutUs/OurTeam.vue"),
+      },
+      {
+        name: "How Your Money Helps",
+        path: "how-your-money-helps",
+        component: () =>
+          import("../components/ViewsChildren/AboutUs/HowYourMoneyHelps.vue"),
+      },
+    ],
   },
   {
     path: "/learn",
     name: "Learn More",
     icon: "mdi-book-search",
-    component: lazyLoadedComponents.LearnMoreView,
+    component: () => import("../views/LearnMore.vue"),
   },
   {
     path: "/contact",
     name: "Contact Us",
     icon: "mdi-email",
-    component: lazyLoadedComponents.ContactUsView,
+    component: () => import("../views/ContactUs.vue"),
   },
 ];

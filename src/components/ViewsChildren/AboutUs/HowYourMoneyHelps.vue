@@ -1,10 +1,12 @@
 <template>
-  <v-container>Our Team</v-container>
+  <v-container>
+    How your money helps
+  </v-container>
 </template>
 
 <script>
 export default {
-  name: "OurTeam",
+  name: "HowYourMoneyHelps",
 };
 </script>
 
