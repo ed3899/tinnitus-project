@@ -20,7 +20,7 @@
         <v-tabs fixed-tabs slider-color="red" show-arrows>
           <!-- Nav Tab Menu -->
           <v-menu
-            v-for="({ path, name }, i) in routes"
+            v-for="({ alias: parentAlias, name, children }, i) in routes"
             :key="i"
             open-on-hover
             offset-y
@@ -31,7 +31,7 @@
             <template #activator="{ on, attrs }">
               <v-hover #default="{hover}">
                 <v-tab
-                  :to="{ path }"
+                  :to="parentAlias"
                   exact-active-class="blue--text"
                   :class="{ 'blue darken-1 rounded-0 white--text': hover }"
                   v-text="name"
@@ -44,22 +44,21 @@
               </v-hover>
             </template>
 
-            <!-- <v-list>
+            <v-list>
               <v-hover
-                v-for="(subRoute, i) in item.subRoutes"
+                v-for="({ name, path: childrenPath }, i) in children"
                 :key="i"
                 #default="{hover}"
               >
                 <v-list-item
                   :class="{ 'blue darken-1 rounded-0 white--text': hover }"
                   class="align-self-center mr-4"
+                  :to="`${parentAlias}/${childrenPath}`"
                 >
-                  <v-list-item-title
-                    v-text="subRoute.title"
-                  ></v-list-item-title>
+                  <v-list-item-title v-text="name"></v-list-item-title>
                 </v-list-item>
               </v-hover>
-            </v-list> -->
+            </v-list>
           </v-menu>
         </v-tabs>
       </template>
@@ -95,6 +94,7 @@
 //% Vuex
 import { mapMutations } from "vuex";
 import { routes } from "../../router/routes.js";
+
 //% Components
 
 export default {
