@@ -24,8 +24,13 @@ export default {
   data: () => ({}),
   computed: {
     actualRouteIsHome() {
-      const homePath = this.$route.path === "/" || this.$route.path === "/home";
-      return homePath;
+      const [homePath1, homePath2] = ["/", "/home"];
+      switch (this.$route.path) {
+        case homePath1:
+        case homePath2: {
+          return true;
+        }
+      }
     },
   },
   mounted() {
