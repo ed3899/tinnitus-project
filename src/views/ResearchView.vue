@@ -1,6 +1,11 @@
 <template>
   <v-container>
-    <h1>Research</h1>
+    <v-row>
+      <h1>Research</h1>
+    </v-row>
+    <v-row>
+      <router-view></router-view>
+    </v-row>
   </v-container>
 </template>
 

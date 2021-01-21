@@ -67,7 +67,8 @@ export const routes = [
       {
         name: "Your stories",
         path: "your-stories",
-        component,
+        component: () =>
+          import("../components/ViewsChildren/GetSupport/YourStories.vue"),
       },
     ],
   },
@@ -76,5 +77,19 @@ export const routes = [
     name: "Research",
     icon: "mdi-email",
     component: () => import("../views/ResearchView.vue"),
+    children: [
+      {
+        name: "Research News",
+        path: "news",
+        component: () =>
+          import("../components/ViewsChildren/Research/ResearchNews.vue"),
+      },
+      {
+        name: "Taking Part",
+        path: "taking-part",
+        component: () =>
+          import("../components/ViewsChildren/Research/TakingPart.vue"),
+      },
+    ],
   },
 ];
