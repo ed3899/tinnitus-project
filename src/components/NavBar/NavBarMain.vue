@@ -29,7 +29,7 @@
             left
           >
             <template #activator="{ on, attrs }">
-              <v-hover #default="{hover}">
+              <v-hover #default="{ hover }">
                 <v-tab
                   :to="parentAlias"
                   exact-active-class="blue--text"
@@ -48,7 +48,7 @@
               <v-hover
                 v-for="({ name, path: childrenPath }, i) in children"
                 :key="i"
-                #default="{hover}"
+                #default="{ hover }"
               >
                 <v-list-item
                   :class="{ 'blue darken-1 rounded-0 white--text': hover }"

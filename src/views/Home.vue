@@ -1,21 +1,25 @@
 <template>
-  <v-container fluid>
-    <v-row class="mt-n10">
+  <HomeLayout>
+    <template #carousel>
       <CarouselMain />
-    </v-row>
-    <v-row>
+    </template>
+    <template #router-view>
       <router-view></router-view>
-    </v-row>
-  </v-container>
+    </template>
+  </HomeLayout>
 </template>
 
 <script>
+//%Layout
+import HomeLayout from "../layouts/Home/HomeLayout.vue";
+//%Sub-components
 import CarouselMain from "../components/Carousel/CarouselMain.vue";
 
 export default {
   name: "HomeView",
   components: {
     CarouselMain,
+    HomeLayout,
   },
   data: () => ({}),
 };

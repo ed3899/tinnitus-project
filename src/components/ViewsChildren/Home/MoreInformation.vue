@@ -1,5 +1,7 @@
 <template>
-  <v-container>More Information</v-container>
+  <v-container>
+    <v-row>More Information</v-row>
+  </v-container>
 </template>
 
 <script>
