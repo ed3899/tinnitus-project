@@ -12,7 +12,6 @@ export default new Vuex.Store({
   mutations: {
     toggleDrawerState(state, payload) {
       state.NavBarMain.isDrawerOpen = !state.NavBarMain.isDrawerOpen;
-      // console.log("Central state toggled");
     },
   },
   actions: {},

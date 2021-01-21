@@ -1,9 +1,9 @@
 <template>
   <HomeLayout>
-    <template #carousel>
+    <template v-if="actualRouteIsHome" #carousel>
       <CarouselMain />
     </template>
-    <template #router-view>
+    <template v-else #router-view>
       <router-view></router-view>
     </template>
   </HomeLayout>
@@ -22,6 +22,15 @@ export default {
     HomeLayout,
   },
   data: () => ({}),
+  computed: {
+    actualRouteIsHome() {
+      const homePath = this.$route.path === "/" || this.$route.path === "/home";
+      return homePath;
+    },
+  },
+  mounted() {
+    console.log(this.$route);
+  },
 };
 </script>
 
