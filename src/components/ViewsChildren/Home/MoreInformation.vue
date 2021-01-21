@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container class="temp-border">
     <v-row>More Information</v-row>
   </v-container>
 </template>
@@ -10,4 +10,8 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="scss" scoped>
+.temp-border {
+  border: 1px solid brown;
+}
+</style>

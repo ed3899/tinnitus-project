@@ -1,6 +1,6 @@
 <template>
-  <v-container>
-    Overcoming It
+  <v-container class="temp-border">
+    <v-row>Overcoming It</v-row>
   </v-container>
 </template>
 
@@ -10,4 +10,8 @@ export default {
 };
 </script>
 
-<style lang="sass" scoped></style>
+<style lang="scss" scoped>
+.temp-border {
+  border: 1px solid brown;
+}
+</style>
