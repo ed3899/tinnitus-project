@@ -10,8 +10,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.temp-border {
-  border: 1px solid brown;
-}
-</style>
+<style lang="scss" scoped></style>

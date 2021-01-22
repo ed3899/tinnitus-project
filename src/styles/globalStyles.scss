@@ -1,1 +1,12 @@
+//Used for development
+%temp-border {
+  border: 1px solid brown;
 
+  %__first-item {
+    border: 1px solid green;
+  }
+
+  %__second-item {
+    border: 1px solid purple;
+  }
+}
