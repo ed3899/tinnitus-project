@@ -24,7 +24,7 @@
     </v-row>
     <!-- 2nd row / breadcrumbs-->
     <v-row>
-      <v-breadcrumbs :items="items">
+      <v-breadcrumbs :items="breadcrumbItems">
         <template #divider>
           <v-icon>mdi-chevron-right</v-icon>
         </template>
@@ -58,17 +58,86 @@ export default {
   }),
   computed: {
     breadcrumbItems() {
-      return [
-        {
-          text: this.$route.name,
-          disabled: false,
-          exact: true,
-        },
-      ];
+      const matchedRoutes = this.$route.matched;
+
+      const mappedBreadCrumbItemsArray = matchedRoutes.map(match => {
+        const generateItemBasedOnPath = () => {
+          const { path, name } = match;
+          const pathIsFalsy = !path;
+
+          const itemWithAlias = () => {
+            const {
+              meta: { alias },
+            } = match;
+            return {
+              text: name,
+              disabled: false,
+              to: alias,
+              exact: true,
+            };
+          };
+          const itemWithPath = () => {
+            return {
+              text: name,
+              disabled: false,
+              to: path,
+              exact: true,
+            };
+          };
+
+          if (pathIsFalsy) {
+            return itemWithAlias();
+          }
+
+          return itemWithPath();
+        };
+
+        return generateItemBasedOnPath();
+      });
+
+      return mappedBreadCrumbItemsArray;
     },
   },
   mounted() {
-    console.log(this.$route);
+    // console.log(this.$route.matched);
+    const matchedRoutes = this.$route.matched;
+
+    const mappedBreadCrumbItemsArray = matchedRoutes.map(match => {
+      const generateItemBasedOnPath = () => {
+        const { path, name } = match;
+        const pathIsFalsy = !path;
+
+        const itemWithAlias = () => {
+          const {
+            meta: { alias },
+          } = match;
+          return {
+            text: name,
+            disabled: false,
+            to: alias,
+            exact: true,
+          };
+        };
+        const itemWithPath = () => {
+          return {
+            text: name,
+            disabled: false,
+            to: path,
+            exact: true,
+          };
+        };
+
+        if (pathIsFalsy) {
+          return itemWithAlias();
+        }
+
+        return itemWithPath();
+      };
+
+      return generateItemBasedOnPath();
+    });
+    console.log(mappedBreadCrumbItemsArray);
+    console.log(matchedRoutes);
   },
 };
 </script>

@@ -5,6 +5,7 @@ export const routes = [
     name: "Home",
     icon: "mdi-home",
     component: () => import("../views/Home.vue"),
+    meta: { alias: "/home" },
     children: [
       {
         name: "Quick Guide",
