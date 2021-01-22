@@ -56,6 +56,20 @@ export default {
       },
     ],
   }),
+  computed: {
+    breadcrumbItems() {
+      return [
+        {
+          text: this.$route.name,
+          disabled: false,
+          exact: true,
+        },
+      ];
+    },
+  },
+  mounted() {
+    console.log(this.$route);
+  },
 };
 </script>
 
