@@ -47,7 +47,6 @@ export default new Vuex.Store({
         });
 
         state.CentralState.currentBreadcrumbs = nestedBreadcrumbRoutes;
-        console.log("Triggered");
       };
 
       if (thereAreMatchedRoutes) {
