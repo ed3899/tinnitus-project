@@ -31,18 +31,20 @@
 
     <!-- 3rd row -->
     <v-row class="temp-border__item">
-      <v-expansion-panels class="mt-5" popout mandatory>
-        <v-expansion-panel class="" v-for="(item, i) in 5" :key="i">
-          <v-expansion-panel-header>Item</v-expansion-panel-header>
-          <v-expansion-panel-content>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
+      <v-expansion-panels class="ma-5 temp-border__item" popout mandatory>
+        <v-expansion-panel v-for="({ header, body }, i) in thirdRow" :key="i">
+          <v-expansion-panel-header class="text-h6"
+            >{{ i + 1 }}. {{ header }}</v-expansion-panel-header
+          >
+          <v-expansion-panel-content class="text-body-2">
+            {{ body }}
           </v-expansion-panel-content>
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
+
+    <!-- 4th row -->
+    <v-row> </v-row>
   </v-container>
 </template>
 
@@ -59,6 +61,56 @@ export default {
         in saepe modi. Molestiae eveniet provident laborum iste eius iusto
         aperiam reprehenderit numquam fugit cum. Dolores nemo quidem dolor?`,
     },
+    thirdRow: [
+      {
+        header: "What does tinnitus sound like?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "Who gets tinnitus?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "What causes tinnitus?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "Why have I got tinnitus? - I have good hearing!",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "What should I do?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "I'm hearing noises in my head, not my ears!",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "Why am I hearing music when nothing is playing?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+      {
+        header: "Is there a cure for tinnitus?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
+      },
+    ],
   }),
   computed: {},
   beforeRouteEnter(to, from, next) {
