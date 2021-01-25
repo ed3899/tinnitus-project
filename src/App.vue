@@ -11,20 +11,19 @@
     </v-main>
 
     <v-footer>
-      <v-col class="text-center" cols="12">
-        {{ new Date().getFullYear() }} — <strong>Vuetify</strong>
-      </v-col>
+      <FooterMain />
     </v-footer>
   </v-app>
 </template>
 
 <script>
 import NavBarMain from "./components/NavBar/NavBarMain.vue";
+import FooterMain from "./components/Footer/FooterMain.vue";
 
 export default {
   name: "App",
 
-  components: { NavBarMain },
+  components: { NavBarMain, FooterMain },
 
   data: () => ({
     //
