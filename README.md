@@ -1,8 +1,7 @@
 # tinnitus-project
 
 # Live website
-[Netlify Instance]
-(https://tinnitus-project-by-ed-01-2021.netlify.app/)
+[Netlify Instance](https://tinnitus-project-by-ed-01-2021.netlify.app/)
 
 ## Project setup
 ```
