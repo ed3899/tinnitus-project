@@ -1,7 +1,7 @@
 <template>
   <v-container class="temp-border">
     <!-- 1st row / Image-->
-    <v-row class="temp-border__first-item">
+    <v-row class="temp-border__item">
       <v-col align-self="center" class="d-flex justify-center" cols="12">
         <v-img
           class="temp-border__second-item"
@@ -23,14 +23,43 @@
       </v-col>
     </v-row>
 
-    <v-row>Quick Guide</v-row>
+    <!-- 2nd row -->
+    <v-row class="temp-border__item">
+      <h1 class="text-h1">{{ secondRow.heading }}</h1>
+      <p class="text-body-1">{{ secondRow.body }}</p>
+    </v-row>
+
+    <!-- 3rd row -->
+    <v-row class="temp-border__item">
+      <v-expansion-panels class="mt-5" popout mandatory>
+        <v-expansion-panel class="" v-for="(item, i) in 5" :key="i">
+          <v-expansion-panel-header>Item</v-expansion-panel-header>
+          <v-expansion-panel-content>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+            eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-row>
   </v-container>
 </template>
 
 <script>
 export default {
   name: "QuickGuide",
-  data: () => ({}),
+  data: () => ({
+    secondRow: {
+      heading: "What is tinnitus?",
+      body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, rem
+        sed hic deserunt mollitia animi perspiciatis est temporibus! Optio hic
+        enim sed maxime ab error dolorum? Quasi soluta odit et? Lorem ipsum
+        dolor sit amet consectetur adipisicing elit. Reiciendis neque excepturi
+        in saepe modi. Molestiae eveniet provident laborum iste eius iusto
+        aperiam reprehenderit numquam fugit cum. Dolores nemo quidem dolor?`,
+    },
+  }),
   computed: {},
   beforeRouteEnter(to, from, next) {
     next(vm => {
@@ -44,12 +73,8 @@ export default {
 .temp-border {
   @extend %temp-border;
 
-  &__first-item {
+  &__item {
     @extend %__first-item;
-  }
-
-  &__second-item {
-    @extend %__second-item;
   }
 }
 </style>
