@@ -7,6 +7,11 @@
 <script>
 export default {
   name: "OvercomingIt",
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.commit({ type: "createBreadcrumbs", component: vm });
+    });
+  },
 };
 </script>
 
