@@ -84,7 +84,7 @@
                 <v-btn
                   icon
                   color="blue"
-                  v-for="{ icon, link } in firstRow.thirdCol.card1.icons"
+                  v-for="{ icon, link } in socialMediaIcons"
                   :key="icon"
                   :href="link"
                 >
@@ -109,6 +109,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "FooterMain",
   data: () => ({
@@ -179,11 +180,6 @@ export default {
       thirdCol: {
         card1: {
           vCardText: `Material on this site is for information purposes only and is not a substitute for medical advice - you should always see your doctor and/or medical professional.`,
-          icons: [
-            { icon: "mdi-facebook", link: "https://www.facebook.com" },
-            { icon: "mdi-twitter", link: "https://www.twitter.com" },
-            { icon: "mdi-linkedin", link: "https://www.linkedin.com" },
-          ],
         },
         card2: {
           text: `The British Tinnitus Association is a registered charity. Registered charity number 1011145.
@@ -198,6 +194,9 @@ export default {
     actualYear() {
       return new Date().getFullYear();
     },
+    ...mapState({
+      socialMediaIcons: state => state.socialMediaIcons,
+    }),
   },
   methods: {
     revealCardToggle() {

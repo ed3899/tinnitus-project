@@ -1,15 +1,22 @@
 <template>
   <v-container fluid>
     <!-- Nav Bar -->
-    <v-app-bar app color="teal lighten-1" prominent>
-      <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
-
+    <v-app-bar app color="teal lighten-1" height="200" elevation="13">
       <v-container class="d-flex">
         <v-col cols="4">
-          <v-toolbar-title>The Tinnitus Community Project</v-toolbar-title>
+          <v-toolbar-title>{{ appBar.title }}</v-toolbar-title>
         </v-col>
         <v-col cols="8">
-          <v-row class="d-flex justify-end">
+          <v-row
+            class="d-flex justify-end"
+            align-content="center"
+            align="center"
+            no-gutters
+          >
+            <v-btn icon class="mr-10">
+              <v-icon>{{ appBar.icons.magnify }}</v-icon>
+            </v-btn>
+
             <v-btn
               icon
               v-for="({ icon, link }, i) in socialMediaIcons"
@@ -18,11 +25,16 @@
             >
               <v-icon v-text="icon"></v-icon>
             </v-btn>
+            <v-btn rounded color="success" class="ml-5">{{
+              appBar.btns.donate
+            }}</v-btn>
+            <v-btn rounded outlined color="black" class="ml-5">{{
+              appBar.btns.contact
+            }}</v-btn>
           </v-row>
-          <v-row>
-            <v-btn icon>
-              <v-icon>mdi-magnify</v-icon>
-            </v-btn>
+          <v-row class="d-flex flex-column align-end" no-gutters>
+            <h1>{{ appBar.info.title }}</h1>
+            <h5 v-for="({ text }, i) in appBar.info.body" :key="text + i" v-text="text"></h5>
           </v-row>
         </v-col>
       </v-container>
@@ -76,30 +88,6 @@
         </v-tabs>
       </template>
     </v-app-bar>
-
-    <!-- NavDrawer -->
-    <v-navigation-drawer v-model="isDrawerOpen" absolute bottom temporary>
-      <v-list nav dense rounded>
-        <v-list-item-group
-          v-model="group"
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item
-            v-for="({ path, name, icon }, i) in routes"
-            :key="i"
-            :to="{ path }"
-          >
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-
-            <v-list-item-content>
-              <v-list-item-title v-text="name"> </v-list-item-title>
-            </v-list-item-content>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
-    </v-navigation-drawer>
   </v-container>
 </template>
 
@@ -115,9 +103,32 @@ export default {
   name: "NavBarMain",
   components: {},
   data: () => ({
-    isDrawerOpen: false,
-    group: null,
     routes,
+    appBar: {
+      title: "The Tinnitus Community Project",
+      icons: {
+        magnify: "mdi-magnify",
+      },
+      btns: {
+        donate: "Donate",
+        contact: "Contact Us",
+      },
+      info: {
+        title: "Tinnitus Support Team: 0800 018 0527",
+        body: [
+          {
+            text: "Mon-Fri, 9am-5pm",
+          },
+          {
+            text: "Text/SMS: 07537 416841 | Web chat: via chat icon",
+          },
+          {
+            text: "Our forum | Our free e-newsletter",
+          },
+          { text: "Our office: 0114 250 9933" },
+        ],
+      },
+    },
   }),
   methods: {
     openDrawer() {
