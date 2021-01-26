@@ -3,7 +3,7 @@
     <!-- Nav Bar -->
     <v-app-bar app color="teal lighten-1" height="200" elevation="13">
       <v-container class="d-flex">
-        <v-col cols="4">
+        <v-col cols="4" align-self="center">
           <v-toolbar-title>{{ appBar.title }}</v-toolbar-title>
         </v-col>
         <v-col cols="8">
@@ -34,7 +34,11 @@
           </v-row>
           <v-row class="d-flex flex-column align-end" no-gutters>
             <h1>{{ appBar.info.title }}</h1>
-            <h5 v-for="({ text }, i) in appBar.info.body" :key="text + i" v-text="text"></h5>
+            <h5
+              v-for="({ text }, i) in appBar.info.body"
+              :key="text + i"
+              v-text="text"
+            ></h5>
           </v-row>
         </v-col>
       </v-container>

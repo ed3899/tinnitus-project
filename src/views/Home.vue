@@ -9,8 +9,14 @@
     </v-row>
 
     <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
-      <v-row style="height: 100vh;">
+      <v-row>
         <CarouselMain />
+      </v-row>
+      <v-row no-gutters>
+        <v-row no-gutters>
+          <h1>ALL YOU NEED TO KNOW ABOUT TINNITUS</h1>
+        </v-row>
+        <v-row></v-row>
       </v-row>
     </v-container>
 
