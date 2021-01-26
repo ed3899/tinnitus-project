@@ -71,30 +71,38 @@
         </v-card>
       </v-col>
 
-      <v-col class="text-center temp-border__item" cols="4">
-        <v-row>
-          <v-card>
-            <v-card-text>
-              {{ firstRow.thirdCol.subRow1.vCardText }}</v-card-text
-            >
-            <v-card-actions>
-              <v-list-item>
-                <v-row align="center" justify="center">
-                  <v-btn icon color="blue">
-                    <v-icon class="mr-1">
-                      mdi-facebook
-                    </v-icon>
-                  </v-btn>
-                </v-row>
-              </v-list-item>
-            </v-card-actions>
-          </v-card>
-        </v-row>
+      <!-- 3rd Col -->
+      <v-col
+        class="text-center temp-border__item d-flex flex-column justify-space-around"
+        cols="4"
+      >
+        <v-card>
+          <v-card-text> {{ firstRow.thirdCol.card1.vCardText }}</v-card-text>
+          <v-card-actions>
+            <v-list-item>
+              <v-row align="center" justify="center">
+                <v-btn
+                  icon
+                  color="blue"
+                  v-for="{ icon, link } in firstRow.thirdCol.card1.icons"
+                  :key="icon"
+                  :href="link"
+                >
+                  <v-icon class="mr-1"> {{ icon }} </v-icon>
+                </v-btn>
+              </v-row>
+            </v-list-item>
+          </v-card-actions>
+        </v-card>
 
-        <v-row>
-          {{ actualYear }} —
-          <span class="text-subtitle-2">Tinnitus Project</span>
-        </v-row>
+        <v-card>
+          <v-card-text>{{ firstRow.thirdCol.card2.text }}</v-card-text>
+
+          <v-card-subtitle
+            >{{ actualYear }} —
+            {{ firstRow.thirdCol.card2.subtitle }}</v-card-subtitle
+          >
+        </v-card>
       </v-col>
     </v-row>
   </v-container>
@@ -169,8 +177,19 @@ export default {
         ],
       },
       thirdCol: {
-        subRow1: {
+        card1: {
           vCardText: `Material on this site is for information purposes only and is not a substitute for medical advice - you should always see your doctor and/or medical professional.`,
+          icons: [
+            { icon: "mdi-facebook", link: "https://www.facebook.com" },
+            { icon: "mdi-twitter", link: "https://www.twitter.com" },
+            { icon: "mdi-linkedin", link: "https://www.linkedin.com" },
+          ],
+        },
+        card2: {
+          text: `The British Tinnitus Association is a registered charity. Registered charity number 1011145.
+          The British Tinnitus Association is a company limited by guarantee, registered in England and Wales, under registration number 2709302.
+          British Tinnitus Association, Unit 5 Acorn Business Park, Woodseats Close, Sheffield, S8 0TB.`,
+          subtitle: "Tinnitus Project",
         },
       },
     },
