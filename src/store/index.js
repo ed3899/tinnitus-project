@@ -11,6 +11,11 @@ export default new Vuex.Store({
     CentralState: {
       currentBreadcrumbs: [],
     },
+    socialMediaIcons: [
+      { icon: "mdi-facebook", link: "https://www.facebook.com" },
+      { icon: "mdi-twitter", link: "https://www.twitter.com" },
+      { icon: "mdi-linkedin", link: "https://www.linkedin.com" },
+    ],
   }),
   mutations: {
     toggleDrawerState(state, payload) {

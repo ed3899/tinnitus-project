@@ -4,15 +4,28 @@
     <v-app-bar app color="teal lighten-1" prominent>
       <v-app-bar-nav-icon @click.stop="openDrawer"></v-app-bar-nav-icon>
 
-      <v-toolbar-title class="mb-5"
-        >The Tinnitus Community Project</v-toolbar-title
-      >
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>mdi-magnify</v-icon>
-      </v-btn>
+      <v-container class="d-flex">
+        <v-col cols="4">
+          <v-toolbar-title>The Tinnitus Community Project</v-toolbar-title>
+        </v-col>
+        <v-col cols="8">
+          <v-row class="d-flex justify-end">
+            <v-btn
+              icon
+              v-for="({ icon, link }, i) in socialMediaIcons"
+              :key="icon + i"
+              :href="link"
+            >
+              <v-icon v-text="icon"></v-icon>
+            </v-btn>
+          </v-row>
+          <v-row>
+            <v-btn icon>
+              <v-icon>mdi-magnify</v-icon>
+            </v-btn>
+          </v-row>
+        </v-col>
+      </v-container>
 
       <!-- NavTabs -->
 
@@ -94,6 +107,7 @@
 //% Vuex
 import { mapMutations } from "vuex";
 import { routes } from "../../router/routes.js";
+import { mapState } from "vuex";
 
 //% Components
 
@@ -103,52 +117,6 @@ export default {
   data: () => ({
     isDrawerOpen: false,
     group: null,
-    items: [
-      {
-        text: "Home",
-        icon: "mdi-home",
-        route: "/home",
-        subRoutes: [
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me 2" },
-        ],
-      },
-      {
-        text: "About Us",
-        icon: "mdi-office-building",
-        route: "/about",
-        subRoutes: [
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me 2" },
-        ],
-      },
-      {
-        text: "Learn More",
-        icon: "mdi-book-search",
-        route: "/learn-more",
-        subRoutes: [
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me 2" },
-        ],
-      },
-      {
-        text: "Contact Us",
-        icon: "mdi-email",
-        route: "contact-us",
-        subRoutes: [
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me" },
-          { title: "Click Me 2" },
-        ],
-      },
-    ],
     routes,
   }),
   methods: {
@@ -173,7 +141,11 @@ export default {
       },
     },
   },
-  computed: {},
+  computed: {
+    ...mapState({
+      socialMediaIcons: state => state.socialMediaIcons,
+    }),
+  },
 };
 </script>
 
