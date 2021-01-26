@@ -31,4 +31,12 @@ export default {
 };
 </script>
 
-<style lang="scss"></style>
+<style lang="scss">
+.temp-border {
+  @extend %temp-border;
+
+  &__item {
+    @extend %__first-item;
+  }
+}
+</style>

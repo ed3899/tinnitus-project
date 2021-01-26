@@ -1,6 +1,6 @@
 <template>
-  <v-container tag="div" class="temp-container-border mt-n6 " fluid>
-    <v-container tag="div" fluid class="ma-0 pa-0">
+  <v-container tag="div" class="temp-container-border mt-n6" fluid>
+    <v-container tag="div" class="ma-0 pa-0" fluid>
       <v-row>
         <v-breadcrumbs :items="breadcrumbItems">
           <template #divider>
@@ -9,8 +9,10 @@
         </v-breadcrumbs>
       </v-row>
 
-      <v-row v-if="exactRouteIsHome">
-        <CarouselMain />
+      <v-row v-if="exactRouteIsHome" style="height: 100vh;">
+        <v-row>
+          <CarouselMain />
+        </v-row>
       </v-row>
 
       <v-row v-else>
