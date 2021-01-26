@@ -1,26 +1,24 @@
 <template>
-  <v-container tag="div" class="temp-container-border mt-n6" fluid>
-    <v-container tag="div" class="ma-0 pa-0" fluid>
-      <v-row>
-        <v-breadcrumbs :items="breadcrumbItems">
-          <template #divider>
-            <v-icon>mdi-chevron-right</v-icon>
-          </template>
-        </v-breadcrumbs>
-      </v-row>
+  <v-container class="temp-container-border mt-n6" fluid>
+    <v-row>
+      <v-breadcrumbs :items="breadcrumbItems">
+        <template #divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
+      </v-breadcrumbs>
+    </v-row>
 
-      <v-row v-if="exactRouteIsHome" style="height: 100vh;">
-        <v-row>
-          <CarouselMain />
-        </v-row>
-      </v-row>
-
-      <v-row v-else>
-        <v-fade-transition mode="out-in">
-          <router-view></router-view>
-        </v-fade-transition>
+    <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
+      <v-row style="height: 100vh;">
+        <CarouselMain />
       </v-row>
     </v-container>
+
+    <v-row v-else>
+      <v-fade-transition mode="out-in">
+        <router-view></router-view>
+      </v-fade-transition>
+    </v-row>
   </v-container>
 </template>
 
