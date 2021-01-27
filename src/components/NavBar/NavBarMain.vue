@@ -4,12 +4,11 @@
     <v-app-bar
       app
       color="teal lighten-1"
-      height="200"
+      height="65"
       elevation="13"
-      shrink-on-scroll
       class="overflow-hidden"
     >
-      <v-container class="d-flex" v-scroll:#scroll-target="onScroll">
+      <v-container class="d-flex mt-2">
         <v-col cols="4" align-self="center">
           <v-app-bar-title>{{ appBar.title }}</v-app-bar-title>
         </v-col>
@@ -41,19 +40,6 @@
             <v-btn rounded outlined color="black" class="ml-5">{{
               appBar.btns.contact
             }}</v-btn>
-          </v-row>
-
-          <v-row
-            class="d-flex flex-column align-end"
-            :style="appBar.info.styles"
-            no-gutters
-          >
-            <h1>{{ appBar.info.title }}</h1>
-            <h5
-              v-for="({ text }, i) in appBar.info.body"
-              :key="text + i"
-              v-text="text"
-            ></h5>
           </v-row>
         </v-col>
       </v-container>
@@ -146,9 +132,6 @@ export default {
           },
           { text: "Our office: 0114 250 9933" },
         ],
-        styles: {
-          opacity: 1,
-        },
       },
     },
   }),
@@ -179,11 +162,7 @@ export default {
       socialMediaIcons: state => state.socialMediaIcons,
     }),
   },
-  methods: {
-    onScroll(e) {
-      console.log(e);
-    },
-  },
+  methods: {},
 };
 </script>
 
