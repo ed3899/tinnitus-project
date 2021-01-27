@@ -9,45 +9,75 @@
     </v-row>
 
     <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
-      <v-row>
+      <v-row class="my-3">
         <CarouselMain />
       </v-row>
-      <v-row
-        no-gutters
-        align-content="space-between"
-        class="d-flex flex-column"
-      >
-        <v-col class="mt-5">
-          <h1>ALL YOU NEED TO KNOW ABOUT TINNITUS</h1>
-        </v-col>
-        <v-col class="mt-5 d-flex justify-space-around">
-          <v-card
-            max-width="300"
-            v-for="{ title, text } in cards"
-            :key="title"
-            class="d-flex flex-column"
-          >
-            <v-img
-              class="white--text"
-              max-height="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            >
-              <v-card-title v-text="title"></v-card-title>
-            </v-img>
 
-            <v-card-text v-text="text" style="height: 150px;"></v-card-text>
+      <v-row no-gutters class="my-3">
+        <v-row no-gutters class="my-3">
+          <h1 class="text-capitalize">All you need to know about tinnitus</h1>
+        </v-row>
 
-            <v-card-actions>
-              <v-btn
-                v-for="btn in btns"
-                :key="btn"
-                color="orange"
-                text
-                v-text="btn"
-              ></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
+        <v-row no-gutters justify="space-between" class="my-3">
+          <v-col v-for="{ title, text } in cards" cols="3" :key="title">
+            <v-card max-width="300">
+              <v-img
+                class="white--text"
+                max-height="200px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title v-text="title"></v-card-title>
+              </v-img>
+
+              <v-card-text v-text="text" style="height: 150px;"></v-card-text>
+
+              <v-card-actions>
+                <v-btn
+                  v-for="btn in btns"
+                  :key="btn"
+                  color="orange"
+                  text
+                  v-text="btn"
+                ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-row>
+
+      <v-row no-gutters class="my-3">
+        <v-row no-gutters class="my-3">
+          <h1 class="text-capitalize">Latest news</h1>
+        </v-row>
+
+        <v-row no-gutters justify="space-between" class="my-3">
+          <v-col v-for="{ title, body } in news" cols="4" :key="title">
+            <v-card max-width="400">
+              <v-img
+                class="white--text"
+                max-height="200px"
+                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+              >
+                <v-card-title
+                  v-text="title"
+                  class="text-justify text-h5"
+                ></v-card-title>
+              </v-img>
+
+              <v-card-text v-text="body" style="height: 150px;"></v-card-text>
+
+              <v-card-actions>
+                <v-btn
+                  v-for="btn in btns"
+                  :key="btn"
+                  color="orange"
+                  text
+                  v-text="btn"
+                ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
       </v-row>
     </v-container>
 
@@ -87,6 +117,20 @@ export default {
       {
         title: "Covid-19, the BTA & you",
         text: `We’re all following the news and have concerns re: Covid-19. This is what we're doing at the BTA to continue to support you.`,
+      },
+    ],
+    news: [
+      {
+        title: "Molly's mammoth sponsored silence",
+        body: `Please support Molly in raising awareness and funds to provide support for people living with tinnitus right now and, ultimately, a cure.`,
+      },
+      {
+        title: "We're investing a further £118k for research",
+        body: `We've awarded £118,000 to a team from Macquarie University, Australia for a study that's using artificial intelligence to try and discover an objective measure of tinnitus.`,
+      },
+      {
+        title: "Well done to our Christmas Raffle winners!",
+        body: `Find out who our three lucky winners were in our Christmas Raffle!`,
       },
     ],
     btns: {
