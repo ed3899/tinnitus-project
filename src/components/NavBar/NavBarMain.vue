@@ -1,11 +1,19 @@
 <template>
   <v-container fluid>
     <!-- Nav Bar -->
-    <v-app-bar app color="teal lighten-1" height="200" elevation="13">
-      <v-container class="d-flex">
+    <v-app-bar
+      app
+      color="teal lighten-1"
+      height="200"
+      elevation="13"
+      shrink-on-scroll
+      class="overflow-hidden"
+    >
+      <v-container class="d-flex" v-scroll:#scroll-target="onScroll">
         <v-col cols="4" align-self="center">
-          <v-toolbar-title>{{ appBar.title }}</v-toolbar-title>
+          <v-app-bar-title>{{ appBar.title }}</v-app-bar-title>
         </v-col>
+
         <v-col cols="8">
           <v-row
             class="d-flex justify-end"
@@ -25,14 +33,21 @@
             >
               <v-icon v-text="icon"></v-icon>
             </v-btn>
+
             <v-btn rounded color="success" class="ml-5">{{
               appBar.btns.donate
             }}</v-btn>
+
             <v-btn rounded outlined color="black" class="ml-5">{{
               appBar.btns.contact
             }}</v-btn>
           </v-row>
-          <v-row class="d-flex flex-column align-end" no-gutters>
+
+          <v-row
+            class="d-flex flex-column align-end"
+            :style="appBar.info.styles"
+            no-gutters
+          >
             <h1>{{ appBar.info.title }}</h1>
             <h5
               v-for="({ text }, i) in appBar.info.body"
@@ -131,6 +146,9 @@ export default {
           },
           { text: "Our office: 0114 250 9933" },
         ],
+        styles: {
+          opacity: 1,
+        },
       },
     },
   }),
@@ -160,6 +178,11 @@ export default {
     ...mapState({
       socialMediaIcons: state => state.socialMediaIcons,
     }),
+  },
+  methods: {
+    onScroll(e) {
+      console.log(e);
+    },
   },
 };
 </script>
