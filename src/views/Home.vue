@@ -12,11 +12,39 @@
       <v-row>
         <CarouselMain />
       </v-row>
-      <v-row no-gutters>
-        <v-row no-gutters>
+      <v-row
+        no-gutters
+        align-content="space-between"
+        class="d-flex flex-column"
+      >
+        <v-col class="mt-5">
           <h1>ALL YOU NEED TO KNOW ABOUT TINNITUS</h1>
-        </v-row>
-        <v-row></v-row>
+        </v-col>
+        <v-col class="mt-5">
+          <v-card max-width="300">
+            <v-img
+              class="white--text align-end"
+              height="200px"
+              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            >
+              <v-card-title>What is tinnitus?</v-card-title>
+            </v-img>
+            <v-card-text
+              >Here are some answers to commonly asked questions about tinnitus.
+              Tinnitus is often called ringing in the ears, but it can be
+              buzzing, hissing, whistling or any sound!</v-card-text
+            >
+            <v-card-actions>
+              <v-btn color="orange" text>
+                Read More
+              </v-btn>
+
+              <v-btn color="orange" text>
+                Share
+              </v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
       </v-row>
     </v-container>
 
