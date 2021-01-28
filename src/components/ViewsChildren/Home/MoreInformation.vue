@@ -46,22 +46,27 @@
           :key="body"
           width="45%"
           height="20%"
-          class="temp-border__item pa-3 ma-5 rounded-tl-xl d-flex flex-column justify-space-between align-left"
+          class="temp-border__item pa-3 ma-0 rounded-tl-xl d-flex flex-column justify-space-between align-left"
           elevation="13"
           hover
         >
           <v-img
-            height="30%"
+            height="25%"
             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
+            class="flex-grow-0 flex-shrink-1"
           ></v-img>
 
-          <v-card-title v-text="title"></v-card-title>
+          <v-card-title
+            v-text="title"
+            class="flex-grow-0 flex-shrink-0"
+          ></v-card-title>
 
-          <v-card-text v-text="body"> </v-card-text>
+          <v-card-text v-text="body" class="flex-grow-1 flex-shrink-0">
+          </v-card-text>
 
           <v-divider class="mx-4 purple"></v-divider>
 
-          <v-card-actions>
+          <v-card-actions class="card-actions-format flex-grow-0 flex-shrink-0">
             <template v-for="{ title } in btns">
               <v-btn
                 v-if="title === 'Read More'"
@@ -157,5 +162,10 @@ export default {
 
 .carousel-format {
   width: 80vw;
+}
+
+.card-actions-format {
+  height: 10%;
+  max-height: 10%;
 }
 </style>
