@@ -1,6 +1,6 @@
 <template>
   <v-container class="temp-container-border mt-n6" fluid>
-    <v-row>
+    <v-row v-if="exactRouteIsNotHome">
       <v-breadcrumbs :items="breadcrumbItems">
         <template #divider>
           <v-icon>mdi-chevron-right</v-icon>
@@ -9,7 +9,7 @@
     </v-row>
 
     <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
-      <v-row class="my-3">
+      <v-row class="mb-3">
         <CarouselMain />
       </v-row>
 
@@ -199,6 +199,9 @@ export default {
           return true;
         }
       }
+    },
+    exactRouteIsNotHome() {
+      return !this.exactRouteIsHome;
     },
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
