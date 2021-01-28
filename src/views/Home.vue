@@ -13,6 +13,7 @@
         <CarouselMain />
       </v-row>
 
+      <!-- 1st Row -->
       <v-row no-gutters class="my-3">
         <v-row no-gutters class="my-3">
           <h1 class="text-capitalize">All you need to know about tinnitus</h1>
@@ -45,6 +46,7 @@
         </v-row>
       </v-row>
 
+      <!-- 2nd Row -->
       <v-row no-gutters class="my-3">
         <v-row no-gutters class="my-3">
           <h1 class="text-capitalize">Latest news</h1>
@@ -54,15 +56,15 @@
           <v-col v-for="{ title, body } in news" cols="4" :key="title">
             <v-card max-width="400">
               <v-img
-                class="white--text"
                 max-height="200px"
                 src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
               >
-                <v-card-title
-                  v-text="title"
-                  class="text-justify text-h5"
-                ></v-card-title>
               </v-img>
+
+              <v-card-title
+                v-text="title"
+                class="text-justify text-h5"
+              ></v-card-title>
 
               <v-card-text v-text="body" style="height: 150px;"></v-card-text>
 
@@ -74,6 +76,32 @@
                   text
                   v-text="btn"
                 ></v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-col>
+        </v-row>
+      </v-row>
+
+      <!-- 3rd Row -->
+      <v-row no-gutters class="my-3">
+        <v-row no-gutters justify="space-between" class="my-3">
+          <v-col
+            v-for="{ title, body, btn, color } in extra"
+            :key="body"
+            cols="4"
+          >
+            <v-card
+              height="275"
+              max-width="350"
+              :color="color"
+              class="d-flex flex-column justify-space-around"
+            >
+              <v-card-title v-text="title" class="white--text"></v-card-title>
+
+              <v-card-text v-text="body"></v-card-text>
+
+              <v-card-actions>
+                <v-btn v-text="btn"></v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -133,6 +161,26 @@ export default {
         body: `Find out who our three lucky winners were in our Christmas Raffle!`,
       },
     ],
+    extra: [
+      {
+        title: "Shop",
+        body: `We have carefully chosen a selection of products to help you manage the buzzing and or ringing in your ears more effectively.`,
+        btn: "Shop now",
+        color: "rgb(55, 68, 81)",
+      },
+      {
+        title: "Our corporate members",
+        body: `By joining as a corporate member and signing our membership charter, our corporate members are sending a message to the tinnitus community that they are dedicated to helping those affected by tinnitus.`,
+        btn: "Find out more",
+        color: "rgb(136, 16, 32)",
+      },
+      {
+        title: "Donate now",
+        body: `As we receive no direct government funding the support we provide can only be offered with your help. 100% of our work relies on the generosity of our fundraisers and donors, people like you!`,
+        btn: "Donate",
+        color: "rgb(165, 135, 1)",
+      },
+    ],
     btns: {
       share: "Share",
       read: "Read More",
@@ -161,6 +209,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+$line-height: 1rem;
+$visible-lines: 3;
+
 .temp-container-border {
   border: 1px solid blue;
 }
