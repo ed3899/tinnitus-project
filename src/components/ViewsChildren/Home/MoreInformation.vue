@@ -39,17 +39,19 @@
     <v-row no-gutters class="temp-border__item my-3 pa-3">
       <v-col
         cols="8"
-        class="temp-border__item pa-3 d-flex flex-wrap justify-space-around"
+        class="temp-border__item pa-3 d-flex flex-wrap justify-space-around align-content-space-around"
       >
         <v-card
           v-for="{ title, body } in cards"
           :key="body"
-          max-width="40%"
-          max-height="30rem"
-          class="temp-border__item pa-3"
+          width="45%"
+          height="20%"
+          class="temp-border__item pa-3 ma-5 rounded-tl-xl d-flex flex-column justify-space-between align-left"
+          elevation="13"
+          hover
         >
           <v-img
-            height="25%"
+            height="30%"
             src="https://cdn.vuetifyjs.com/images/cards/cooking.png"
           ></v-img>
 
@@ -73,7 +75,7 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="4"></v-col>
+      <v-col cols="4" class="temp-border__item"></v-col>
     </v-row>
   </v-container>
 </template>
