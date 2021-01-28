@@ -37,13 +37,16 @@
 
     <!-- 2nd row -->
     <v-row no-gutters class="temp-border__item my-3 pa-3">
-      <v-col cols="8" class="temp-border__item pa-3">
+      <v-col
+        cols="8"
+        class="temp-border__item pa-3 d-flex flex-wrap justify-space-around"
+      >
         <v-card
           v-for="{ title, body } in cards"
           :key="body"
-          max-width="35%"
-          max-height="50rem"
-          class="pa-3"
+          max-width="40%"
+          max-height="30rem"
+          class="temp-border__item pa-3"
         >
           <v-img
             height="25%"
