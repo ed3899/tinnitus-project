@@ -1,5 +1,5 @@
 <template>
-  <v-container class="temp-border" fluid>
+  <v-container class="temp-border" fluid ref="more-information-top-container">
     <!-- 1st row -->
     <v-row no-gutters class="temp-border__item my-3" justify="center">
       <v-carousel
@@ -36,9 +36,14 @@
     </v-row>
 
     <!-- 2nd row -->
-    <v-row no-gutters class="temp-border__item my-3 pa-3">
+    <v-row
+      no-gutters
+      justify="space-around"
+      class="temp-border__item my-3 pa-3"
+    >
+      <!-- 1st col -->
       <v-col
-        cols="8"
+        cols="7"
         class="temp-border__item pa-3 d-flex flex-wrap justify-space-around align-content-space-around"
       >
         <v-card
@@ -80,7 +85,44 @@
           </v-card-actions>
         </v-card>
       </v-col>
-      <v-col cols="4" class="temp-border__item"></v-col>
+
+      <!-- 2nd col -->
+      <v-col
+        cols="4"
+        class="temp-border__item pa-3 d-flex flex-column align-center justify-space-around second-col-format"
+      >
+        <v-card
+          width="65%"
+          max-width="65%"
+          height="40%"
+          max-height="40%"
+          class="temp-border__item"
+          v-for="{ title, links } in cardsTwo"
+          :key="title"
+          elevation="13"
+        >
+          <v-card-title v-text="title"></v-card-title>
+
+          <v-row no-gutters v-for="link in links" :key="link">
+            <v-card-text v-text="link"></v-card-text>
+            <v-divider class="mx-4 purple"></v-divider>
+          </v-row>
+        </v-card>
+      </v-col>
+    </v-row>
+
+    <!-- 2rd row -->
+    <v-row no-gutters class="temp-border__item my-3 pa-3" justify="center">
+      <template v-for="{ title } in btns">
+        <v-btn
+          v-if="title === 'Back To Top'"
+          :key="title"
+          v-text="title"
+          rounded
+          class="primary"
+          @click="scrollToTop"
+        ></v-btn>
+      </template>
     </v-row>
   </v-container>
 </template>
@@ -140,13 +182,43 @@ export default {
         body: `Learn more about the jaw joint (temporo-mandibular joint or TMJ), and how problems with it or the neck may affect tinnitus.`,
       },
     ],
-    btns: [{ title: "Read More" }],
+    btns: [{ title: "Read More" }, { title: "Back To Top" }],
+    cardsTwo: [
+      {
+        title: "Latest",
+        links: [
+          "Molly's mammoth sponsored silence",
+          "Audiological Science",
+          "Hidden Hearing",
+          "Anxiety Management for Tinnitus",
+        ],
+      },
+      {
+        title: "Most read",
+        links: [
+          "Ear wax removal and tinnitus",
+          "All about tinnitus",
+          "Pulsatile tinnitus",
+          "Self help tinnitus",
+          "Tinnitus and stress",
+        ],
+      },
+    ],
   }),
-  computed: {},
+  computed: {
+    element() {
+      return this.$refs["more-information-top-container"];
+    },
+  },
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.$store.commit({ type: "createBreadcrumbs", component: vm });
     });
+  },
+  methods: {
+    scrollToTop() {
+      this.$vuetify.goTo(this.element);
+    },
   },
 };
 </script>
@@ -167,5 +239,9 @@ export default {
 .card-actions-format {
   height: 10%;
   max-height: 10%;
+}
+
+.second-col-format {
+  height: 60rem;
 }
 </style>
