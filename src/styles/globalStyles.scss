@@ -1,3 +1,5 @@
+$card-text-height: 10rem;
+
 //Used for development
 %temp-border {
   border: 1px solid brown;
@@ -9,4 +11,9 @@
   %__second-item {
     border: 1px solid purple;
   }
+}
+
+%card-format {
+  height: $card-text-height;
+  max-height: $card-text-height;
 }

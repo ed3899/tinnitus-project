@@ -98,10 +98,14 @@
             >
               <v-card-title v-text="title" class="white--text"></v-card-title>
 
-              <v-card-text v-text="body"></v-card-text>
+              <v-card-text v-text="body" class="card-format"></v-card-text>
 
-              <v-card-actions>
-                <v-btn v-text="btn"></v-btn>
+              <v-card-actions class="align-self-start">
+                <v-btn
+                  v-text="btn"
+                  color="rgb(87, 195, 178)"
+                  class="white--text"
+                ></v-btn>
               </v-card-actions>
             </v-card>
           </v-col>
@@ -209,10 +213,11 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$line-height: 1rem;
-$visible-lines: 3;
-
 .temp-container-border {
   border: 1px solid blue;
+}
+
+.card-format {
+  @extend %card-format;
 }
 </style>
