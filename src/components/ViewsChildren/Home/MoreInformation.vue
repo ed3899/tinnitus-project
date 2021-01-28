@@ -128,6 +128,8 @@
 </template>
 
 <script>
+import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+
 export default {
   name: "MoreInformation",
   data: () => ({
@@ -205,20 +207,16 @@ export default {
       },
     ],
   }),
-  computed: {
-    element() {
-      return this.$refs["more-information-top-container"];
+  computed: {},
+  methods: {
+    scrollToTop() {
+      scrollToTopUtil(this, "more-information-top-container");
     },
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.$store.commit({ type: "createBreadcrumbs", component: vm });
     });
-  },
-  methods: {
-    scrollToTop() {
-      this.$vuetify.goTo(this.element);
-    },
   },
 };
 </script>

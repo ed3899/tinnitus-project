@@ -60,6 +60,8 @@
 </template>
 
 <script>
+import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+
 export default {
   name: "QuickGuide",
   data: () => ({
@@ -129,14 +131,10 @@ export default {
       btnText: "Back To Top",
     },
   }),
-  computed: {
-    element() {
-      return this.$refs["top-container"];
-    },
-  },
+  computed: {},
   methods: {
     scrollToTop() {
-      this.$vuetify.goTo(this.element);
+      scrollToTopUtil(this, "top-container");
     },
   },
   beforeRouteEnter(to, from, next) {
