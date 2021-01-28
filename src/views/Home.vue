@@ -1,19 +1,13 @@
 <template>
   <v-container class="temp-container-border mt-n6" fluid>
-    <v-row v-if="exactRouteIsNotHome">
-      <v-breadcrumbs :items="breadcrumbItems">
-        <template #divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-      </v-breadcrumbs>
-    </v-row>
-
+    <!-- Home main content -->
     <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
+      <!-- 1st Row -->
       <v-row class="mb-3">
         <CarouselMain />
       </v-row>
 
-      <!-- 1st Row -->
+      <!-- 2nd Row -->
       <v-row no-gutters class="my-3">
         <v-row no-gutters class="my-3">
           <h1 class="text-capitalize">All you need to know about tinnitus</h1>
@@ -46,7 +40,7 @@
         </v-row>
       </v-row>
 
-      <!-- 2nd Row -->
+      <!-- 3rd Row -->
       <v-row no-gutters class="my-3">
         <v-row no-gutters class="my-3">
           <h1 class="text-capitalize">Latest news</h1>
@@ -82,7 +76,7 @@
         </v-row>
       </v-row>
 
-      <!-- 3rd Row -->
+      <!-- 4th Row -->
       <v-row no-gutters class="my-3">
         <v-row no-gutters justify="space-between" class="my-3">
           <v-col
@@ -113,7 +107,14 @@
       </v-row>
     </v-container>
 
+    <!-- Home sub-components -->
     <v-row v-else>
+      <v-breadcrumbs :items="breadcrumbItems">
+        <template #divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
+      </v-breadcrumbs>
+
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
@@ -199,9 +200,6 @@ export default {
           return true;
         }
       }
-    },
-    exactRouteIsNotHome() {
-      return !this.exactRouteIsHome;
     },
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
