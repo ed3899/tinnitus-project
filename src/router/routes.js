@@ -16,8 +16,13 @@ export const routes = [
       {
         name: "Learning to Overcome It",
         path: "overcoming-it",
-        component: () =>
-          import("../components/ViewsChildren/Home/OvercomingIt.vue"),
+        meta: {
+          dummyData: async () => {
+            const module = await import("../data/OvercomingIt.js");
+            return module.data();
+          },
+        },
+        component: () => import("../components/Blog/BlogMain.vue"),
       },
       {
         name: "More Information",
@@ -101,17 +106,17 @@ export const routes = [
       },
     ],
   },
-  {
-    path: "/test-comp",
-    alias: "/test-component",
-    name: "Test Component",
-    icon: "mdi-email",
-    meta: {
-      dummyData: async () => {
-        const module = await import("../data/MoreInformation.js");
-        return module.data();
-      },
-    },
-    component: () => import("../components/Blog/BlogMain.vue"),
-  },
+  // {
+  //   path: "/test-comp",
+  //   alias: "/test-component",
+  //   name: "Test Component",
+  //   icon: "mdi-email",
+  //   meta: {
+  //     dummyData: async () => {
+  //       const module = await import("../data/MoreInformation.js");
+  //       return module.data();
+  //     },
+  //   },
+  //   component: () => import("../components/Blog/BlogMain.vue"),
+  // },
 ];
