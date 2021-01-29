@@ -109,12 +109,6 @@
 
     <!-- Home sub-components -->
     <v-row v-else>
-      <v-breadcrumbs :items="breadcrumbItems">
-        <template #divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-      </v-breadcrumbs>
-
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
@@ -124,7 +118,6 @@
 
 <script>
 import CarouselMain from "../components/Carousel/CarouselMain.vue";
-import { mapState } from "vuex";
 
 export default {
   name: "HomeView",
@@ -201,14 +194,6 @@ export default {
         }
       }
     },
-    ...mapState({
-      breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
-    }),
-  },
-  beforeRouteEnter(to, from, next) {
-    next(vm => {
-      vm.$store.commit({ type: "createBreadcrumbs", component: vm });
-    });
   },
 };
 </script>

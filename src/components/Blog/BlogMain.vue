@@ -1,7 +1,7 @@
 <template>
   <v-container class="temp-border" fluid ref="blog-main-top-container">
     <!-- 1st row -->
-    <v-row no-gutters class="temp-border__item my-3" justify="center">
+    <v-row no-gutters class="temp-border__item mb-3" justify="center">
       <v-carousel
         height="300"
         hide-delimiter-background
@@ -43,6 +43,14 @@
           </v-sheet>
         </v-carousel-item>
       </v-carousel>
+    </v-row>
+
+    <v-row no-gutters class="temp-border__item my-3">
+      <v-breadcrumbs :items="breadcrumbItems">
+        <template #divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
+      </v-breadcrumbs>
     </v-row>
 
     <!-- 2nd row -->

@@ -7,7 +7,7 @@ export const data = () => ({
     "deep-purple accent-4",
   ],
   slides: [
-    "First slide",
+    "First slide from More Info",
     "Second slide",
     "Third slide",
     "Fourth slide",
