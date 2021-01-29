@@ -96,4 +96,11 @@ export const routes = [
       },
     ],
   },
+  {
+    path: "/test-comp",
+    alias: "/test-component",
+    name: "Test Component",
+    icon: "mdi-email",
+    component: () => import("../components/Blog/BlogMain.vue"),
+  },
 ];

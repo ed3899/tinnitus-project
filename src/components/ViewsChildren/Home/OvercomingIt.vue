@@ -15,4 +15,12 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.temp-border {
+  @extend %temp-border;
+
+  &__item {
+    @extend %__first-item;
+  }
+}
+</style>
