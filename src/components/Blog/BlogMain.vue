@@ -139,6 +139,7 @@
 
 <script>
 import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
+import { mapState } from "vuex";
 
 export default {
   name: "BlogMain",
@@ -148,6 +149,11 @@ export default {
     },
     imported: {},
   }),
+  computed: {
+    ...mapState({
+      breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
+    }),
+  },
   methods: {
     scrollToTop() {
       scrollToTopUtil(this, "blog-main-top-container");
@@ -156,7 +162,8 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       const data = await vm.$route.meta.dummyData();
-      vm.$data.imported = { ...data };
+      vm.$data.imported = await { ...data };
+      vm.$store.commit({ type: "createBreadcrumbs", component: vm });
     });
   },
 };
