@@ -28,8 +28,7 @@ export const routes = [
             return module.data();
           },
         },
-        component: () =>
-          import("../components/ViewsChildren/Home/MoreInformation.vue"),
+        component: () => import("../components/Blog/BlogMain.vue"),
       },
     ],
   },
