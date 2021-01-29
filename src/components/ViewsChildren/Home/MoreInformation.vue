@@ -111,7 +111,7 @@
       </v-col>
     </v-row>
 
-    <!-- 2rd row -->
+    <!-- 3rd row -->
     <v-row no-gutters class="temp-border__item my-3 pa-3" justify="center">
       <template v-for="{ title } in btns">
         <v-btn

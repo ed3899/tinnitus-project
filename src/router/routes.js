@@ -22,6 +22,12 @@ export const routes = [
       {
         name: "More Information",
         path: "info",
+        meta: {
+          dummyData: async () => {
+            const module = await import("../data/MoreInformation.js");
+            return module.data();
+          },
+        },
         component: () =>
           import("../components/ViewsChildren/Home/MoreInformation.vue"),
       },
@@ -101,6 +107,12 @@ export const routes = [
     alias: "/test-component",
     name: "Test Component",
     icon: "mdi-email",
+    meta: {
+      dummyData: async () => {
+        const module = await import("../data/MoreInformation.js");
+        return module.data();
+      },
+    },
     component: () => import("../components/Blog/BlogMain.vue"),
   },
 ];
