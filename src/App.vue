@@ -10,7 +10,7 @@
       </v-fade-transition>
     </v-main>
 
-    <v-footer>
+    <v-footer width="100vw" padless>
       <FooterMain />
     </v-footer>
   </v-app>
@@ -38,5 +38,8 @@ export default {
   &__item {
     @extend %__first-item;
   }
+}
+
+.footer-format {
 }
 </style>

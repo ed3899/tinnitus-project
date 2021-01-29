@@ -1,5 +1,5 @@
 <template>
-  <v-container :fluid="true">
+  <v-container fluid class="temp-border">
     <!-- 1stRow -->
     <v-row class="temp-border">
       <!-- 1stCol -->
