@@ -25,17 +25,27 @@
 
       <v-card
         elevation="13"
-        width="35%"
+        width="40%"
         shaped
-        class="d-flex flex-column justify-space-around"
+        class="d-flex flex-column justify-space-around pa-3"
       >
         <v-card-title>Useful links</v-card-title>
-        <v-list>
-          <v-list-item>
-            <v-list-item-content>
-              <v-btn class="text-left" rounded text>Sitemap</v-btn>
-            </v-list-item-content>
-          </v-list-item>
+        <v-list dense rounded>
+          <v-list-item-group color="primary">
+            <v-hover
+              v-for="(item, i) in usefulLinksCard.items"
+              :key="item + i"
+              v-slot="{ hover }"
+            >
+              <v-list-item
+                :class="{ 'blue-grey lighten-2 elevation-8': hover }"
+              >
+                <v-list-item-content>
+                  <v-list-item-title v-text="item"></v-list-item-title>
+                </v-list-item-content>
+              </v-list-item>
+            </v-hover>
+          </v-list-item-group>
         </v-list>
       </v-card>
     </v-col>
@@ -72,6 +82,19 @@ export default {
           title: "07537 416841",
           subtitle: "Text/SMS",
         },
+      ],
+    },
+    usefulLinksCard: {
+      title: "Useful links",
+      items: [
+        "Sitemap",
+        "Accesibility",
+        "Terms and conditions",
+        "Policies and procedures",
+        "Information library",
+        "Forum",
+        "Your contact preferences",
+        "Press contact",
       ],
     },
     firstRow: {
