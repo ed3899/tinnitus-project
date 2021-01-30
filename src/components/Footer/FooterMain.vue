@@ -1,11 +1,38 @@
 <template>
-  <v-container fluid class="temp-border">
+  <v-footer class="temp-border pa-3" height="100px">
     <!-- 1stRow -->
-    <v-row no-gutters class="temp-border" justify="space-around">
-      <v-col cols="8"> </v-col>
-      <v-col cols="4"></v-col>
+    <v-row no-gutters class="temp-border pa-3" justify="space-around">
+      <v-col cols="8" class="d-flex justify-space-around">
+        <v-card
+          elevation="13"
+          width="35%"
+          shaped
+          class="d-flex flex-column pa-3"
+        >
+          <v-card-title>Contact us</v-card-title>
+
+          <v-list two-line>
+            <v-list-item>
+              <v-list-item-icon>
+                <v-icon>mdi-deskphone</v-icon>
+              </v-list-item-icon>
+
+              <v-list-item-content>
+                <v-list-item-title>(650) 555-1234</v-list-item-title>
+                <v-list-item-subtitle>Helpline</v-list-item-subtitle>
+              </v-list-item-content>
+            </v-list-item>
+          </v-list>
+        </v-card>
+
+        <v-card elevation="13" width="35%" shaped>
+          <v-card-title>Useful links</v-card-title>
+          <v-card-text></v-card-text>
+        </v-card>
+      </v-col>
+      <v-col cols="4">Text</v-col>
     </v-row>
-  </v-container>
+  </v-footer>
 </template>
 
 <script>
@@ -13,7 +40,16 @@ import { mapState } from "vuex";
 export default {
   name: "FooterMain",
   data: () => ({
-    reveal: false,
+    contactCard: {
+      title: "Contact us",
+      items: [
+        {
+          icon: "mdi-deskphone",
+          title: "(650) 555-1234",
+          subtitle: "Helpline",
+        },
+      ],
+    },
     firstRow: {
       firstCol: {
         vCardTitle: "Contact Us",

@@ -1,8 +1,6 @@
 <template>
   <v-app>
-    <nav>
-      <NavBarMain />
-    </nav>
+    <NavBarMain />
 
     <v-main>
       <v-fade-transition mode="out-in">
@@ -10,9 +8,7 @@
       </v-fade-transition>
     </v-main>
 
-    <v-footer width="100vw" padless>
-      <FooterMain />
-    </v-footer>
+    <FooterMain />
   </v-app>
 </template>
 
