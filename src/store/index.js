@@ -12,9 +12,9 @@ export default new Vuex.Store({
       currentBreadcrumbs: [],
     },
     socialMediaIcons: [
-      { icon: "mdi-facebook", link: "https://www.facebook.com" },
-      { icon: "mdi-twitter", link: "https://www.twitter.com" },
-      { icon: "mdi-linkedin", link: "https://www.linkedin.com" },
+      { icon: "mdi-facebook" },
+      { icon: "mdi-twitter" },
+      { icon: "mdi-linkedin" },
     ],
   }),
   mutations: {
