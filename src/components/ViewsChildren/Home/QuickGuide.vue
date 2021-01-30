@@ -1,13 +1,17 @@
 <template>
-  <v-container ref="top-container" class="temp-border d-flex flex-column">
-    <!-- 1st row / Image-->
-    <v-row class="temp-border__item mb-5">
-      <v-col align-self="center" class="d-flex justify-center" cols="12">
+  <v-container ref="top-container" class="temp-border" fluid>
+    <!-- 1st row -->
+    <v-row class="temp-border__item mb-3 pa-3" no-gutters justify="center">
+      <v-col
+        class="temp-border__item pa-3 d-flex justify-center"
+        cols="8"
+        align-self="center"
+      >
         <v-img
-          class="temp-border__second-item"
+          class="temp-border__item"
           src="https://images.unsplash.com/photo-1446511437394-36cdff3ae1b3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&w=1000&q=80&h=300"
-          max-height="300"
-          max-width="1000"
+          height="300"
+          width="300"
           contain
         >
           <!-- Temporary placeholder -->
@@ -25,6 +29,7 @@
 
     <!-- 2nd row -->
     <v-row
+      no-gutters
       class="temp-border__item mb-5"
       align="center"
       align-content="space-around"
