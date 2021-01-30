@@ -1,42 +1,51 @@
 <template>
-  <v-footer class="temp-border pa-3" height="100px">
+  <v-footer class="temp-border pa-3 justify-space-around">
     <!-- 1stRow -->
-    <v-row no-gutters class="temp-border pa-3" justify="space-around">
-      <v-col cols="8" class="d-flex justify-space-around">
-        <v-card
-          elevation="13"
-          width="35%"
-          shaped
-          class="d-flex flex-column pa-3"
+    <v-col cols="7" class="temp-border__item d-flex justify-space-around">
+      <v-card elevation="13" width="40%" shaped class="d-flex flex-column pa-3">
+        <v-card-title v-text="contactCard.title"></v-card-title>
+
+        <v-list
+          v-for="{ icon, title, subtitle } in contactCard.items"
+          :key="icon + title + subtitle"
+          two-line
         >
-          <v-card-title>Contact us</v-card-title>
+          <v-list-item>
+            <v-list-item-icon>
+              <v-icon v-text="icon"></v-icon>
+            </v-list-item-icon>
 
-          <v-list two-line>
-            <v-list-item>
-              <v-list-item-icon>
-                <v-icon>mdi-deskphone</v-icon>
-              </v-list-item-icon>
+            <v-list-item-content>
+              <v-list-item-title v-text="title"></v-list-item-title>
+              <v-list-item-subtitle v-text="subtitle"></v-list-item-subtitle>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
 
-              <v-list-item-content>
-                <v-list-item-title>(650) 555-1234</v-list-item-title>
-                <v-list-item-subtitle>Helpline</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </v-card>
-
-        <v-card elevation="13" width="35%" shaped>
-          <v-card-title>Useful links</v-card-title>
-          <v-card-text></v-card-text>
-        </v-card>
-      </v-col>
-      <v-col cols="4">Text</v-col>
-    </v-row>
+      <v-card
+        elevation="13"
+        width="35%"
+        shaped
+        class="d-flex flex-column justify-space-around"
+      >
+        <v-card-title>Useful links</v-card-title>
+        <v-list>
+          <v-list-item>
+            <v-list-item-content>
+              <v-btn class="text-left" rounded text>Sitemap</v-btn>
+            </v-list-item-content>
+          </v-list-item>
+        </v-list>
+      </v-card>
+    </v-col>
+    <v-col cols="4" class="temp-border__item">Text</v-col>
   </v-footer>
 </template>
 
 <script>
 import { mapState } from "vuex";
+
 export default {
   name: "FooterMain",
   data: () => ({
@@ -44,9 +53,24 @@ export default {
       title: "Contact us",
       items: [
         {
-          icon: "mdi-deskphone",
+          icon: "mdi-account-supervisor",
           title: "(650) 555-1234",
           subtitle: "Helpline",
+        },
+        {
+          icon: "mdi-email",
+          title: "example@example.com",
+          subtitle: "Email",
+        },
+        {
+          icon: "mdi-deskphone",
+          title: "0114 250 9933",
+          subtitle: "Office",
+        },
+        {
+          icon: "mdi-android-messages",
+          title: "07537 416841",
+          subtitle: "Text/SMS",
         },
       ],
     },
@@ -142,11 +166,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.v-card--reveal {
-  bottom: 0;
-  opacity: 1 !important;
-  position: absolute;
-  width: 100%;
-}
-</style>
+<style lang="scss" scoped></style>
