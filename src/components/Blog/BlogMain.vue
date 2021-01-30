@@ -45,6 +45,7 @@
       </v-carousel>
     </v-row>
 
+    <!-- Breadcrumbs -->
     <v-row no-gutters class="temp-border__item my-3">
       <v-breadcrumbs :items="breadcrumbItems">
         <template #divider>

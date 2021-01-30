@@ -1,7 +1,7 @@
 <template>
-  <v-container ref="top-container" class="temp-border" fluid>
+  <v-container ref="top-container" fluid class="temp-border">
     <!-- 1st row -->
-    <v-row class="temp-border__item mb-3 pa-3" no-gutters justify="center">
+    <v-row class="temp-border__item ma-3 pa-3" no-gutters justify="center">
       <v-col
         class="temp-border__item pa-3 d-flex justify-center"
         cols="8"
@@ -27,21 +27,31 @@
       </v-col>
     </v-row>
 
+    <!-- Breadcrumbs -->
+    <v-row no-gutters class="temp-border__item ma-3">
+      <v-breadcrumbs :items="breadcrumbItems">
+        <template #divider>
+          <v-icon>mdi-chevron-right</v-icon>
+        </template>
+      </v-breadcrumbs>
+    </v-row>
+
     <!-- 2nd row -->
     <v-row
       no-gutters
-      class="temp-border__item mb-5"
+      class="temp-border__item ma-3 pa-3"
       align="center"
-      align-content="space-around"
+      justify="space-around"
     >
-      <v-col>
-        <h1 class="text-h1">{{ secondRow.firstColumn.heading }}</h1>
-        <p class="text-body-1">{{ secondRow.firstColumn.body }}</p>
+      <v-col cols="5" class="temp-border__item pa-3">
+        <h1 v-text="firstCol.heading" class="text-h1"></h1>
+        <p v-text="firstCol.body" class="text-body-1"></p>
       </v-col>
-      <v-col>
+
+      <v-col cols="5">
         <v-expansion-panels class="temp-border__item" popout mandatory>
           <v-expansion-panel
-            v-for="({ header, body }, i) in secondRow.secondColumn"
+            v-for="({ header, body }, i) in secondCol"
             :key="i"
           >
             <v-expansion-panel-header class="text-h6"
@@ -56,9 +66,14 @@
     </v-row>
 
     <!-- 3th row -->
-    <v-row class="temp-border__item" justify="center">
-      <v-btn class="my-5" rounded color="primary" @click="scrollToTop">
-        {{ thirdRow.btnText }}
+    <v-row class="temp-border__item ma-3" justify="center">
+      <v-btn
+        @click="scrollToTop"
+        v-text="btnText"
+        rounded
+        color="primary"
+        class="my-5"
+      >
       </v-btn>
     </v-row>
   </v-container>
@@ -66,77 +81,77 @@
 
 <script>
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+import { mapState } from "vuex";
 
 export default {
   name: "QuickGuide",
   data: () => ({
-    secondRow: {
-      firstColumn: {
-        heading: "What is tinnitus?",
-        body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, rem
+    firstCol: {
+      heading: "What is tinnitus?",
+      body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, rem
         sed hic deserunt mollitia animi perspiciatis est temporibus! Optio hic
         enim sed maxime ab error dolorum? Quasi soluta odit et? Lorem ipsum
         dolor sit amet consectetur adipisicing elit. Reiciendis neque excepturi
         in saepe modi. Molestiae eveniet provident laborum iste eius iusto
         aperiam reprehenderit numquam fugit cum. Dolores nemo quidem dolor?`,
+    },
+    secondCol: [
+      {
+        header: "What does tinnitus sound like?",
+        body: `Ut enim
+            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
+            aliquip ex ea commodo consequat.`,
       },
-      secondColumn: [
-        {
-          header: "What does tinnitus sound like?",
-          body: `Ut enim
+      {
+        header: "Who gets tinnitus?",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "Who gets tinnitus?",
-          body: `Ut enim
+      },
+      {
+        header: "What causes tinnitus?",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "What causes tinnitus?",
-          body: `Ut enim
+      },
+      {
+        header: "Why have I got tinnitus? - I have good hearing!",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "Why have I got tinnitus? - I have good hearing!",
-          body: `Ut enim
+      },
+      {
+        header: "What should I do?",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "What should I do?",
-          body: `Ut enim
+      },
+      {
+        header: "I'm hearing noises in my head, not my ears!",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "I'm hearing noises in my head, not my ears!",
-          body: `Ut enim
+      },
+      {
+        header: "Why am I hearing music when nothing is playing?",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "Why am I hearing music when nothing is playing?",
-          body: `Ut enim
+      },
+      {
+        header: "Is there a cure for tinnitus?",
+        body: `Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
             aliquip ex ea commodo consequat.`,
-        },
-        {
-          header: "Is there a cure for tinnitus?",
-          body: `Ut enim
-            ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.`,
-        },
-      ],
-    },
-
-    thirdRow: {
-      btnText: "Back To Top",
-    },
+      },
+    ],
+    btnText: "Back to top",
   }),
-  computed: {},
+  computed: {
+    ...mapState({
+      breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
+    }),
+  },
   methods: {
     scrollToTop() {
       scrollToTopUtil(this, "top-container");
