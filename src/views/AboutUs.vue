@@ -113,6 +113,7 @@
       <v-row no-gutters class="temp-border__item ma-3 pa-3">
         <v-col cols="12" class="d-flex flex-column justify-start">
           <h2 class="text-h2">History</h2>
+
           <v-timeline>
             <v-timeline-item
               v-for="{ year, info } in history"
@@ -148,6 +149,7 @@ import { routes } from "../router/routes";
 export default {
   name: "AboutUsView",
   data: () => ({
+    reverseHistory: true,
     history: [
       {
         year: "1971",
