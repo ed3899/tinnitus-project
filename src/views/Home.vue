@@ -1,5 +1,9 @@
 <template>
-  <v-container class="temp-container-border mt-n6" fluid>
+  <v-container
+    ref="home-main-container"
+    class="temp-container-border mt-n6"
+    fluid
+  >
     <!-- Home main content -->
     <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
       <!-- 1st Row -->
@@ -119,6 +123,7 @@
 <script>
 import CarouselMain from "../components/Carousel/CarouselMain.vue";
 import { routes } from "../router/routes";
+import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
 
 export default {
   name: "HomeView",
@@ -195,6 +200,14 @@ export default {
         }
       }
     },
+  },
+  methods: {
+    scrollToTop() {
+      scrollToTopUtil(this, "home-main-container");
+    },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {});
   },
 };
 </script>

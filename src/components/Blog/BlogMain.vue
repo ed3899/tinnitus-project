@@ -170,7 +170,6 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
-      await vm.scrollToTop();
       const data = await vm.$route.meta.dummyData();
       vm.$data.imported = await { ...data };
       await vm.$store.commit({ type: "createBreadcrumbs", component: vm });
