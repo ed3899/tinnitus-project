@@ -1,5 +1,5 @@
 <template>
-  <v-container class="temp-border mt-n6" fluid>
+  <v-container ref="about-main-container" fluid class="temp-border mt-n6">
     <!-- About main content -->
     <v-container v-if="exactRouteIsAbout" fluid class="ma-0 pa-0">
       <!-- 1st row -->
@@ -33,15 +33,12 @@
               >
                 <h3
                   class="blue--text text--darken-1 text-h3 text-capitalize font-italic"
-                >
-                  About us
-                </h3>
-                <p class="white--text font-weight-light body-1">
-                  The core purpose of the American Tinnitus Association is to
-                  promote relief, prevent, and find cures for tinnitus,
-                  evidenced by its core values of compassion, credibility, and
-                  responsibility.
-                </p>
+                  v-text="firstRow.hero.title"
+                ></h3>
+                <p
+                  v-text="firstRow.hero.body"
+                  class="white--text font-weight-light body-1"
+                ></p>
               </v-col>
 
               <v-col cols="4" class="temp-border__item pa-3 mt-n16">
@@ -50,18 +47,23 @@
                   color="cyan darken-3 pa-3"
                   class="d-flex flex-column"
                 >
-                  <v-card-title class="text-h6 text-capitalize white--text"
-                    >Join us
+                  <v-card-title
+                    v-text="firstRow.card.title"
+                    class="text-h6 text-capitalize white--text"
+                  >
                   </v-card-title>
 
-                  <v-card-text class="text-body-2 white--text">
-                    Join ATA, the nation’s largest nonprofit organization for
-                    tinnitus patients. Get valuable benefits and support our
-                    mission to silence tinnitus.
+                  <v-card-text
+                    v-text="firstRow.card.text"
+                    class="text-body-2 white--text"
+                  >
                   </v-card-text>
 
                   <v-card-actions>
-                    <v-btn class="rounded-tl-xl rounded-br-xl">Join now</v-btn>
+                    <v-btn
+                      v-text="firstRow.card.btn"
+                      class="rounded-tl-xl rounded-br-xl"
+                    ></v-btn>
                   </v-card-actions>
                 </v-card>
               </v-col>
@@ -112,7 +114,7 @@
       <!-- 3rd row -->
       <v-row no-gutters class="temp-border__item ma-3 pa-3">
         <v-col cols="12" class="d-flex flex-column justify-start">
-          <h2 class="text-h2">History</h2>
+          <h2 v-text="thirdRowTitle" class="text-h2"></h2>
 
           <v-timeline>
             <v-timeline-item
@@ -134,6 +136,16 @@
           </v-timeline>
         </v-col>
       </v-row>
+
+      <!-- 4th row -->
+      <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
+        <v-btn
+          v-text="localBtns.backToTop"
+          rounded
+          class="primary"
+          @click="scrollToTop"
+        ></v-btn>
+      </v-row>
     </v-container>
 
     <!-- About route-children -->
@@ -145,11 +157,29 @@
 
 <script>
 import { routes } from "../router/routes";
+import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
 
 export default {
   name: "AboutUsView",
   data: () => ({
+    firstRow: {
+      hero: {
+        title: "About us",
+        body: `The core purpose of the American Tinnitus Association is to
+                  promote relief, prevent, and find cures for tinnitus,
+                  evidenced by its core values of compassion, credibility, and
+                  responsibility.`,
+      },
+      card: {
+        title: "Join us",
+        text: `Join ATA, the nation’s largest nonprofit organization for
+                    tinnitus patients. Get valuable benefits and support our
+                    mission to silence tinnitus.`,
+        btn: "Join now",
+      },
+    },
     reverseHistory: true,
+    thirdRowTitle: "History",
     history: [
       {
         year: "1971",
@@ -212,6 +242,9 @@ export default {
         info: `The first ATA Walk to Silence Tinnitus is held in Portland. This event goes on to become an annual tradition, raising valuable resources for tinnitus research and support programs.`,
       },
     ],
+    localBtns: {
+      backToTop: "Back to top",
+    },
   }),
   computed: {
     exactRouteIsAbout() {
@@ -222,6 +255,11 @@ export default {
           return true;
         }
       }
+    },
+  },
+  methods: {
+    scrollToTop() {
+      scrollToTopUtil(this, "about-main-container");
     },
   },
 };
