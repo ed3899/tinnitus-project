@@ -107,7 +107,7 @@
       </v-row>
     </v-container>
 
-    <!-- Home sub-components -->
+    <!-- Home route-children -->
     <v-row v-else>
       <v-fade-transition mode="out-in">
         <router-view></router-view>
@@ -118,6 +118,7 @@
 
 <script>
 import CarouselMain from "../components/Carousel/CarouselMain.vue";
+import { routes } from "../router/routes";
 
 export default {
   name: "HomeView",
@@ -186,7 +187,7 @@ export default {
   }),
   computed: {
     exactRouteIsHome() {
-      const [homePath1, homePath2] = ["/", "/home"];
+      const [{ path: homePath1, alias: homePath2 }] = routes;
       switch (this.$route.path) {
         case homePath1:
         case homePath2: {
