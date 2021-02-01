@@ -18,12 +18,19 @@
           <v-sheet
             color="sheet-format"
             elevation="8"
-            height="12rem"
+            height="14rem"
             width="100%"
             class="pa-3"
           >
-            <v-row no-gutters class="temp-border__item pa-3">
-              <v-col cols="8" class="temp-border__item pa-3">
+            <v-row
+              no-gutters
+              class="temp-border__item pa-3"
+              justify="space-around"
+            >
+              <v-col
+                cols="7"
+                class="temp-border__item pa-3 d-flex flex-column justify-center"
+              >
                 <h3
                   class="blue--text text--darken-1 text-h3 text-capitalize font-italic"
                 >
@@ -37,7 +44,27 @@
                 </p>
               </v-col>
 
-              <v-col cols="2" class="temp-border__item"></v-col>
+              <v-col cols="4" class="temp-border__item pa-3 mt-n16">
+                <v-card
+                  shaped
+                  color="cyan darken-3 pa-3"
+                  class="d-flex flex-column"
+                >
+                  <v-card-title class="text-h6 text-capitalize white--text"
+                    >Join us
+                  </v-card-title>
+
+                  <v-card-text class="text-body-2 white--text">
+                    Join ATA, the nation’s largest nonprofit organization for
+                    tinnitus patients. Get valuable benefits and support our
+                    mission to silence tinnitus.
+                  </v-card-text>
+
+                  <v-card-actions>
+                    <v-btn class="rounded-tl-xl rounded-br-xl">Join now</v-btn>
+                  </v-card-actions>
+                </v-card>
+              </v-col>
             </v-row>
           </v-sheet>
         </v-img>
