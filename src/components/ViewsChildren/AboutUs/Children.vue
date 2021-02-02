@@ -90,6 +90,7 @@
         cols="4"
         class="d-flex flex-column align-center justify-space-around second-col-format temp-border__item pa-3"
       >
+        <!-- Some work -->
         <v-card
           width="65%"
           height="40%"
