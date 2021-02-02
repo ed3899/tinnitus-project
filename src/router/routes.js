@@ -66,8 +66,8 @@ export const routes = [
         path: "test",
         meta: {
           dummyData: async () => {
-            const module = await import("../data/LatestCards.js");
-            return module.data();
+            const cards = await import("../data/LatestCards.js");
+            return cards.data();
           },
         },
         component: () =>

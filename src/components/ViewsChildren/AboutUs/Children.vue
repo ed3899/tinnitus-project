@@ -30,7 +30,17 @@
       <v-col cols="6" class="temp-border__item pa-3">
         <v-row no-gutters class="temp-border__item pa-3">
           <v-col cols="12" class="temp-border__item pa-3 ">
-            <h2 class="text-h2">What we do</h2>
+            <v-row
+              v-for="{ title, body } in imported.headings"
+              :key="body"
+              no-gutters
+              class="temp-border__item pa-3"
+            >
+              <h2 v-text="title" class="text-h2"></h2>
+              <p v-text="body" class="text-body-1"></p>
+            </v-row>
+
+            <!-- <h2 class="text-h2">What we do</h2>
             <p class="text-body-1">
               We are an independent charity supporting thousands of people who
               experience tinnitus and advise medical professionals from across
@@ -71,7 +81,7 @@
               progress towards a cure by donating here.
             </p>
 
-            <v-btn elevation="13">Donate</v-btn>
+            <v-btn elevation="13">Donate</v-btn> -->
           </v-col>
         </v-row>
       </v-col>
