@@ -23,7 +23,6 @@ export default new Vuex.Store({
     },
     createBreadcrumbs(state, payload) {
       const matchedRoutesArray = payload.component.$route.matched;
-      console.log(matchedRoutesArray);
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
       const theFirstMatchIsHome =
         matchedRoutesArray[0].meta.alias === "/home" &&

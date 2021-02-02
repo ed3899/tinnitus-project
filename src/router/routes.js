@@ -39,7 +39,6 @@ export const routes = [
   },
   {
     path: "/about",
-    alias: "/about-us",
     name: "About Us",
     icon: "mdi-office-building",
     component: () => import("../views/AboutUs.vue"),
@@ -72,7 +71,6 @@ export const routes = [
   },
   {
     path: "/support",
-    alias: "/get-support",
     name: "Get Support",
     icon: "mdi-book-search",
     component: () => import("../views/GetSupportView.vue"),
@@ -93,7 +91,6 @@ export const routes = [
   },
   {
     path: "/research",
-    alias: "/research-state",
     name: "Research",
     icon: "mdi-email",
     component: () => import("../views/ResearchView.vue"),

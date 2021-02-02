@@ -262,6 +262,9 @@ export default {
       scrollToTopUtil(this, "about-main-container");
     },
   },
+  mounted() {
+    this.scrollToTop();
+  },
 };
 </script>
 
