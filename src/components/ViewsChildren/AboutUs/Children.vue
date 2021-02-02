@@ -90,7 +90,6 @@
         cols="4"
         class="d-flex flex-column align-center justify-space-around second-col-format temp-border__item pa-3"
       >
-        <!-- Some work -->
         <v-card
           width="65%"
           height="40%"
@@ -114,6 +113,7 @@
 <script>
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+import { data as dummyOurVisionData } from "../../../data/AboutUsOurVision.js";
 
 export default {
   name: "AboutUsChildren",
@@ -131,10 +131,24 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
+    console.log(to.path);
+
     next(async vm => {
       const data = await vm.$route.meta.dummyData();
       vm.$data.imported = await { ...data };
       await vm.$store.commit({ type: "createBreadcrumbs", component: vm });
+
+      switch (to.path) {
+        case "/about/vision":
+          await console.log("On vision");
+          break;
+        case "/about/team":
+          await console.log("On team");
+          break;
+        case "/about/how-your-money-helps":
+          await console.log("How money");
+          break;
+      }
     });
   },
 };
