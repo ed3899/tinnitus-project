@@ -62,6 +62,12 @@ export const routes = [
         component: () =>
           import("../components/ViewsChildren/AboutUs/HowYourMoneyHelps.vue"),
       },
+      {
+        name: "Test",
+        path: "test",
+        component: () =>
+          import("../components/ViewsChildren/AboutUs/Children.vue"),
+      },
     ],
   },
   {
@@ -106,17 +112,4 @@ export const routes = [
       },
     ],
   },
-  // {
-  //   path: "/test-comp",
-  //   alias: "/test-component",
-  //   name: "Test Component",
-  //   icon: "mdi-email",
-  //   meta: {
-  //     dummyData: async () => {
-  //       const module = await import("../data/MoreInformation.js");
-  //       return module.data();
-  //     },
-  //   },
-  //   component: () => import("../components/Blog/BlogMain.vue"),
-  // },
 ];
