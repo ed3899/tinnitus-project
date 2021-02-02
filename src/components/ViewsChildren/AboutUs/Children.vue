@@ -131,8 +131,6 @@ export default {
     },
   },
   beforeRouteEnter(to, from, next) {
-    console.log(to.path);
-
     next(async vm => {
       const data = await vm.$route.meta.dummyData();
       vm.$data.imported = await { ...data };

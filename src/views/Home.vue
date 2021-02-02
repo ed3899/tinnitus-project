@@ -118,7 +118,7 @@
       </v-fade-transition>
     </v-row>
   </v-container>
-  
+
   <!-- Add a button with scroll to top functionality -->
 </template>
 
@@ -204,6 +204,9 @@ export default {
     },
   },
   mounted() {
+    this.scrollToTop();
+  },
+  beforeUpdate() {
     this.scrollToTop();
   },
   methods: {
