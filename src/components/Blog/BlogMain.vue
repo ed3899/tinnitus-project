@@ -112,9 +112,7 @@
       >
         <v-card
           width="65%"
-          max-width="65%"
           height="40%"
-          max-height="40%"
           class="temp-border__item"
           v-for="{ title, links } in imported.cardsTwo"
           :key="title"

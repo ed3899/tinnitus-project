@@ -64,6 +64,12 @@ export const routes = [
       {
         name: "Test",
         path: "test",
+        meta: {
+          dummyData: async () => {
+            const module = await import("../data/LatestCards.js");
+            return module.data();
+          },
+        },
         component: () =>
           import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
