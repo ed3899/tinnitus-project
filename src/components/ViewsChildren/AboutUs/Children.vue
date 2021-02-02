@@ -28,7 +28,52 @@
       class="temp-border__item ma-3 pa-3"
     >
       <v-col cols="6" class="temp-border__item pa-3">
-        <v-row no-gutters class="temp-border__item pa-3"> </v-row>
+        <v-row no-gutters class="temp-border__item pa-3">
+          <v-col cols="12" class="temp-border__item pa-3 ">
+            <h2 class="text-h2">What we do</h2>
+            <p class="text-body-1">
+              We are an independent charity supporting thousands of people who
+              experience tinnitus and advise medical professionals from across
+              the world. We are the primary source of support and information
+              for people with tinnitus in the UK, facilitating an improved
+              quality of life. We aim to encourage prevention through our
+              educational programme and to seek effective treatment for tinnitus
+              through a medical research programme. We seek to provide the most
+              appropriate and expert advice and information free of charge via
+              our confidential freephone helpline on 0800 018 0527.
+            </p>
+
+            <h3 class="text-h3">Our vision</h3>
+            <p class="text-body-1">
+              We want "A world where no one suffers from tinnitus." That is a
+              powerful statement and one we believe is achievable. It is
+              achievable now, to an extent that there are management tools and
+              methods available to enable some not to 'suffer'. However, we also
+              want to find better ways to manage tinnitus – and ultimately a
+              cure.
+            </p>
+
+            <h3 class="text-h3">Our mission</h3>
+            <p class="text-body-1">
+              To drive progress towards a cure and deliver excellent support to
+              help people living with tinnitus.
+            </p>
+
+            <h3 class="text-h3">Our values</h3>
+            <p class="font-weight-medium">Compassion</p>
+            <p class="font-weight-light">
+              Address the needs of our community with empathy and kindness.
+            </p>
+
+            <h2 class="text-h2">Together we can silence tinnitus</h2>
+            <p class="text-body-1">
+              Please help us to support people living with tinnitus and drive
+              progress towards a cure by donating here.
+            </p>
+
+            <v-btn elevation="13">Donate</v-btn>
+          </v-col>
+        </v-row>
       </v-col>
 
       <v-col
