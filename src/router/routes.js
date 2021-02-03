@@ -47,7 +47,7 @@ export const routes = [
         name: "Our Vision",
         path: "vision",
         meta: {
-          dummyData: async () => {
+          dummyCardData: async () => {
             const cards = await import("../data/LatestCards.js");
             return cards.data();
           },

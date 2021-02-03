@@ -132,8 +132,8 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
-      const data = await vm.$route.meta.dummyData();
-      vm.$data.imported = await { ...data };
+      const cardData = await vm.$route.meta.dummyCardData();
+      vm.$data.imported = await { ...cardData };
       await vm.$store.commit({ type: "createBreadcrumbs", component: vm });
 
       switch (to.path) {
