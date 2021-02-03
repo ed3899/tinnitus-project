@@ -1,6 +1,25 @@
 <template>
-  <v-container class="temp-border__item pa-1">
-    <v-row></v-row>
+  <v-container class="temp-border pa-1">
+    <v-row no-gutters class="temp-border__item pa-3" justify="center">
+      <v-expansion-panels accordion inset focusable>
+        <v-expansion-panel
+          v-for="{ name, bio } in dummyTeamData"
+          :key="bio + name"
+        >
+          <v-expansion-panel-header class="text-h5">
+            {{ name }}
+            <template v-slot:actions>
+              <v-icon v-text="icons.menuDown" color="primary"></v-icon>
+            </template>
+          </v-expansion-panel-header>
+
+          <v-expansion-panel-content
+            v-text="bio"
+            class="text-body-1 pa-3"
+          ></v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-expansion-panels>
+    </v-row>
   </v-container>
 </template>
 
@@ -10,8 +29,14 @@ const dummyTeamData = dummyTeamDataLoader();
 
 export default {
   name: "ChildrenOurTeam",
+  data: () => ({
+    dummyTeamData,
+    icons: {
+      menuDown: "mdi-menu-down",
+    },
+  }),
   mounted() {
-    console.log(dummyTeamData.slice(0, 2));
+    console.log(dummyTeamData.slice(0, 10));
   },
 };
 </script>
