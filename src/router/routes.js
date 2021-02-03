@@ -46,7 +46,9 @@ export const routes = [
       {
         name: "Our Vision",
         path: "vision",
-        meta: {},
+        meta: {
+          dummyData: () => import("../data/AboutUsOurVision.js"),
+        },
         component: () =>
           import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
