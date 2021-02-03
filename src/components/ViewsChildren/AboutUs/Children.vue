@@ -32,17 +32,39 @@
         class="temp-border__item pa-3 d-flex flex-column justify-space-around"
       >
         <v-row
-          v-for="{ title, body } in routeBased.headings"
+          v-for="{ title, body } in routeBased.normalizedHeadings"
           :key="body"
           no-gutters
           class="temp-border__item pa-3 ma-3"
         >
-          <h2 v-text="title" class="text-h2"></h2>
-          <p v-text="body" class="text-body-1"></p>
+          <template v-if="title.toLowerCase() === 'our mission'">
+            <h2 v-text="title" class="text-h2"></h2>
+
+            <p v-text="body" class="text-body-1"></p>
+
+            <h2
+              v-text="routeBased.valuesHeading.title"
+              class="text-h2 my-3 d-flex"
+            ></h2>
+
+            <v-row
+              v-for="{ name, description } in routeBased.valuesHeading.values"
+              no-gutters
+              class="temp-border__item pa-3 my-3 d-flex flex-column"
+              :key="description"
+            >
+              <h3 v-text="name" class="text-h6"></h3>
+              <p v-text="description" class="text-body-1"></p>
+            </v-row>
+          </template>
+
+          <template v-else>
+            <h2 v-text="title" class="text-h2"></h2>
+
+            <p v-text="body" class="text-body-1"></p>
+          </template>
         </v-row>
       </v-col>
-
-      <!-- test commit for notepad -->
 
       <v-col
         cols="4"
@@ -94,9 +116,22 @@ export default {
 
       switch (to.path) {
         case "/about/vision":
-          await console.log("On vision");
           const module = await vm.$route.meta.dummyData();
-          vm.$data.routeBased = await module.data();
+          const data = await module.data();
+          const { headings } = data;
+
+          //Normalize the data. Extract all the heading except the one with the property values from AboutUsOurVision.js
+          const normalizedHeadings = headings.filter(item =>
+            item.hasOwnProperty("body")
+          );
+
+          //The opposite of the previous. Here because it's only one item I accessed it via index
+          const values = headings.filter(item => item.hasOwnProperty("values"));
+
+          vm.$data.routeBased = {
+            normalizedHeadings,
+            valuesHeading: values[0],
+          };
           break;
         case "/about/team":
           await console.log("On team");
