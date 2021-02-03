@@ -100,7 +100,7 @@ import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
 export default {
   name: "AboutUsChildren",
   data: () => ({
-    routeBased: {},
+    routeBased: {}, //Moving to children
   }),
   computed: {
     ...mapState({
@@ -110,9 +110,6 @@ export default {
     actualRouteIsOurVision() {
       return this.$route.path === "/about/vision";
     },
-  },
-  mounted() {
-    console.log(this.$route);
   },
   methods: {
     scrollToTop() {
