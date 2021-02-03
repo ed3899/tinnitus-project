@@ -25,7 +25,6 @@
 
     <!-- Our vision content -->
     <v-row
-      v-if="actualRouteIsOurVision"
       no-gutters
       justify="space-around"
       class="temp-border__item ma-3 pa-3"
@@ -34,39 +33,7 @@
         cols="6"
         class="temp-border__item pa-3 d-flex flex-column justify-space-around"
       >
-        <v-row
-          v-for="{ title, body } in routeBased.normalizedHeadings"
-          :key="body"
-          no-gutters
-          class="temp-border__item pa-3 ma-3"
-        >
-          <template v-if="title.toLowerCase() === 'our mission'">
-            <h2 v-text="title" class="text-h2"></h2>
-
-            <p v-text="body" class="text-body-1"></p>
-
-            <h2
-              v-text="routeBased.valuesHeading.title"
-              class="text-h2 my-3 d-flex"
-            ></h2>
-
-            <v-row
-              v-for="{ name, description } in routeBased.valuesHeading.values"
-              no-gutters
-              class="temp-border__item pa-3 my-3 d-flex flex-column"
-              :key="description"
-            >
-              <h3 v-text="name" class="text-h6"></h3>
-              <p v-text="description" class="text-body-1"></p>
-            </v-row>
-          </template>
-
-          <template v-else>
-            <h2 v-text="title" class="text-h2"></h2>
-
-            <p v-text="body" class="text-body-1"></p>
-          </template>
-        </v-row>
+        <ChildrenOurVision v-if="actualRouteIsOurVision" />
       </v-col>
 
       <v-col
@@ -96,12 +63,11 @@
 <script>
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+import ChildrenOurVision from "../AboutUs/ChildrenOurVision.vue";
 
 export default {
   name: "AboutUsChildren",
-  data: () => ({
-    routeBased: {}, //Moving to children
-  }),
+  components: { ChildrenOurVision },
   computed: {
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
@@ -119,34 +85,6 @@ export default {
   beforeRouteEnter(to, from, next) {
     next(async vm => {
       await vm.$store.commit({ type: "createBreadcrumbs", component: vm });
-
-      //Conditional routing logic
-      switch (to.path) {
-        case "/about/vision":
-          const module = await vm.$route.meta.dummyData();
-          const data = await module.data();
-          const { headings } = data;
-
-          //Normalize the data. Extract all the heading except the one with the property values from AboutUsOurVision.js
-          const normalizedHeadings = headings.filter(item =>
-            item.hasOwnProperty("body")
-          );
-
-          //The opposite of the previous. Here because it's only one item I accessed it via index
-          const values = headings.filter(item => item.hasOwnProperty("values"));
-
-          vm.$data.routeBased = {
-            normalizedHeadings,
-            valuesHeading: values[0],
-          };
-          break;
-        case "/about/team":
-          await console.log("On team");
-          break;
-        case "/about/how-your-money-helps":
-          await console.log("How money");
-          break;
-      }
     });
   },
 };
