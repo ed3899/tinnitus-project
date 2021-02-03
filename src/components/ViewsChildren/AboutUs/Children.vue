@@ -4,7 +4,7 @@
     <v-row no-gutters class="temp-border__item ma-3 pa-3">
       <v-img
         :aspect-ratio="16 / 9"
-        src="https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
+        :src="dynamicImagePerRoute"
         height="50vh"
         position="center center"
         class="temp-border__item"
@@ -34,6 +34,7 @@
         class="temp-border__item pa-3 d-flex flex-column justify-space-around"
       >
         <ChildrenOurVision v-if="actualRouteIsOurVision" />
+        <ChildrenOurTeam v-else-if="actualRouteIsOurTeam" />
       </v-col>
 
       <v-col
@@ -64,10 +65,11 @@
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
 import ChildrenOurVision from "../AboutUs/ChildrenOurVision.vue";
+import ChildrenOurTeam from "../AboutUs/ChildrenOurTeam.vue";
 
 export default {
   name: "AboutUsChildren",
-  components: { ChildrenOurVision },
+  components: { ChildrenOurVision, ChildrenOurTeam },
   computed: {
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
@@ -75,6 +77,18 @@ export default {
     }),
     actualRouteIsOurVision() {
       return this.$route.path === "/about/vision";
+    },
+    actualRouteIsOurTeam() {
+      return this.$route.path === "/about/team";
+    },
+    dynamicImagePerRoute() {
+      switch (this.$route.path) {
+        case "/about/vision":
+          return `https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80`;
+
+        case "/about/team":
+          return `https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80`;
+      }
     },
   },
   methods: {
