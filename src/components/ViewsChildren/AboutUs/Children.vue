@@ -94,7 +94,7 @@
           width="65%"
           height="40%"
           class="temp-border__item"
-          v-for="{ title, links } in imported.cards"
+          v-for="{ title, links } in dummyCardData"
           :key="title"
           elevation="13"
         >
@@ -113,7 +113,6 @@
 <script>
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
-import { data as dummyOurVisionData } from "../../../data/AboutUsOurVision.js";
 
 export default {
   name: "AboutUsChildren",
@@ -123,6 +122,7 @@ export default {
   computed: {
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
+      dummyCardData: state => state.dummyCardData,
     }),
   },
   methods: {
@@ -132,8 +132,6 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(async vm => {
-      const cardData = await vm.$route.meta.dummyCardData();
-      vm.$data.imported = await { ...cardData };
       await vm.$store.commit({ type: "createBreadcrumbs", component: vm });
 
       switch (to.path) {

@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { data as dummyCards } from "../data/LatestCards";
+
+const { cards: dummyCardData } = dummyCards();
 
 Vue.use(Vuex);
 
@@ -16,6 +19,7 @@ export default new Vuex.Store({
       { icon: "mdi-twitter" },
       { icon: "mdi-linkedin" },
     ],
+    dummyCardData,
   }),
   mutations: {
     toggleDrawerState(state, payload) {
