@@ -56,7 +56,7 @@ export const routes = [
         name: "Our Team",
         path: "team",
         component: () =>
-          import("../components/ViewsChildren/AboutUs/OurTeam.vue"),
+          import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
       {
         name: "How Your Money Helps",

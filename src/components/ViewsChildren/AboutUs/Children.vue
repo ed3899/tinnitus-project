@@ -12,7 +12,7 @@
       </v-img>
     </v-row>
 
-    <!-- 2nd row -->
+    <!-- 2nd row Breadcrumbs -->
     <v-row no-gutters class="temp-border__item ma-3">
       <v-breadcrumbs :items="breadcrumbItems">
         <template #divider>
@@ -21,8 +21,11 @@
       </v-breadcrumbs>
     </v-row>
 
-    <!-- 3rd -->
+    <!-- 3rd - Conditional rows -->
+
+    <!-- Our vision content -->
     <v-row
+      v-if="actualRouteIsOurVision"
       no-gutters
       justify="space-around"
       class="temp-border__item ma-3 pa-3"
@@ -104,6 +107,12 @@ export default {
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
       dummyCardData: state => state.dummyCardData,
     }),
+    actualRouteIsOurVision() {
+      return this.$route.path === "/about/vision";
+    },
+  },
+  mounted() {
+    console.log(this.$route);
   },
   methods: {
     scrollToTop() {
@@ -114,6 +123,7 @@ export default {
     next(async vm => {
       await vm.$store.commit({ type: "createBreadcrumbs", component: vm });
 
+      //Conditional routing logic
       switch (to.path) {
         case "/about/vision":
           const module = await vm.$route.meta.dummyData();
