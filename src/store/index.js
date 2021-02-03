@@ -1,5 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
+import { data as dummyCards } from "../data/LatestCards";
+
+const { cards: dummyCardData } = dummyCards();
 
 Vue.use(Vuex);
 
@@ -16,6 +19,7 @@ export default new Vuex.Store({
       { icon: "mdi-twitter" },
       { icon: "mdi-linkedin" },
     ],
+    dummyCardData,
   }),
   mutations: {
     toggleDrawerState(state, payload) {
@@ -24,18 +28,23 @@ export default new Vuex.Store({
     createBreadcrumbs(state, payload) {
       const matchedRoutesArray = payload.component.$route.matched;
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
-      const createArrayForBreadcrumbs = () => {
+      const theFirstMatchIsHome =
+        matchedRoutesArray[0].meta.alias === "/home" &&
+        matchedRoutesArray[0].name === "Home";
+
+      const createBreadcrumbsForHome = () => {
         const rawBreadcrumbRoutes = [];
 
-        const nestedBreadcrumbRoutes = matchedRoutesArray.map(route => {
-          const { path, name } = route;
+        const nestedBreadcrumbRoutes = matchedRoutesArray.map((route, i) => {
+          const {
+            path,
+            name,
+            meta: { alias },
+          } = route;
           const routePathIsFalsy = !path;
+          const routeNameIsHome = name === "Home";
 
-          if (routePathIsFalsy) {
-            const {
-              meta: { alias },
-            } = route;
-
+          if (routePathIsFalsy && routeNameIsHome) {
             rawBreadcrumbRoutes.push(alias);
           } else {
             rawBreadcrumbRoutes.push(path);
@@ -53,9 +62,23 @@ export default new Vuex.Store({
 
         state.CentralState.currentBreadcrumbs = nestedBreadcrumbRoutes;
       };
+      const createBreadcrumbsForTheRest = () => {
+        const normalBreadcrumbRoutes = matchedRoutesArray.map(route => {
+          const { path, name } = route;
+          return {
+            text: name,
+            disabled: false,
+            to: path,
+            exact: true,
+          };
+        });
+        state.CentralState.currentBreadcrumbs = normalBreadcrumbRoutes;
+      };
 
-      if (thereAreMatchedRoutes) {
-        createArrayForBreadcrumbs();
+      if (thereAreMatchedRoutes && theFirstMatchIsHome) {
+        createBreadcrumbsForHome();
+      } else if (thereAreMatchedRoutes) {
+        createBreadcrumbsForTheRest();
       }
     },
   },

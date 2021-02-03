@@ -39,7 +39,6 @@ export const routes = [
   },
   {
     path: "/about",
-    alias: "/about-us",
     name: "About Us",
     icon: "mdi-office-building",
     component: () => import("../views/AboutUs.vue"),
@@ -47,14 +46,17 @@ export const routes = [
       {
         name: "Our Vision",
         path: "vision",
+        meta: {
+          dummyData: () => import("../data/AboutUsOurVision.js"),
+        },
         component: () =>
-          import("../components/ViewsChildren/AboutUs/OurVision.vue"),
+          import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
       {
         name: "Our Team",
         path: "team",
         component: () =>
-          import("../components/ViewsChildren/AboutUs/OurTeam.vue"),
+          import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
       {
         name: "How Your Money Helps",
@@ -62,11 +64,22 @@ export const routes = [
         component: () =>
           import("../components/ViewsChildren/AboutUs/HowYourMoneyHelps.vue"),
       },
+      {
+        name: "Test",
+        path: "test",
+        meta: {
+          dummyData: async () => {
+            const cards = await import("../data/LatestCards.js");
+            return cards.data();
+          },
+        },
+        component: () =>
+          import("../components/ViewsChildren/AboutUs/Children.vue"),
+      },
     ],
   },
   {
     path: "/support",
-    alias: "/get-support",
     name: "Get Support",
     icon: "mdi-book-search",
     component: () => import("../views/GetSupportView.vue"),
@@ -87,7 +100,6 @@ export const routes = [
   },
   {
     path: "/research",
-    alias: "/research-state",
     name: "Research",
     icon: "mdi-email",
     component: () => import("../views/ResearchView.vue"),
@@ -106,17 +118,4 @@ export const routes = [
       },
     ],
   },
-  // {
-  //   path: "/test-comp",
-  //   alias: "/test-component",
-  //   name: "Test Component",
-  //   icon: "mdi-email",
-  //   meta: {
-  //     dummyData: async () => {
-  //       const module = await import("../data/MoreInformation.js");
-  //       return module.data();
-  //     },
-  //   },
-  //   component: () => import("../components/Blog/BlogMain.vue"),
-  // },
 ];
