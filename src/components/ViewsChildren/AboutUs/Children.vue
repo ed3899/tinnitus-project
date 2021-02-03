@@ -42,6 +42,8 @@
         </v-row>
       </v-col>
 
+      <!-- test commit for notepad -->
+
       <v-col
         cols="4"
         class="d-flex flex-column align-center justify-space-around second-col-format temp-border__item pa-3"
