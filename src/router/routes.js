@@ -59,7 +59,7 @@ export const routes = [
         name: "How Your Money Helps",
         path: "how-your-money-helps",
         component: () =>
-          import("../components/ViewsChildren/AboutUs/HowYourMoneyHelps.vue"),
+          import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
       {
         name: "Test",

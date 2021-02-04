@@ -38,6 +38,7 @@
           v-else-if="actualRouteIsOurTeam"
           class="our-team-format"
         />
+        <ChildrenHowYourMoneyHelps v-else-if="actualRouteIsMoney" />
       </v-col>
 
       <v-col
@@ -78,12 +79,14 @@
 <script>
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+
 import ChildrenOurVision from "../AboutUs/ChildrenOurVision.vue";
 import ChildrenOurTeam from "../AboutUs/ChildrenOurTeam.vue";
+import ChildrenHowYourMoneyHelps from "../AboutUs/ChildrenHowYourMoneyHelps.vue";
 
 export default {
   name: "AboutUsChildren",
-  components: { ChildrenOurVision, ChildrenOurTeam },
+  components: { ChildrenOurVision, ChildrenOurTeam, ChildrenHowYourMoneyHelps },
   data: () => ({
     btnText: "back to top",
   }),
