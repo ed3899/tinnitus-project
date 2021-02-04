@@ -1,7 +1,7 @@
 <template>
   <v-container class="temp-border pa-1">
     <v-row no-gutters class="temp-border__item pa-3" justify="center">
-      <v-expansion-panels accordion inset focusable>
+      <!-- <v-expansion-panels accordion inset focusable>
         <v-expansion-panel
           v-for="{ name, bio } in dummyTeamData"
           :key="bio + name"
@@ -18,30 +18,49 @@
             class="text-body-1 pa-3"
           ></v-expansion-panel-content>
         </v-expansion-panel>
-      </v-expansion-panels>
+      </v-expansion-panels> -->
     </v-row>
 
-    <v-pagination v-model="page" :length="4" circle></v-pagination>
+    <v-pagination
+      v-model="teamPage"
+      :length="teamPaginationLength"
+      circle
+    ></v-pagination>
   </v-container>
 </template>
 
 <script>
 import { data as dummyTeamDataLoader } from "../../../data/AboutUsOurTeam.js";
-const dummyTeamData = dummyTeamDataLoader();
 
 export default {
   name: "ChildrenOurTeam",
   data: () => ({
-    dummyTeamData,
+    team: dummyTeamDataLoader(),
     icons: {
       menuDown: "mdi-menu-down",
     },
-    page: 1,
+    teamPage: 1,
+    teamMembersPerPage: 10,
   }),
-  computed: {},
-  mounted() {
-    console.log(dummyTeamData.slice(0, 10));
+  computed: {
+    paginatedTeamMembers() {
+      //Cloning the array to avoid mutation
+      const clonedTeam = [...this.team];
+      return clonedTeam.splice(this.paginationBase, this.paginationCut);
+    },
+    teamPaginationLength() {
+      //Cloning the array to avoid mutation
+      const clonedTeam = [...this.team];
+      return Math.ceil(clonedTeam.length / this.teamMembersPerPage);
+    },
+    paginationBase() {
+      return this.paginationCut - this.teamMembersPerPage;
+    },
+    paginationCut() {
+      return this.teamPage * this.teamMembersPerPage;
+    },
   },
+  mounted() {},
 };
 </script>
 
