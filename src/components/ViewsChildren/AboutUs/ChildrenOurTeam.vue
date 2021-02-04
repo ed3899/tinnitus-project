@@ -35,7 +35,6 @@ import { data as dummyTeamDataLoader } from "../../../data/AboutUsOurTeam.js";
 export default {
   name: "ChildrenOurTeam",
   data: () => ({
-    team: dummyTeamDataLoader(),
     icons: {
       menuDown: "mdi-menu-down",
     },
@@ -45,12 +44,12 @@ export default {
   computed: {
     paginatedTeamMembers() {
       //Cloning the array to avoid mutation
-      const clonedTeam = [...this.team];
+      const clonedTeam = [...dummyTeamDataLoader()];
       return clonedTeam.splice(this.paginationBase, this.paginationCut);
     },
     teamPaginationLength() {
       //Cloning the array to avoid mutation
-      const clonedTeam = [...this.team];
+      const clonedTeam = [...dummyTeamDataLoader()];
       return Math.ceil(clonedTeam.length / this.teamMembersPerPage);
     },
     paginationBase() {
