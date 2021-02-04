@@ -98,6 +98,9 @@ export default {
     actualRouteIsOurTeam() {
       return this.$route.path === "/about/team";
     },
+    actualRouteIsMoney() {
+      return this.$route.path === "/about/how-your-money-helps";
+    },
     dynamicImagePerRoute() {
       switch (this.$route.path) {
         case "/about/vision":
@@ -105,6 +108,9 @@ export default {
 
         case "/about/team":
           return `https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80`;
+
+        case "/about/how-your-money-helps":
+          return `https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=751&q=80`;
       }
     },
   },
