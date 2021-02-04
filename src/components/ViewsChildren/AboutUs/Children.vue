@@ -108,6 +108,9 @@ export default {
       }
     },
   },
+  beforeUpdate() {
+    this.scrollToTop();
+  },
   methods: {
     scrollToTop() {
       scrollToTopUtil(this, "about-children-container");
