@@ -1,6 +1,6 @@
 <template>
   <v-container ref="about-children-container" fluid class="temp-border">
-    <!-- 1st row -->
+    <!-- 1st row - Img -->
     <v-row no-gutters class="temp-border__item ma-3 pa-3">
       <v-img
         :aspect-ratio="16 / 9"
@@ -12,7 +12,7 @@
       </v-img>
     </v-row>
 
-    <!-- 2nd row Breadcrumbs -->
+    <!-- 2nd row - Breadcrumbs -->
     <v-row no-gutters class="temp-border__item ma-3">
       <v-breadcrumbs :items="breadcrumbItems">
         <template #divider>
@@ -21,9 +21,7 @@
       </v-breadcrumbs>
     </v-row>
 
-    <!-- 3rd - Conditional rows -->
-
-    <!-- Our vision content -->
+    <!-- 3rd row - Main content -->
     <v-row
       no-gutters
       justify="space-around"
@@ -33,8 +31,13 @@
         cols="6"
         class="temp-border__item pa-3 d-flex flex-column justify-space-around"
       >
+        <!-- Conditional content -->
+
         <ChildrenOurVision v-if="actualRouteIsOurVision" />
-        <ChildrenOurTeam v-else-if="actualRouteIsOurTeam" />
+        <ChildrenOurTeam
+          v-else-if="actualRouteIsOurTeam"
+          class="our-team-format"
+        />
       </v-col>
 
       <v-col
@@ -58,6 +61,17 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
+      <v-btn
+        @click="scrollToTop"
+        v-text="btnText"
+        rounded
+        color="primary"
+        class="text-uppercase"
+      >
+      </v-btn>
+    </v-row>
   </v-container>
 </template>
 
@@ -70,6 +84,9 @@ import ChildrenOurTeam from "../AboutUs/ChildrenOurTeam.vue";
 export default {
   name: "AboutUsChildren",
   components: { ChildrenOurVision, ChildrenOurTeam },
+  data: () => ({
+    btnText: "back to top",
+  }),
   computed: {
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
@@ -106,6 +123,10 @@ export default {
 
 <style lang="scss" scoped>
 .second-col-format {
+  height: 60rem;
+}
+
+.our-team-format {
   height: 60rem;
 }
 </style>
