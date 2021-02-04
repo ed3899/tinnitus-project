@@ -20,6 +20,8 @@
         </v-expansion-panel>
       </v-expansion-panels>
     </v-row>
+
+    <v-pagination v-model="page" :length="4" circle></v-pagination>
   </v-container>
 </template>
 
@@ -34,7 +36,9 @@ export default {
     icons: {
       menuDown: "mdi-menu-down",
     },
+    page: 1,
   }),
+  computed: {},
   mounted() {
     console.log(dummyTeamData.slice(0, 10));
   },
