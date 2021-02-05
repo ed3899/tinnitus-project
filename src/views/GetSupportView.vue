@@ -12,8 +12,9 @@
         no-gutters
         class="temp-border__item ma-3 pa-3"
         justify="space-around"
+        align-content="start"
       >
-        <v-col cols="7" class="temp-border__item ma-1">
+        <v-col cols="7" class="temp-border__item">
           <!-- 1st row -->
           <v-row no-gutters class="temp-border__item ma-3 pa-3">
             <v-row no-gutters class="temp-border__item ma-3 pa-3">
