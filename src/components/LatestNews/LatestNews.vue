@@ -1,5 +1,5 @@
 <template>
-  <v-card class="temp-border__item" elevation="13">
+  <v-card class="temp-border__item" elevation="13" height="40%" width="80%">
     <v-card-title v-text="title"></v-card-title>
 
     <v-row no-gutters v-for="link in links" :key="link">

@@ -67,7 +67,10 @@
           </v-row>
         </v-col>
 
-        <v-col cols="4" class="temp-border__item pa-1">
+        <v-col
+          cols="4"
+          class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
+        >
           <LatestNews
             v-for="{ title, links } in latestNews"
             :title="title"
