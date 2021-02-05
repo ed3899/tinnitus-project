@@ -71,11 +71,15 @@
           cols="4"
           class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
         >
+          <DonateNowCard :height="'30%'" :width="'80%'" />
+
           <LatestNews
             v-for="{ title, links } in latestNews"
             :title="title"
             :links="links"
             :key="title + links"
+            :height="'30%'"
+            :width="'80%'"
           />
         </v-col>
       </v-row>
@@ -89,14 +93,14 @@
 
 <script>
 import LatestNews from "../components/LatestNews/LatestNews.vue";
-import DonateNowMain from "../components/DonateNow/DonateNowMain.vue";
+import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.vue";
 
 import { routes } from "../router/routes.js";
 import { mapState } from "vuex";
 
 export default {
   name: "GetSupportView",
-  components: { LatestNews, DonateNowMain },
+  components: { LatestNews, DonateNowCard },
   data: () => ({
     headers: [
       {
