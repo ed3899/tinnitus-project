@@ -2,7 +2,9 @@
   <v-container
     class="temp-border mt-n6 pa-2 d-flex flex-column align-center"
     fluid
+    ref="main-get-support-container"
   >
+    <!-- Main content -->
     <v-container
       v-if="exactRouteIsGetSupport"
       class="temp-border ma-3 pa-1"
@@ -31,9 +33,7 @@
           <!-- 2nd row -->
           <v-row no-gutters class="temp-border__item ma-3 pa-3">
             <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <h2 v-text="secondRow.title" class="text-h2">
-                What is a decibel?
-              </h2>
+              <h2 v-text="secondRow.title" class="text-h2"></h2>
             </v-row>
 
             <v-row no-gutters class="temp-border__item ma-3 pa-3">
@@ -84,8 +84,18 @@
           />
         </v-col>
       </v-row>
+
+      <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
+        <v-btn
+          v-text="btns.scrollToTop"
+          rounded
+          class="primary text-uppercase"
+          @click="scrollToTop"
+        ></v-btn>
+      </v-row>
     </v-container>
 
+    <!-- Route children -->
     <v-container v-else class="temp-border ma-3" fluid>
       <router-view></router-view>
     </v-container>
@@ -98,6 +108,8 @@ import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.
 
 import { routes } from "../router/routes.js";
 import { mapState } from "vuex";
+
+import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
 
 export default {
   name: "GetSupportView",
@@ -200,6 +212,9 @@ export default {
           aren't saying avoid the below sounds - for example, you can't avoid a
           crying baby, but it's good to know how to understand what`,
     },
+    btns: {
+      scrollToTop: "Back to top",
+    },
   }),
   computed: {
     exactRouteIsGetSupport() {
@@ -215,8 +230,16 @@ export default {
       latestNews: state => state.latestNews,
     }),
   },
+  methods: {
+    scrollToTop() {
+      scrollToTopUtil(this, "main-get-support-container");
+    },
+  },
   beforeMount() {
     this.$store.dispatch("getLatestNews");
+  },
+  mounted() {
+    this.scrollToTop();
   },
 };
 </script>
