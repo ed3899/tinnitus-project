@@ -73,13 +73,13 @@ export const routes = [
         name: "Where Can I Get Help",
         path: "where-to-get-help",
         component: () =>
-          import("../components/ViewsChildren/GetSupport/WhereToGetHelp.vue"),
+          import("../components/ViewsChildren/GetSupport/GetSupportBase.vue"),
       },
       {
         name: "Your stories",
         path: "your-stories",
         component: () =>
-          import("../components/ViewsChildren/GetSupport/YourStories.vue"),
+          import("../components/ViewsChildren/GetSupport/GetSupportBase.vue"),
       },
     ],
   },

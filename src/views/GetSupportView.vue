@@ -96,9 +96,7 @@
     </v-container>
 
     <!-- Route children -->
-    <v-container v-else class="temp-border ma-3" fluid>
-      <router-view></router-view>
-    </v-container>
+    <router-view v-else></router-view>
   </v-container>
 </template>
 
