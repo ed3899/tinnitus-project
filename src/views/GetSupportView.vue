@@ -8,54 +8,66 @@
       class="temp-border ma-3 pa-1"
       fluid
     >
-      <!-- 1st row -->
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <h2 v-text="firstRow.title" class="text-h2"></h2>
-        </v-row>
+      <v-row
+        no-gutters
+        class="temp-border__item ma-3 pa-3"
+        justify="space-around"
+      >
+        <v-col cols="7" class="temp-border__item ma-1">
+          <!-- 1st row -->
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <h2 v-text="firstRow.title" class="text-h2"></h2>
+            </v-row>
 
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <p v-text="firstRow.p1" class="text-body-2"></p>
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <p v-text="firstRow.p1" class="text-body-2"></p>
 
-          <p v-text="firstRow.p2" class="text-body-2"></p>
-        </v-row>
-      </v-row>
+              <p v-text="firstRow.p2" class="text-body-2"></p>
+            </v-row>
+          </v-row>
 
-      <!-- 2nd row -->
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <h2 v-text="secondRow.title" class="text-h2">What is a decibel?</h2>
-        </v-row>
+          <!-- 2nd row -->
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <h2 v-text="secondRow.title" class="text-h2">
+                What is a decibel?
+              </h2>
+            </v-row>
 
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <p v-text="secondRow.p1" class="text-body-2"></p>
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <p v-text="secondRow.p1" class="text-body-2"></p>
 
-          <p v-text="secondRow.p2" class="text-body-2"></p>
+              <p v-text="secondRow.p2" class="text-body-2"></p>
 
-          <p v-text="secondRow.p3" class="text-body-2"></p>
-        </v-row>
-      </v-row>
+              <p v-text="secondRow.p3" class="text-body-2"></p>
+            </v-row>
+          </v-row>
 
-      <!-- 3rd row -->
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <h2 v-text="thirdRow.title" class="text-h2"></h2>
-        </v-row>
+          <!-- 3rd row -->
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <h2 v-text="thirdRow.title" class="text-h2"></h2>
+            </v-row>
 
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <p v-text="thirdRow.p1" class="text-body-1"></p>
-        </v-row>
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <p v-text="thirdRow.p1" class="text-body-1"></p>
+            </v-row>
 
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <v-data-table
-            :headers="headers"
-            :items="items"
-            :items-per-page="5"
-            dense
-            class="elevation-8"
-          >
-          </v-data-table>
-        </v-row>
+            <v-row no-gutters class="temp-border__item ma-3 pa-3">
+              <v-data-table
+                :headers="headers"
+                :items="items"
+                :items-per-page="5"
+                dense
+                class="elevation-8"
+              >
+              </v-data-table>
+            </v-row>
+          </v-row>
+        </v-col>
+
+        <v-col cols="4" class="temp-border__item ma-1"></v-col>
       </v-row>
     </v-container>
 
