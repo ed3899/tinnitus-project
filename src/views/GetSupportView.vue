@@ -1,64 +1,77 @@
 <template>
-  <v-container class="temp-border mt-n6 pa-3" fluid>
-    <!-- 1st row -->
-    <v-row no-gutters class="temp-border__item ma-3 pa-3">
+  <v-container
+    class="temp-border mt-n6 pa-2 d-flex flex-column align-center"
+    fluid
+  >
+    <v-container
+      v-if="exactRouteIsGetSupport"
+      class="temp-border ma-3 pa-1"
+      fluid
+    >
+      <!-- 1st row -->
       <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <h2 v-text="firstRow.title" class="text-h2"></h2>
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <h2 v-text="firstRow.title" class="text-h2"></h2>
+        </v-row>
+
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <p v-text="firstRow.p1" class="text-body-2"></p>
+
+          <p v-text="firstRow.p2" class="text-body-2"></p>
+        </v-row>
       </v-row>
 
+      <!-- 2nd row -->
       <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <p v-text="firstRow.p1" class="text-body-2"></p>
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <h2 v-text="secondRow.title" class="text-h2">What is a decibel?</h2>
+        </v-row>
 
-        <p v-text="firstRow.p2" class="text-body-2"></p>
-      </v-row>
-    </v-row>
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <p v-text="secondRow.p1" class="text-body-2"></p>
 
-    <!-- 2nd row -->
-    <v-row no-gutters class="temp-border__item ma-3 pa-3">
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <h2 v-text="secondRow.title" class="text-h2">What is a decibel?</h2>
-      </v-row>
+          <p v-text="secondRow.p2" class="text-body-2"></p>
 
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <p v-text="secondRow.p1" class="text-body-2"></p>
-
-        <p v-text="secondRow.p2" class="text-body-2"></p>
-
-        <p v-text="secondRow.p3" class="text-body-2"></p>
-      </v-row>
-    </v-row>
-
-    <!-- 3rd row -->
-    <v-row no-gutters class="temp-border__item ma-3 pa-3">
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <h2 v-text="thirdRow.title" class="text-h2"></h2>
+          <p v-text="secondRow.p3" class="text-body-2"></p>
+        </v-row>
       </v-row>
 
+      <!-- 3rd row -->
       <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <p v-text="thirdRow.p1" class="text-body-1"></p>
-      </v-row>
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <h2 v-text="thirdRow.title" class="text-h2"></h2>
+        </v-row>
 
-      <v-row no-gutters class="temp-border__item ma-3 pa-3">
-        <v-data-table
-          :headers="headers"
-          :items="items"
-          :items-per-page="5"
-          dense
-          class="elevation-8"
-        >
-        </v-data-table>
-      </v-row>
-    </v-row>
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <p v-text="thirdRow.p1" class="text-body-1"></p>
+        </v-row>
 
-    <v-row no-gutters class="temp-border__item ma-3 pa-3">
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <v-data-table
+            :headers="headers"
+            :items="items"
+            :items-per-page="5"
+            dense
+            class="elevation-8"
+          >
+          </v-data-table>
+        </v-row>
+      </v-row>
+    </v-container>
+
+    <v-container v-else class="temp-border ma-3" fluid>
       <router-view></router-view>
-    </v-row>
+    </v-container>
   </v-container>
 </template>
 
 <script>
+import LatestNews from "../components/LatestNews/LatestNews.vue";
+import { routes } from "../router/routes.js";
+
 export default {
   name: "GetSupportView",
+  components: { LatestNews },
   data: () => ({
     headers: [
       {
@@ -158,6 +171,17 @@ export default {
           crying baby, but it's good to know how to understand what`,
     },
   }),
+  computed: {
+    exactRouteIsGetSupport() {
+      const [, , { path: getSupportPath }] = routes;
+      switch (this.$route.path) {
+        case getSupportPath:
+          return true;
+        default:
+          return false;
+      }
+    },
+  },
 };
 </script>
 

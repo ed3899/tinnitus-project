@@ -248,11 +248,13 @@ export default {
   }),
   computed: {
     exactRouteIsAbout() {
-      const [, { path: aboutPath1, alias: aboutPath2 }] = routes;
+      const [, { path: aboutPath1 }] = routes;
       switch (this.$route.path) {
-        case aboutPath1:
-        case aboutPath2: {
+        case aboutPath1: {
           return true;
+        }
+        default: {
+          return false;
         }
       }
     },
