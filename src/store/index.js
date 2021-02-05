@@ -20,6 +20,7 @@ export default new Vuex.Store({
       { icon: "mdi-linkedin" },
     ],
     dummyCardData,
+    latestNews: [],
   }),
   mutations: {
     toggleDrawerState(state, payload) {
@@ -81,7 +82,16 @@ export default new Vuex.Store({
         createBreadcrumbsForTheRest();
       }
     },
+    setLatestNews(state, { news }) {
+      state.latestNews = news;
+    },
   },
-  actions: {},
+  actions: {
+    async getLatestNews({ commit }) {
+      const module = await import("../data/LatestNews.js");
+      const news = await module.data();
+      commit({ type: "setLatestNews", news });
+    },
+  },
   modules: {},
 });

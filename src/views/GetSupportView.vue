@@ -67,7 +67,14 @@
           </v-row>
         </v-col>
 
-        <v-col cols="4" class="temp-border__item ma-1"></v-col>
+        <v-col cols="4" class="temp-border__item pa-1">
+          <LatestNews
+            v-for="{ title, links } in latestNews"
+            :title="title"
+            :links="links"
+            :key="title + links"
+          />
+        </v-col>
       </v-row>
     </v-container>
 
@@ -80,6 +87,7 @@
 <script>
 import LatestNews from "../components/LatestNews/LatestNews.vue";
 import { routes } from "../router/routes.js";
+import { mapState } from "vuex";
 
 export default {
   name: "GetSupportView",
@@ -193,6 +201,12 @@ export default {
           return false;
       }
     },
+    ...mapState({
+      latestNews: state => state.latestNews,
+    }),
+  },
+  beforeMount() {
+    this.$store.dispatch("getLatestNews");
   },
 };
 </script>
