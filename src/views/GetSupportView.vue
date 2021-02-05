@@ -89,12 +89,14 @@
 
 <script>
 import LatestNews from "../components/LatestNews/LatestNews.vue";
+import DonateNowMain from "../components/DonateNow/DonateNowMain.vue";
+
 import { routes } from "../router/routes.js";
 import { mapState } from "vuex";
 
 export default {
   name: "GetSupportView",
-  components: { LatestNews },
+  components: { LatestNews, DonateNowMain },
   data: () => ({
     headers: [
       {
