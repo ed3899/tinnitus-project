@@ -28,6 +28,7 @@ export default new Vuex.Store({
     },
     createBreadcrumbs(state, payload) {
       const matchedRoutesArray = payload.component.$route.matched;
+      console.log(matchedRoutesArray);
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
       const theFirstMatchIsHome =
         matchedRoutesArray[0].meta.alias === "/home" &&
@@ -63,6 +64,34 @@ export default new Vuex.Store({
 
         state.CentralState.currentBreadcrumbs = nestedBreadcrumbRoutes;
       };
+
+      const createBreadcrumbsForHomev2 = () => {
+        const homeRoutesBreadcrumbs = matchedRoutesArray.map(
+          ({ path, name, meta: { alias } }, i) => {
+            const routePathIsFalsy = !path;
+            const routeNameIsHome = name === "Home";
+
+            if (routePathIsFalsy && routeNameIsHome) {
+              return {
+                text: name,
+                disabled: false,
+                to: alias,
+                exact: true,
+              };
+            } else {
+              return {
+                text: name,
+                disable: false,
+                to: path,
+                exact: true,
+              };
+            }
+          }
+        );
+
+        state.CentralState.currentBreadcrumbs = homeRoutesBreadcrumbs;
+      };
+
       const createBreadcrumbsForTheRest = () => {
         const normalBreadcrumbRoutes = matchedRoutesArray.map(route => {
           const { path, name } = route;
@@ -77,7 +106,7 @@ export default new Vuex.Store({
       };
 
       if (thereAreMatchedRoutes && theFirstMatchIsHome) {
-        createBreadcrumbsForHome();
+        createBreadcrumbsForHomev2();
       } else if (thereAreMatchedRoutes) {
         createBreadcrumbsForTheRest();
       }
