@@ -1,42 +1,60 @@
 <template>
   <v-container fluid>
+    <!-- Carousel -->
     <v-row
-      v-if="actualRouteIsHomeChild"
+      v-if="actualRouteIsHomeChild || actualRouteIsSupport_YourStories"
       no-gutters
       class="temp-border__item ma-2"
     >
-      <v-carousel
-        cycle
-        height="45vh"
-        hide-delimiter-background
-        hide-delimiters
-        show-arrows-on-hover
-        class="pa-0"
-      >
-        <v-carousel-item v-for="(slide, i) in slides" :key="i">
-          <v-sheet :color="colors[i]" height="100%">
-            <v-row class="fill-height" align="center" justify="center">
-              <div class="display-3">{{ slide }} Slide</div>
-            </v-row>
-          </v-sheet>
-        </v-carousel-item>
-      </v-carousel>
+      <CarouselChildren :height="'45vh'" />
     </v-row>
 
-    <v-row v-else no-gutters class="temp-border__item ma-2 pa-2">
+    <!-- Img -->
+    <v-row v-else no-gutters class="temp-border__item ma-2 pa-0">
       <v-img
-        height="40vh"
+        height="45vh"
         src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80"
       ></v-img>
+    </v-row>
+
+    <!-- Breadcrumbs -->
+    <v-row no-gutters class="temp-border__item ma-2 pa-0">
+      <Breadcrumbs />
+    </v-row>
+
+    <!-- Main -->
+    <v-row
+      no-gutters
+      justify="space-around"
+      align-content="start"
+      class="temp-border__item ma-2 pa-0"
+    >
+      <v-col cols="7" class="temp-border__item ma-2 pa-0">Test</v-col>
+      <v-col
+        cols="4"
+        class="temp-border__item ma-2 pa-0 d-flex flex-column justify-space-around align-center"
+      >
+        <DonateNowCards :height="'80%'" :width="'80%'" />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
 import { routeComparator as routeComparatorUtil } from "../../utils/routeComparator.js";
+import CarouselChildren from "../Carousel/CarouselChildren.vue";
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
+import { default as DonateNowCards } from "../DonateNow/DonateNowMain.vue";
+import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
 
 export default {
   name: "ChildrenBaseLayoutMain",
+  components: {
+    Breadcrumbs,
+    CarouselChildren,
+    DonateNowCards,
+    LatestNewsCards,
+  },
   data: () => ({
     colors: [
       "indigo",
@@ -46,9 +64,12 @@ export default {
       "deep-purple accent-4",
     ],
     slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+    currentImageSrc: "",
   }),
   computed: {
+    //% Support
     actualRouteIsSupport_WhereCanIGetHelp() {
+      this.currentImageSrc = `https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80`;
       return routeComparatorUtil(this, "support", "whereCanIGetHelp");
     },
     actualRouteIsSupport_YourStories() {
@@ -60,7 +81,9 @@ export default {
         this.actualRouteIsSupport_YourStories
       );
     },
+    //% Home
     actualRouteIsHome_OvercomingIt() {
+      //Needed in order to render specific content
       return routeComparatorUtil(this, "home", "overcomingIt");
     },
     actualRouteIsHome_Info() {
@@ -70,7 +93,11 @@ export default {
       return this.actualRouteIsHome_OvercomingIt || this.actualRouteIsHome_Info;
     },
   },
-  mounted() {},
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$store.commit({ type: "createBreadcrumbs", component: vm });
+    });
+  },
 };
 </script>
 
