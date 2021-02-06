@@ -2,6 +2,7 @@
   <v-card
     :width="width"
     :height="height"
+    :elevation="elevation"
     class="temp-border__item d-flex flex-column justify-space-between align-center pa-2"
   >
     <v-img
@@ -29,6 +30,10 @@ export default {
     },
     width: {
       type: [String, Number],
+      required: true,
+    },
+    elevation: {
+      type: Number,
       required: true,
     },
   },

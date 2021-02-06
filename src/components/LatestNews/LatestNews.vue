@@ -3,7 +3,7 @@
   <v-card
     :height="height"
     :width="width"
-    elevation="13"
+    :elevation="elevation"
     class="temp-border__item"
   >
     <v-card-title v-text="title"></v-card-title>
@@ -33,6 +33,10 @@ export default {
     },
     width: {
       type: [Number, String],
+      required: true,
+    },
+    elevation: {
+      type: Number,
       required: true,
     },
   },

@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid>
+  <v-container fluid ref="children-base-layout">
     <!-- Carousel -->
     <v-row
       v-if="actualRouteIsHomeChild || actualRouteIsSupport_YourStories"
@@ -29,12 +29,15 @@
       align-content="start"
       class="temp-border__item ma-2 pa-0"
     >
-      <v-col cols="7" class="temp-border__item ma-2 pa-0">Test</v-col>
+      <v-col cols="7" class="temp-border__item ma-2 pa-2">
+        <WhereCanIGetHelpLayout />
+      </v-col>
+
       <v-col
         cols="4"
         class="temp-border__item ma-2 pa-0 d-flex flex-column justify-space-around align-center"
       >
-        <DonateNowCard :height="'30%'" :width="'80%'" />
+        <DonateNowCard :height="'30%'" :width="'80%'" :elevation="13" />
         <LatestNewsCards
           v-for="{ title, links } in latestNews"
           :key="title"
@@ -42,15 +45,32 @@
           :links="links"
           :width="'80%'"
           :height="'30%'"
+          :elevation="13"
         />
       </v-col>
     </v-row>
+
+    <!-- Button -->
+    <v-row
+      no-gutters
+      justify="space-around"
+      align-content="start"
+      class="temp-border__item ma-2 pa-2"
+    >
+      <v-btn
+        v-text="btns.scrollToTop"
+        rounded
+        class="primary text-uppercase"
+        @click="scrollToTop"
+      ></v-btn
+    ></v-row>
   </v-container>
 </template>
 
 <script>
 //Utils
 import { routeComparator as routeComparatorUtil } from "../../utils/routeComparator.js";
+import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
 
 //Vuex
 import { mapState } from "vuex";
@@ -61,6 +81,9 @@ import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
 import { default as DonateNowCard } from "../DonateNow/DonateNowMain.vue";
 import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
 
+//Route based components
+import WhereCanIGetHelpLayout from "./WhereCanIGetHelpLayout.vue";
+
 export default {
   name: "ChildrenBaseLayoutMain",
   components: {
@@ -68,6 +91,7 @@ export default {
     CarouselChildren,
     DonateNowCard,
     LatestNewsCards,
+    WhereCanIGetHelpLayout,
   },
   data: () => ({
     colors: [
@@ -79,6 +103,9 @@ export default {
     ],
     slides: ["First", "Second", "Third", "Fourth", "Fifth"],
     currentImageSrc: "",
+    btns: {
+      scrollToTop: "Back to top",
+    },
   }),
   computed: {
     //% Support
@@ -112,6 +139,14 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("getLatestNews");
+  },
+  mounted() {
+    this.scrollToTop();
+  },
+  methods: {
+    scrollToTop() {
+      scrollToTopUtil(this, "children-base-layout");
+    },
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {

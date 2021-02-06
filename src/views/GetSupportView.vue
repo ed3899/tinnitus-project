@@ -1,14 +1,14 @@
 <template>
   <v-container
     v-if="exactRouteIsGetSupport"
-    class="temp-border mt-n6 pa-2 d-flex flex-column align-center"
+    class="temp-border mt-n6 pa-2"
     fluid
     ref="main-get-support-container"
   >
     <!-- 1st Row -->
     <v-row
       no-gutters
-      class="temp-border__item ma-3 pa-3"
+      class="temp-border__item ma-2 pa-2"
       justify="space-around"
       align-content="start"
     >
@@ -68,21 +68,16 @@
         cols="4"
         class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
       >
-        <DonateNowCard :height="'30%'" :width="'80%'" />
-
-        <LatestNewsCards
-          v-for="{ title, links } in latestNews"
-          :title="title"
-          :links="links"
-          :key="title + links"
-          :height="'30%'"
-          :width="'80%'"
-        />
       </v-col>
     </v-row>
 
     <!-- 2nd Row -->
-    <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
+    <v-row
+      no-gutters
+      class="temp-border__item ma-2 pa-2"
+      justify="center"
+      align-content="center"
+    >
       <v-btn
         v-text="btns.scrollToTop"
         rounded
@@ -229,8 +224,8 @@ export default {
     }),
   },
   methods: {
-    scrollToTop(component, stringRef) {
-      scrollToTopUtil(component, stringRef);
+    scrollToTop() {
+      scrollToTopUtil(this, "main-get-support-container");
     },
   },
   beforeMount() {
@@ -250,13 +245,10 @@ export default {
     const weAreInSupportPath = this.$route.path === supportPath;
 
     if (weAreInSupportPath) {
-      this.scrollToTop(this, "main-get-support-container");
+      scrollToTopUtil(this, "main-get-support-container");
     } else {
-      this.scrollToTop(this, "get-support_route-children");
+      scrollToTopUtil(this, "get-support_route-children");
     }
-  },
-  updated() {
-    //Add conditional scrolling logic
   },
 };
 </script>
