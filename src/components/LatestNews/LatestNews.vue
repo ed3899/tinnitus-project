@@ -3,7 +3,6 @@
   <v-card
     :height="height"
     :width="width"
-    :key="key"
     elevation="13"
     class="temp-border__item"
   >
@@ -33,10 +32,6 @@ export default {
       required: true,
     },
     width: {
-      type: [Number, String],
-      required: true,
-    },
-    key: {
       type: [Number, String],
       required: true,
     },

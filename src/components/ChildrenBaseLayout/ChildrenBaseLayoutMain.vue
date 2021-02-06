@@ -34,8 +34,15 @@
         cols="4"
         class="temp-border__item ma-2 pa-0 d-flex flex-column justify-space-around align-center"
       >
-        <DonateNowCard :height="'80%'" :width="'80%'" />
-        <h1 v-for="{ title } in latestNews" v-text="title" :key="title"></h1>
+        <DonateNowCard :height="'30%'" :width="'80%'" />
+        <LatestNewsCards
+          v-for="{ title, links } in latestNews"
+          :key="title"
+          :title="title"
+          :links="links"
+          :width="'80%'"
+          :height="'30%'"
+        />
       </v-col>
     </v-row>
   </v-container>
