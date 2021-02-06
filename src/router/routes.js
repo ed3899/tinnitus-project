@@ -2,6 +2,7 @@ export const routePaths = {
   home: {
     path: "/home",
     alias: "/",
+    name: "Home",
     children: {
       quickGuide: "quick-guide",
       overcomingIt: "overcoming-it",
@@ -10,6 +11,7 @@ export const routePaths = {
   },
   about: {
     path: "/about",
+    name: "About Us",
     children: {
       ourVision: "vision",
       team: "team",
@@ -18,6 +20,7 @@ export const routePaths = {
   },
   support: {
     path: "/support",
+    name: "Get Support",
     children: {
       whereCanIGetHelp: "where-to-get-help",
       yourStories: "your-stories",
@@ -25,6 +28,7 @@ export const routePaths = {
   },
   research: {
     path: "/research",
+    name: "Research",
     children: {
       researchNews: "news",
       takingPart: "taking-part",
@@ -36,10 +40,9 @@ export const routes = [
   {
     path: routePaths.home.path,
     alias: routePaths.home.alias,
-    name: "Home",
+    name: routePaths.home.name,
     icon: "mdi-home",
     component: () => import("../views/Home.vue"),
-    meta: { alias: "/home" },
     children: [
       {
         name: "Quick Guide",
@@ -73,7 +76,7 @@ export const routes = [
   },
   {
     path: routePaths.about.path,
-    name: "About Us",
+    name: routePaths.about.name,
     icon: "mdi-office-building",
     component: () => import("../views/AboutUs.vue"),
     children: [
@@ -99,7 +102,7 @@ export const routes = [
   },
   {
     path: routePaths.support.path,
-    name: "Get Support",
+    name: routePaths.support.name,
     icon: "mdi-book-search",
     component: () => import("../views/GetSupportView.vue"),
     children: [
@@ -119,7 +122,7 @@ export const routes = [
   },
   {
     path: routePaths.research.path,
-    name: "Research",
+    name: routePaths.research.name,
     icon: "mdi-email",
     component: () => import("../views/ResearchView.vue"),
     children: [

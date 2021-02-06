@@ -26,73 +26,11 @@ export default new Vuex.Store({
     toggleDrawerState(state, payload) {
       state.NavBarMain.isDrawerOpen = !state.NavBarMain.isDrawerOpen;
     },
-    createBreadcrumbs(state, payload) {
-      const matchedRoutesArray = payload.component.$route.matched;
-      console.log(matchedRoutesArray);
+    createBreadcrumbs(state, { component }) {
+      const matchedRoutesArray = component.$route.matched;
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
-      const theFirstMatchIsHome =
-        matchedRoutesArray[0].meta.alias === "/home" &&
-        matchedRoutesArray[0].name === "Home";
 
-      const createBreadcrumbsForHome = () => {
-        const rawBreadcrumbRoutes = [];
-
-        const nestedBreadcrumbRoutes = matchedRoutesArray.map((route, i) => {
-          const {
-            path,
-            name,
-            meta: { alias },
-          } = route;
-          const routePathIsFalsy = !path;
-          const routeNameIsHome = name === "Home";
-
-          if (routePathIsFalsy && routeNameIsHome) {
-            rawBreadcrumbRoutes.push(alias);
-          } else {
-            rawBreadcrumbRoutes.push(path);
-          }
-
-          const concatenatedRoute = rawBreadcrumbRoutes.join("");
-
-          return {
-            text: name,
-            disabled: false,
-            to: concatenatedRoute,
-            exact: true,
-          };
-        });
-
-        state.CentralState.currentBreadcrumbs = nestedBreadcrumbRoutes;
-      };
-
-      const createBreadcrumbsForHomev2 = () => {
-        const homeRoutesBreadcrumbs = matchedRoutesArray.map(
-          ({ path, name, meta: { alias } }, i) => {
-            const routePathIsFalsy = !path;
-            const routeNameIsHome = name === "Home";
-
-            if (routePathIsFalsy && routeNameIsHome) {
-              return {
-                text: name,
-                disabled: false,
-                to: alias,
-                exact: true,
-              };
-            } else {
-              return {
-                text: name,
-                disable: false,
-                to: path,
-                exact: true,
-              };
-            }
-          }
-        );
-
-        state.CentralState.currentBreadcrumbs = homeRoutesBreadcrumbs;
-      };
-
-      const createBreadcrumbsForTheRest = () => {
+      const createBreadcrumbs = () => {
         const normalBreadcrumbRoutes = matchedRoutesArray.map(route => {
           const { path, name } = route;
           return {
@@ -105,10 +43,8 @@ export default new Vuex.Store({
         state.CentralState.currentBreadcrumbs = normalBreadcrumbRoutes;
       };
 
-      if (thereAreMatchedRoutes && theFirstMatchIsHome) {
-        createBreadcrumbsForHomev2();
-      } else if (thereAreMatchedRoutes) {
-        createBreadcrumbsForTheRest();
+      if (thereAreMatchedRoutes) {
+        createBreadcrumbs();
       }
     },
     setLatestNews(state, { news }) {
