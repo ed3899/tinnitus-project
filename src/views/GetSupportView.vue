@@ -10,6 +10,7 @@
       class="temp-border ma-3 pa-1"
       fluid
     >
+      <!-- 1st Row -->
       <v-row
         no-gutters
         class="temp-border__item ma-3 pa-3"
@@ -74,7 +75,7 @@
         >
           <DonateNowCard :height="'30%'" :width="'80%'" />
 
-          <LatestNews
+          <LatestNewsCards
             v-for="{ title, links } in latestNews"
             :title="title"
             :links="links"
@@ -85,6 +86,7 @@
         </v-col>
       </v-row>
 
+      <!-- 2nd Row -->
       <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
         <v-btn
           v-text="btns.scrollToTop"
@@ -101,7 +103,7 @@
 </template>
 
 <script>
-import LatestNews from "../components/LatestNews/LatestNews.vue";
+import { default as LatestNewsCards } from "../components/LatestNews/LatestNews.vue";
 import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.vue";
 
 import { routes } from "../router/routes.js";
@@ -111,7 +113,7 @@ import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
 
 export default {
   name: "GetSupportView",
-  components: { LatestNews, DonateNowCard },
+  components: { LatestNewsCards, DonateNowCard },
   data: () => ({
     headers: [
       {

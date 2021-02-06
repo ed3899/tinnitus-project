@@ -1,7 +1,41 @@
+export const routePaths = {
+  home: {
+    path: "/home",
+    alias: "/",
+    children: {
+      quickGuide: "quick-guide",
+      overcomingIt: "overcoming-it",
+      info: "info",
+    },
+  },
+  about: {
+    path: "/about",
+    children: {
+      ourVision: "vision",
+      team: "team",
+      howYourMoneyHelps: "how-your-money-helps",
+    },
+  },
+  support: {
+    path: "/support",
+    children: {
+      whereCanIGetHelp: "where-to-get-help",
+      yourStories: "your-stories",
+    },
+  },
+  research: {
+    path: "/research",
+    children: {
+      researchNews: "news",
+      takingPart: "taking-part",
+    },
+  },
+};
+
 export const routes = [
   {
-    path: "/",
-    alias: "/home",
+    path: routePaths.home.path,
+    alias: routePaths.home.alias,
     name: "Home",
     icon: "mdi-home",
     component: () => import("../views/Home.vue"),
@@ -38,66 +72,66 @@ export const routes = [
     ],
   },
   {
-    path: "/about",
+    path: routePaths.about.path,
     name: "About Us",
     icon: "mdi-office-building",
     component: () => import("../views/AboutUs.vue"),
     children: [
       {
         name: "Our Vision",
-        path: "vision",
+        path: routePaths.about.children.ourVision,
         component: () =>
           import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
       {
         name: "Our Team",
-        path: "team",
+        path: routePaths.about.children.team,
         component: () =>
           import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
       {
         name: "How Your Money Helps",
-        path: "how-your-money-helps",
+        path: routePaths.about.children.howYourMoneyHelps,
         component: () =>
           import("../components/ViewsChildren/AboutUs/Children.vue"),
       },
     ],
   },
   {
-    path: "/support",
+    path: routePaths.support.path,
     name: "Get Support",
     icon: "mdi-book-search",
     component: () => import("../views/GetSupportView.vue"),
     children: [
       {
         name: "Where Can I Get Help",
-        path: "where-to-get-help",
+        path: routePaths.support.children.whereCanIGetHelp,
         component: () =>
-          import("../components/ViewsChildren/GetSupport/GetSupportBase.vue"),
+          import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
       {
         name: "Your stories",
-        path: "your-stories",
+        path: routePaths.support.children.yourStories,
         component: () =>
-          import("../components/ViewsChildren/GetSupport/GetSupportBase.vue"),
+          import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
     ],
   },
   {
-    path: "/research",
+    path: routePaths.research.path,
     name: "Research",
     icon: "mdi-email",
     component: () => import("../views/ResearchView.vue"),
     children: [
       {
         name: "Research News",
-        path: "news",
+        path: routePaths.research.children.researchNews,
         component: () =>
           import("../components/ViewsChildren/Research/ResearchNews.vue"),
       },
       {
         name: "Taking Part",
-        path: "taking-part",
+        path: routePaths.research.children.takingPart,
         component: () =>
           import("../components/ViewsChildren/Research/TakingPart.vue"),
       },
