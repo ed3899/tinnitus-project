@@ -1,112 +1,110 @@
 <template>
   <v-container
+    v-if="exactRouteIsGetSupport"
     class="temp-border mt-n6 pa-2 d-flex flex-column align-center"
     fluid
     ref="main-get-support-container"
   >
-    <!-- Main content -->
-    <v-container
-      v-if="exactRouteIsGetSupport"
-      class="temp-border ma-3 pa-1"
-      fluid
+    <!-- 1st Row -->
+    <v-row
+      no-gutters
+      class="temp-border__item ma-3 pa-3"
+      justify="space-around"
+      align-content="start"
     >
-      <!-- 1st Row -->
-      <v-row
-        no-gutters
-        class="temp-border__item ma-3 pa-3"
-        justify="space-around"
-        align-content="start"
+      <v-col cols="7" class="temp-border__item">
+        <!-- 1st row -->
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <h2 v-text="firstRow.title" class="text-h2"></h2>
+          </v-row>
+
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <p v-text="firstRow.p1" class="text-body-2"></p>
+
+            <p v-text="firstRow.p2" class="text-body-2"></p>
+          </v-row>
+        </v-row>
+
+        <!-- 2nd row -->
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <h2 v-text="secondRow.title" class="text-h2"></h2>
+          </v-row>
+
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <p v-text="secondRow.p1" class="text-body-2"></p>
+
+            <p v-text="secondRow.p2" class="text-body-2"></p>
+
+            <p v-text="secondRow.p3" class="text-body-2"></p>
+          </v-row>
+        </v-row>
+
+        <!-- 3rd row -->
+        <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <h2 v-text="thirdRow.title" class="text-h2"></h2>
+          </v-row>
+
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <p v-text="thirdRow.p1" class="text-body-1"></p>
+          </v-row>
+
+          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+            <v-data-table
+              :headers="headers"
+              :items="items"
+              :items-per-page="5"
+              dense
+              class="elevation-8"
+            >
+            </v-data-table>
+          </v-row>
+        </v-row>
+      </v-col>
+
+      <v-col
+        cols="4"
+        class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
       >
-        <v-col cols="7" class="temp-border__item">
-          <!-- 1st row -->
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <h2 v-text="firstRow.title" class="text-h2"></h2>
-            </v-row>
+        <DonateNowCard :height="'30%'" :width="'80%'" />
 
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <p v-text="firstRow.p1" class="text-body-2"></p>
+        <LatestNewsCards
+          v-for="{ title, links } in latestNews"
+          :title="title"
+          :links="links"
+          :key="title + links"
+          :height="'30%'"
+          :width="'80%'"
+        />
+      </v-col>
+    </v-row>
 
-              <p v-text="firstRow.p2" class="text-body-2"></p>
-            </v-row>
-          </v-row>
-
-          <!-- 2nd row -->
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <h2 v-text="secondRow.title" class="text-h2"></h2>
-            </v-row>
-
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <p v-text="secondRow.p1" class="text-body-2"></p>
-
-              <p v-text="secondRow.p2" class="text-body-2"></p>
-
-              <p v-text="secondRow.p3" class="text-body-2"></p>
-            </v-row>
-          </v-row>
-
-          <!-- 3rd row -->
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <h2 v-text="thirdRow.title" class="text-h2"></h2>
-            </v-row>
-
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <p v-text="thirdRow.p1" class="text-body-1"></p>
-            </v-row>
-
-            <v-row no-gutters class="temp-border__item ma-3 pa-3">
-              <v-data-table
-                :headers="headers"
-                :items="items"
-                :items-per-page="5"
-                dense
-                class="elevation-8"
-              >
-              </v-data-table>
-            </v-row>
-          </v-row>
-        </v-col>
-
-        <v-col
-          cols="4"
-          class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
-        >
-          <DonateNowCard :height="'30%'" :width="'80%'" />
-
-          <LatestNewsCards
-            v-for="{ title, links } in latestNews"
-            :title="title"
-            :links="links"
-            :key="title + links"
-            :height="'30%'"
-            :width="'80%'"
-          />
-        </v-col>
-      </v-row>
-
-      <!-- 2nd Row -->
-      <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
-        <v-btn
-          v-text="btns.scrollToTop"
-          rounded
-          class="primary text-uppercase"
-          @click="scrollToTop"
-        ></v-btn>
-      </v-row>
-    </v-container>
-
-    <!-- Route children -->
-    <router-view v-else></router-view>
+    <!-- 2nd Row -->
+    <v-row no-gutters class="temp-border__item ma-3 pa-3" justify="center">
+      <v-btn
+        v-text="btns.scrollToTop"
+        rounded
+        class="primary text-uppercase"
+        @click="scrollToTop"
+      ></v-btn>
+    </v-row>
   </v-container>
+
+  <!-- Route children -->
+  <router-view
+    v-else
+    ref="get-support_route-children"
+    class="temp-border mt-n6 pa-0"
+  ></router-view>
 </template>
 
 <script>
 import { default as LatestNewsCards } from "../components/LatestNews/LatestNews.vue";
 import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.vue";
 
-import { routes } from "../router/routes.js";
+import { routes, routePaths } from "../router/routes.js";
 import { mapState } from "vuex";
 
 import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
@@ -231,15 +229,34 @@ export default {
     }),
   },
   methods: {
-    scrollToTop() {
-      scrollToTopUtil(this, "main-get-support-container");
+    scrollToTop(component, stringRef) {
+      scrollToTopUtil(component, stringRef);
     },
   },
   beforeMount() {
     this.$store.dispatch("getLatestNews");
   },
   mounted() {
-    this.scrollToTop();
+    const {
+      support: { path: supportPath },
+      support: {
+        children: {
+          whereCanIGetHelp: whereCanIGetHelpPath,
+          yourStories: yourStoriesPath,
+        },
+      },
+    } = routePaths;
+
+    const weAreInSupportPath = this.$route.path === supportPath;
+
+    if (weAreInSupportPath) {
+      this.scrollToTop(this, "main-get-support-container");
+    } else {
+      this.scrollToTop(this, "get-support_route-children");
+    }
+  },
+  updated() {
+    //Add conditional scrolling logic
   },
 };
 </script>
