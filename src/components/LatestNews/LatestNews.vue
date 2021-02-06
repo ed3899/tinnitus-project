@@ -1,9 +1,11 @@
 <template>
+  <!-- v-for not allowed in root component -->
   <v-card
-    class="temp-border__item"
-    elevation="13"
     :height="height"
     :width="width"
+    :key="key"
+    elevation="13"
+    class="temp-border__item"
   >
     <v-card-title v-text="title"></v-card-title>
 
@@ -31,6 +33,10 @@ export default {
       required: true,
     },
     width: {
+      type: [Number, String],
+      required: true,
+    },
+    key: {
       type: [Number, String],
       required: true,
     },

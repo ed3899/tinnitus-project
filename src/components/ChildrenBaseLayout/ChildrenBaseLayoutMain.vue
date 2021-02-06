@@ -34,17 +34,24 @@
         cols="4"
         class="temp-border__item ma-2 pa-0 d-flex flex-column justify-space-around align-center"
       >
-        <DonateNowCards :height="'80%'" :width="'80%'" />
+        <DonateNowCard :height="'80%'" :width="'80%'" />
+        <h1 v-for="{ title } in latestNews" v-text="title" :key="title"></h1>
       </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script>
+//Utils
 import { routeComparator as routeComparatorUtil } from "../../utils/routeComparator.js";
+
+//Vuex
+import { mapState } from "vuex";
+
+//Components
 import CarouselChildren from "../Carousel/CarouselChildren.vue";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
-import { default as DonateNowCards } from "../DonateNow/DonateNowMain.vue";
+import { default as DonateNowCard } from "../DonateNow/DonateNowMain.vue";
 import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
 
 export default {
@@ -52,7 +59,7 @@ export default {
   components: {
     Breadcrumbs,
     CarouselChildren,
-    DonateNowCards,
+    DonateNowCard,
     LatestNewsCards,
   },
   data: () => ({
@@ -92,6 +99,12 @@ export default {
     actualRouteIsHomeChild() {
       return this.actualRouteIsHome_OvercomingIt || this.actualRouteIsHome_Info;
     },
+    ...mapState({
+      latestNews: state => state.latestNews,
+    }),
+  },
+  beforeMount() {
+    this.$store.dispatch("getLatestNews");
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {

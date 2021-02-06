@@ -45,7 +45,7 @@
         cols="4"
         class="d-flex flex-column align-center justify-space-around second-col-format temp-border__item pa-3"
       >
-        <v-card
+        <!-- <v-card
           width="65%"
           height="40%"
           class="temp-border__item"
@@ -59,7 +59,7 @@
             <v-card-text v-text="link"></v-card-text>
             <v-divider class="mx-4 purple"></v-divider>
           </v-row>
-        </v-card>
+        </v-card> -->
       </v-col>
     </v-row>
 
@@ -94,6 +94,7 @@ export default {
     ...mapState({
       breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
       dummyCardData: state => state.dummyCardData,
+      latestNews: state => state.latestNews,
     }),
     actualRouteIsOurVision() {
       return this.$route.path === "/about/vision";
