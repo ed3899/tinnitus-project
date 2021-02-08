@@ -3,9 +3,32 @@
     :items="stories"
     :items-per-page.sync="storiesPerPage"
     :page.sync="page"
+    :search="search"
     hide-default-footer
     class="temp-border__item ma-1 pa-1"
   >
+    <!-- Data header -->
+    <template #header>
+      <v-row
+        no-gutters
+        class="temp-border__item ma-1 pa-0"
+        align="center"
+        justify="center"
+      >
+        <v-toolbar>
+          <v-text-field
+            v-model="search"
+            clearable
+            flat
+            hide-details
+            solo-inverted
+            prepend-inner-icon="mdi-magnify"
+            label="Search"
+          ></v-text-field>
+        </v-toolbar>
+      </v-row>
+    </template>
+
     <!-- Data main-->
     <template #default="{items}">
       <v-row
@@ -22,7 +45,7 @@
         >
           <v-card
             rounded="xl"
-            elevation="8"
+            hover
             class="temp-border__item pa-1 d-flex flex-column"
           >
             <v-img
@@ -87,11 +110,25 @@
           Page {{ page }} of {{ numberOfPages }}
         </span>
 
-        <v-btn fab dark color="blue darken-3" class="mr-1" @click="formerPage">
+        <v-btn
+          fab
+          outlined
+          dark
+          color="blue darken-3"
+          class="mr-1"
+          @click="formerPage"
+        >
           <v-icon>mdi-chevron-left</v-icon>
         </v-btn>
 
-        <v-btn fab dark color="blue darken-3" class="ml-1" @click="nextPage">
+        <v-btn
+          fab
+          outlined
+          dark
+          color="blue darken-3"
+          class="ml-1"
+          @click="nextPage"
+        >
           <v-icon>mdi-chevron-right</v-icon>
         </v-btn>
       </v-row>
@@ -103,6 +140,7 @@
 export default {
   name: "GetSupportYourStories",
   data: () => ({
+    search: "",
     stories: [
       {
         name: "We have much to be thankful for",
