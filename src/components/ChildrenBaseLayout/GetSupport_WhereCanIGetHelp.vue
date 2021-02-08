@@ -106,7 +106,7 @@
 
 <script>
 export default {
-  name: "WhereCanIGetHelpLayout",
+  name: "GetSupportWhereCanIGetHelp",
   data: () => ({
     firstRow: {
       title: `Talk to us`,

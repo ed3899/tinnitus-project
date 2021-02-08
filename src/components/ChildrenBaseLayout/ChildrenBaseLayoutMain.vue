@@ -30,7 +30,10 @@
       class="temp-border__item ma-2 pa-0"
     >
       <v-col cols="7" class="temp-border__item ma-2 pa-2">
-        <WhereCanIGetHelpLayout />
+        <GetSupportWhereCanIGetHelp
+          v-if="actualRouteIsSupport_WhereCanIGetHelp"
+        />
+        <GetSupportYourStories v-else-if="actualRouteIsSupport_YourStories" />
       </v-col>
 
       <v-col
@@ -50,7 +53,7 @@
       </v-col>
     </v-row>
 
-    <!-- Button -->
+    <!-- Scroll to top button -->
     <v-row
       no-gutters
       justify="space-around"
@@ -82,7 +85,8 @@ import { default as DonateNowCard } from "../DonateNow/DonateNowMain.vue";
 import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
 
 //Route based components
-import WhereCanIGetHelpLayout from "./WhereCanIGetHelpLayout.vue";
+import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
+import GetSupportYourStories from "./GetSupport_YouStories.vue";
 
 export default {
   name: "ChildrenBaseLayoutMain",
@@ -91,7 +95,8 @@ export default {
     CarouselChildren,
     DonateNowCard,
     LatestNewsCards,
-    WhereCanIGetHelpLayout,
+    GetSupportWhereCanIGetHelp,
+    GetSupportYourStories,
   },
   data: () => ({
     colors: [
