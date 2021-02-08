@@ -1,130 +1,128 @@
 <template>
   <v-container
-    ref="home-main-container"
-    class="temp-container-border mt-n6"
+    v-if="exactRouteIsHome"
+    ref="home-view"
+    class="temp-border mt-n6 pa-0"
     fluid
   >
-    <!-- Home main content -->
-    <v-container v-if="exactRouteIsHome" fluid class="ma-0 pa-0">
-      <!-- 1st Row -->
-      <v-row class="mb-3">
-        <CarouselMain />
-      </v-row>
-
-      <!-- 2nd Row -->
-      <v-row no-gutters class="my-3">
-        <v-row no-gutters class="my-3">
-          <h1 class="text-capitalize">All you need to know about tinnitus</h1>
-        </v-row>
-
-        <v-row no-gutters justify="space-between" class="my-3">
-          <v-col v-for="{ title, text } in cards" cols="3" :key="title">
-            <v-card max-width="300">
-              <v-img
-                class="white--text"
-                max-height="200px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-                <v-card-title v-text="title"></v-card-title>
-              </v-img>
-
-              <v-card-text v-text="text" style="height: 150px;"></v-card-text>
-
-              <v-card-actions>
-                <v-btn
-                  v-for="btn in btns"
-                  :key="btn"
-                  color="orange"
-                  text
-                  v-text="btn"
-                ></v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-row>
-
-      <!-- 3rd Row -->
-      <v-row no-gutters class="my-3">
-        <v-row no-gutters class="my-3">
-          <h1 class="text-capitalize">Latest news</h1>
-        </v-row>
-
-        <v-row no-gutters justify="space-between" class="my-3">
-          <v-col v-for="{ title, body } in news" cols="4" :key="title">
-            <v-card max-width="400">
-              <v-img
-                max-height="200px"
-                src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-              >
-              </v-img>
-
-              <v-card-title
-                v-text="title"
-                class="text-justify text-h5"
-              ></v-card-title>
-
-              <v-card-text v-text="body" style="height: 150px;"></v-card-text>
-
-              <v-card-actions>
-                <v-btn
-                  v-for="btn in btns"
-                  :key="btn"
-                  color="orange"
-                  text
-                  v-text="btn"
-                ></v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-row>
-
-      <!-- 4th Row -->
-      <v-row no-gutters class="my-3">
-        <v-row no-gutters justify="space-between" class="my-3">
-          <v-col
-            v-for="{ title, body, btn, color } in extra"
-            :key="body"
-            cols="4"
-          >
-            <v-card
-              height="275"
-              max-width="350"
-              :color="color"
-              class="d-flex flex-column justify-space-around"
-            >
-              <v-card-title v-text="title" class="white--text"></v-card-title>
-
-              <v-card-text v-text="body" class="card-format"></v-card-text>
-
-              <v-card-actions class="align-self-start">
-                <v-btn
-                  v-text="btn"
-                  color="rgb(87, 195, 178)"
-                  class="white--text"
-                ></v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-col>
-        </v-row>
-      </v-row>
-    </v-container>
-
-    <!-- Home route-children -->
-    <v-row v-else>
-      <v-fade-transition mode="out-in">
-        <router-view></router-view>
-      </v-fade-transition>
+    <!-- 1st Row -->
+    <v-row no-gutters class="mb-3">
+      <CarouselMain :height="'70vh'" />
     </v-row>
+
+    <!-- 2nd Row -->
+    <v-row no-gutters class="my-3">
+      <v-row no-gutters class="my-3">
+        <h1 class="text-capitalize">All you need to know about tinnitus</h1>
+      </v-row>
+
+      <v-row no-gutters justify="space-between" class="my-3">
+        <v-col v-for="{ title, text } in cards" cols="3" :key="title">
+          <v-card max-width="300">
+            <v-img
+              class="white--text"
+              max-height="200px"
+              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            >
+              <v-card-title v-text="title"></v-card-title>
+            </v-img>
+
+            <v-card-text v-text="text" style="height: 150px;"></v-card-text>
+
+            <v-card-actions>
+              <v-btn
+                v-for="btn in btns"
+                :key="btn"
+                color="orange"
+                text
+                v-text="btn"
+              ></v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-row>
+
+    <!-- 3rd Row -->
+    <v-row no-gutters class="my-3">
+      <v-row no-gutters class="my-3">
+        <h1 class="text-capitalize">Latest news</h1>
+      </v-row>
+
+      <v-row no-gutters justify="space-between" class="my-3">
+        <v-col v-for="{ title, body } in news" cols="4" :key="title">
+          <v-card max-width="400">
+            <v-img
+              max-height="200px"
+              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
+            >
+            </v-img>
+
+            <v-card-title
+              v-text="title"
+              class="text-justify text-h5"
+            ></v-card-title>
+
+            <v-card-text v-text="body" style="height: 150px;"></v-card-text>
+
+            <v-card-actions>
+              <v-btn
+                v-for="btn in btns"
+                :key="btn"
+                color="orange"
+                text
+                v-text="btn"
+              ></v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-row>
+
+    <!-- 4th Row -->
+    <v-row no-gutters class="my-3">
+      <v-row no-gutters justify="space-between" class="my-3">
+        <v-col
+          v-for="{ title, body, btn, color } in extra"
+          :key="body"
+          cols="4"
+        >
+          <v-card
+            height="275"
+            max-width="350"
+            :color="color"
+            class="d-flex flex-column justify-space-around"
+          >
+            <v-card-title v-text="title" class="white--text"></v-card-title>
+
+            <v-card-text v-text="body" class="card-format"></v-card-text>
+
+            <v-card-actions class="align-self-start">
+              <v-btn
+                v-text="btn"
+                color="rgb(87, 195, 178)"
+                class="white--text"
+              ></v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-row>
+    <!-- Add a button with scroll to top functionality -->
   </v-container>
 
-  <!-- Add a button with scroll to top functionality -->
+  <!-- Home route children -->
+  <v-fade-transition v-else mode="out-in">
+    <router-view
+      ref="home-view_router-view"
+      class="temp-border__item mt-n6 pa-0"
+    ></router-view>
+  </v-fade-transition>
 </template>
 
 <script>
-import CarouselMain from "../components/Carousel/CarouselMain.vue";
-import { routes } from "../router/routes";
+import CarouselMain from "../components/Carousel/CarouselChildren.vue";
+import { routePaths } from "../router/routes";
 import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
 
 export default {
@@ -194,10 +192,14 @@ export default {
   }),
   computed: {
     exactRouteIsHome() {
-      const [{ path: homePath1, alias: homePath2 }] = routes;
+      const {
+        home: { path: homePath },
+        home: { alias: homeAlias },
+      } = routePaths;
+
       switch (this.$route.path) {
-        case homePath1:
-        case homePath2: {
+        case homePath:
+        case homeAlias: {
           return true;
         }
       }
@@ -206,22 +208,22 @@ export default {
   mounted() {
     this.scrollToTop();
   },
-  beforeUpdate() {
+  updated() {
     this.scrollToTop();
   },
   methods: {
     scrollToTop() {
-      scrollToTopUtil(this, "home-main-container");
+      if (this.exactRouteIsHome) {
+        scrollToTopUtil(this, "home-view");
+      } else {
+        scrollToTopUtil(this, "home-view_router-view");
+      }
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.temp-container-border {
-  border: 1px solid blue;
-}
-
 .card-format {
   @extend %card-format;
 }

@@ -1,6 +1,7 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { data as dummyCards } from "../data/LatestCards";
+import { module as module_dummyData } from "./modules/dummyData.js";
 
 const { cards: dummyCardData } = dummyCards();
 
@@ -58,5 +59,7 @@ export default new Vuex.Store({
       commit({ type: "setLatestNews", news });
     },
   },
-  modules: {},
+  modules: {
+    module_dummyData,
+  },
 });

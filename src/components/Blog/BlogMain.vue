@@ -177,14 +177,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.temp-border {
-  @extend %temp-border;
-
-  &__item {
-    @extend %__first-item;
-  }
-}
-
 .carousel-format {
   width: 80vw;
 }

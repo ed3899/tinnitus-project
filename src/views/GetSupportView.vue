@@ -232,14 +232,9 @@ export default {
     this.$store.dispatch("getLatestNews");
   },
   mounted() {
+    //Scroll to top logic based on the route we actually are
     const {
       support: { path: supportPath },
-      support: {
-        children: {
-          whereCanIGetHelp: whereCanIGetHelpPath,
-          yourStories: yourStoriesPath,
-        },
-      },
     } = routePaths;
 
     const weAreInSupportPath = this.$route.path === supportPath;

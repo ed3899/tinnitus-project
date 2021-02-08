@@ -4,7 +4,7 @@
     <v-row
       v-if="actualRouteIsHomeChild || actualRouteIsSupport_YourStories"
       no-gutters
-      class="temp-border__item ma-2"
+      class="temp-border ma-2"
     >
       <CarouselChildren :height="'45vh'" />
     </v-row>
@@ -144,9 +144,6 @@ export default {
   },
   beforeMount() {
     this.$store.dispatch("getLatestNews");
-  },
-  mounted() {
-    this.scrollToTop();
   },
   methods: {
     scrollToTop() {

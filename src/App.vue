@@ -29,13 +29,5 @@ export default {
 
 <style lang="scss">
 .temp-border {
-  @extend %temp-border;
-
-  &__item {
-    @extend %__first-item;
-  }
-}
-
-.footer-format {
 }
 </style>

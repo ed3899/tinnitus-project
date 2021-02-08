@@ -1,15 +1,11 @@
 $card-text-height: 10rem;
 
 //Used for development
-%temp-border {
+.temp-border {
   border: 1px solid brown;
 
-  %__first-item {
+  &__item {
     border: 1px solid green;
-  }
-
-  %__second-item {
-    border: 1px solid purple;
   }
 }
 

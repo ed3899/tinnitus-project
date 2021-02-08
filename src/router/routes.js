@@ -53,13 +53,8 @@ export const routes = [
       {
         name: "Learning to Overcome It",
         path: "overcoming-it",
-        meta: {
-          dummyData: async () => {
-            const module = await import("../data/OvercomingIt.js");
-            return module.data();
-          },
-        },
-        component: () => import("../components/Blog/BlogMain.vue"),
+        component: () =>
+          import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
       {
         name: "More Information",
