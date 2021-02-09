@@ -33,9 +33,8 @@
       >
         <!-- Conditional content -->
 
-        <ChildrenOurVision v-if="actualRouteIsOurVision" />
         <ChildrenOurTeam
-          v-else-if="actualRouteIsOurTeam"
+          v-if="actualRouteIsOurTeam"
           class="our-team-format"
         />
         <ChildrenHowYourMoneyHelps v-else-if="actualRouteIsMoney" />
@@ -80,13 +79,12 @@
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
 
-import ChildrenOurVision from "../AboutUs/ChildrenOurVision.vue";
 import ChildrenOurTeam from "../AboutUs/ChildrenOurTeam.vue";
 import ChildrenHowYourMoneyHelps from "../AboutUs/ChildrenHowYourMoneyHelps.vue";
 
 export default {
   name: "AboutUsChildren",
-  components: { ChildrenOurVision, ChildrenOurTeam, ChildrenHowYourMoneyHelps },
+  components: { ChildrenOurTeam, ChildrenHowYourMoneyHelps },
   data: () => ({
     btnText: "back to top",
   }),

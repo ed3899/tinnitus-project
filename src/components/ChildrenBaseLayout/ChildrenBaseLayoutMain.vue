@@ -11,7 +11,6 @@
 
     <!-- Img -->
     <v-row v-else no-gutters class="temp-border__item ma-2 pa-0">
-      
       <!-- Re-center image based on route -->
       <v-img height="45vh" :src="currentImageSrc"></v-img>
     </v-row>
@@ -44,6 +43,10 @@
 
         <!-- About -->
         <AboutOurVision v-else-if="actualRouteIsAbout_OurVision" />
+        <ExpansionPanelIterator
+          v-else-if="actualRouteIsAbout_OurTeam"
+          :itemsArray="about_ourTeamData"
+        />
 
         <!-- Get Support -->
         <GetSupportWhereCanIGetHelp
@@ -98,8 +101,8 @@ import { module as dummyDataModule } from "../../store/modules/dummyData.js";
 //Components
 import CarouselChildren from "../Carousel/CarouselChildren.vue";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
-import { default as DonateNowCard } from "../DonateNow/DonateNowMain.vue";
-import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
+import DonateNowCard from "../DonateNow/DonateNowMain.vue";
+import LatestNewsCards from "../LatestNews/LatestNews.vue";
 
 //Route based components
 
@@ -109,6 +112,7 @@ import CardIterator from "../CardIterator/CardIteratorMain.vue";
 
 //% About
 import AboutOurVision from "./About_OurVision.vue";
+import ExpansionPanelIterator from "../ExpansionPanelIterator/ExpansionPanelIterator.vue";
 
 //% Get support
 import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
@@ -125,6 +129,7 @@ export default {
     GetSupportYourStories,
     CardIterator,
     AboutOurVision,
+    ExpansionPanelIterator,
   },
   data: () => ({
     colors: [
@@ -161,6 +166,10 @@ export default {
       this.currentImageSrc = `https://images.unsplash.com/photo-1455849318743-b2233052fcff?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80`;
       return routeComparatorUtil(this, "about", "ourVision");
     },
+    actualRouteIsAbout_OurTeam() {
+      this.currentImageSrc = `https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80`;
+      return routeComparatorUtil(this, "about", "team");
+    },
 
     //% Support
     actualRouteIsSupport_WhereCanIGetHelp() {
@@ -181,6 +190,7 @@ export default {
       latestNews: state => state.General.latestNews,
       home_overcomingItCards: state => state.Home.OvercomingIt,
       home_moreInfomationCards: state => state.Home.MoreInformation,
+      about_ourTeamData: state => state.About.OurTeam,
     }),
   },
   methods: {
