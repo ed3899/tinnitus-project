@@ -30,12 +30,22 @@
       class="temp-border__item ma-2 pa-0"
     >
       <v-col cols="7" class="temp-border__item ma-2 pa-2">
+        <!--% Home -->
+        <!-- OvercomingIt -->
         <CardIterator
-          :itemsArray="overcomingItCards"
           v-if="actualRouteIsHome_OvercomingIt"
+          :itemsArray="overcomingItCards"
         />
+
+        <!-- MoreInfo -->
+        <CardIterator
+          v-else-if="actualRouteIsHome_Info"
+          :itemsArray="home_moreInfomationCards"
+        />
+
+        <!-- Get Support -->
         <GetSupportWhereCanIGetHelp
-          v-if="actualRouteIsSupport_WhereCanIGetHelp"
+          v-else-if="actualRouteIsSupport_WhereCanIGetHelp"
         />
         <GetSupportYourStories v-else-if="actualRouteIsSupport_YourStories" />
       </v-col>
@@ -78,7 +88,6 @@
 //Utils
 import { routeComparator as routeComparatorUtil } from "../../utils/routeComparator.js";
 import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
-import CardIterator from "../CardIterator/CardIteratorMain.vue";
 
 //Vuex
 import { mapState } from "vuex";
@@ -91,6 +100,12 @@ import { default as DonateNowCard } from "../DonateNow/DonateNowMain.vue";
 import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
 
 //Route based components
+
+//% Home
+//In overcomingIt & More information
+import CardIterator from "../CardIterator/CardIteratorMain.vue";
+
+//% Get support
 import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
 import GetSupportYourStories from "./GetSupport_YouStories.vue";
 
@@ -138,10 +153,11 @@ export default {
     actualRouteIsHome_OvercomingIt() {
       //Needed in order to render specific content
       //Can it be done without strings?
+      //It can but it defeats the purpose of having to import a module every time
       return routeComparatorUtil(this, "home", "overcomingIt");
     },
     actualRouteIsHome_Info() {
-      return routeComparatorUtil(this, "home", "info");
+      return routeComparatorUtil(this, "home", "moreInformation");
     },
     actualRouteIsHomeChild() {
       return this.actualRouteIsHome_OvercomingIt || this.actualRouteIsHome_Info;
@@ -149,6 +165,7 @@ export default {
     ...mapState(dummyDataModule.name, {
       latestNews: state => state.General.latestNews,
       overcomingItCards: state => state.Home.OvercomingIt,
+      home_moreInfomationCards: state => state.Home.MoreInformation,
     }),
   },
   methods: {
