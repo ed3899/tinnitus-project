@@ -1,5 +1,8 @@
 //Create an object in order to make comparison between variables easier as well as
 // accessing the info. Routes array is not intuitive enough.
+
+//Avoid chaging property names
+
 export const routePaths = {
   home: {
     path: "/home",

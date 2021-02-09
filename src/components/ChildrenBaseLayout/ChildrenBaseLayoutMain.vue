@@ -34,7 +34,7 @@
         <!-- OvercomingIt -->
         <CardIterator
           v-if="actualRouteIsHome_OvercomingIt"
-          :itemsArray="overcomingItCards"
+          :itemsArray="home_overcomingItCards"
         />
 
         <!-- MoreInfo -->
@@ -111,6 +111,7 @@ import GetSupportYourStories from "./GetSupport_YouStories.vue";
 
 export default {
   name: "ChildrenBaseLayoutMain",
+  ref: "children-base-layout",
   components: {
     Breadcrumbs,
     CarouselChildren,
@@ -164,13 +165,13 @@ export default {
     },
     ...mapState(dummyDataModule.name, {
       latestNews: state => state.General.latestNews,
-      overcomingItCards: state => state.Home.OvercomingIt,
+      home_overcomingItCards: state => state.Home.OvercomingIt,
       home_moreInfomationCards: state => state.Home.MoreInformation,
     }),
   },
   methods: {
     scrollToTop() {
-      scrollToTopUtil(this, "children-base-layout");
+      scrollToTopUtil(this, this.ref);
     },
   },
   beforeRouteEnter(to, from, next) {
