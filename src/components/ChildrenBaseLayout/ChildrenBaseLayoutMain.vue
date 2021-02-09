@@ -30,7 +30,7 @@
       class="temp-border__item ma-2 pa-0"
     >
       <v-col cols="7" class="temp-border__item ma-2 pa-2">
-        <!--% Home -->
+        <!-- Home -->
         <!-- OvercomingIt -->
         <CardIterator
           v-if="actualRouteIsHome_OvercomingIt"
@@ -42,6 +42,9 @@
           v-else-if="actualRouteIsHome_Info"
           :itemsArray="home_moreInfomationCards"
         />
+
+        <!-- About -->
+        <AboutOurVision v-else-if="actualRouteIsAbout_OurVision" />
 
         <!-- Get Support -->
         <GetSupportWhereCanIGetHelp
@@ -105,6 +108,9 @@ import { default as LatestNewsCards } from "../LatestNews/LatestNews.vue";
 //In overcomingIt & More information
 import CardIterator from "../CardIterator/CardIteratorMain.vue";
 
+//% About
+import AboutOurVision from "./About_OurVision.vue";
+
 //% Get support
 import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
 import GetSupportYourStories from "./GetSupport_YouStories.vue";
@@ -120,6 +126,7 @@ export default {
     GetSupportWhereCanIGetHelp,
     GetSupportYourStories,
     CardIterator,
+    AboutOurVision,
   },
   data: () => ({
     colors: [
@@ -136,6 +143,25 @@ export default {
     },
   }),
   computed: {
+    //% Home
+    actualRouteIsHome_OvercomingIt() {
+      //Needed in order to render specific content
+      //Can it be done without strings?
+      //It can but it defeats the purpose of having to import a module every time
+      return routeComparatorUtil(this, "home", "overcomingIt");
+    },
+    actualRouteIsHome_Info() {
+      return routeComparatorUtil(this, "home", "moreInformation");
+    },
+    actualRouteIsHomeChild() {
+      return this.actualRouteIsHome_OvercomingIt || this.actualRouteIsHome_Info;
+    },
+
+    //%About
+    actualRouteIsAbout_OurVision() {
+      return routeComparatorUtil(this, "about", "ourVision");
+    },
+
     //% Support
     actualRouteIsSupport_WhereCanIGetHelp() {
       this.currentImageSrc = `https://images.unsplash.com/photo-1544027993-37dbfe43562a?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80`;
@@ -150,19 +176,7 @@ export default {
         this.actualRouteIsSupport_YourStories
       );
     },
-    //% Home
-    actualRouteIsHome_OvercomingIt() {
-      //Needed in order to render specific content
-      //Can it be done without strings?
-      //It can but it defeats the purpose of having to import a module every time
-      return routeComparatorUtil(this, "home", "overcomingIt");
-    },
-    actualRouteIsHome_Info() {
-      return routeComparatorUtil(this, "home", "moreInformation");
-    },
-    actualRouteIsHomeChild() {
-      return this.actualRouteIsHome_OvercomingIt || this.actualRouteIsHome_Info;
-    },
+
     ...mapState(dummyDataModule.name, {
       latestNews: state => state.General.latestNews,
       home_overcomingItCards: state => state.Home.OvercomingIt,

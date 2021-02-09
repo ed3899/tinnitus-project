@@ -79,7 +79,7 @@ export const routes = [
         name: "Our Vision",
         path: routePaths.about.children.ourVision,
         component: () =>
-          import("../components/ViewsChildren/AboutUs/Children.vue"),
+          import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
       {
         name: "Our Team",
