@@ -1,7 +1,8 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import { data as dummyCards } from "../data/LatestCards";
-import { module as module_dummyData } from "./modules/dummyData.js";
+
+import { module as dummyDataModule } from "./modules/dummyData.js";
 
 const { cards: dummyCardData } = dummyCards();
 
@@ -21,7 +22,6 @@ export default new Vuex.Store({
       { icon: "mdi-linkedin" },
     ],
     dummyCardData,
-    latestNews: [],
   }),
   mutations: {
     toggleDrawerState(state, payload) {
@@ -48,18 +48,8 @@ export default new Vuex.Store({
         createBreadcrumbs();
       }
     },
-    setLatestNews(state, { news }) {
-      state.latestNews = news;
-    },
-  },
-  actions: {
-    async getLatestNews({ commit }) {
-      const module = await import("../data/LatestNews.js");
-      const news = await module.data();
-      commit({ type: "setLatestNews", news });
-    },
   },
   modules: {
-    module_dummyData,
+    [dummyDataModule.name]: dummyDataModule,
   },
 });

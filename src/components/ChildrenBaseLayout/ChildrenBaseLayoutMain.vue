@@ -30,6 +30,10 @@
       class="temp-border__item ma-2 pa-0"
     >
       <v-col cols="7" class="temp-border__item ma-2 pa-2">
+        <CardIterator
+          :itemsArray="overcomingItCards"
+          v-if="actualRouteIsHome_OvercomingIt"
+        />
         <GetSupportWhereCanIGetHelp
           v-if="actualRouteIsSupport_WhereCanIGetHelp"
         />
@@ -74,9 +78,11 @@
 //Utils
 import { routeComparator as routeComparatorUtil } from "../../utils/routeComparator.js";
 import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
+import CardIterator from "../CardIterator/CardIteratorMain.vue";
 
 //Vuex
 import { mapState } from "vuex";
+import { module as dummyDataModule } from "../../store/modules/dummyData.js";
 
 //Components
 import CarouselChildren from "../Carousel/CarouselChildren.vue";
@@ -97,6 +103,7 @@ export default {
     LatestNewsCards,
     GetSupportWhereCanIGetHelp,
     GetSupportYourStories,
+    CardIterator,
   },
   data: () => ({
     colors: [
@@ -130,6 +137,7 @@ export default {
     //% Home
     actualRouteIsHome_OvercomingIt() {
       //Needed in order to render specific content
+      //Can it be done without strings?
       return routeComparatorUtil(this, "home", "overcomingIt");
     },
     actualRouteIsHome_Info() {
@@ -138,12 +146,10 @@ export default {
     actualRouteIsHomeChild() {
       return this.actualRouteIsHome_OvercomingIt || this.actualRouteIsHome_Info;
     },
-    ...mapState({
-      latestNews: state => state.latestNews,
+    ...mapState(dummyDataModule.name, {
+      latestNews: state => state.General.latestNews,
+      overcomingItCards: state => state.Home.OvercomingIt,
     }),
-  },
-  beforeMount() {
-    this.$store.dispatch("getLatestNews");
   },
   methods: {
     scrollToTop() {

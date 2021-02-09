@@ -1,3 +1,5 @@
+//Create an object in order to make comparison between variables easier as well as
+// accessing the info. Routes array is not intuitive enough.
 export const routePaths = {
   home: {
     path: "/home",
@@ -6,7 +8,7 @@ export const routePaths = {
     children: {
       quickGuide: "quick-guide",
       overcomingIt: "overcoming-it",
-      info: "info",
+      moreInformation: "info",
     },
   },
   about: {
@@ -46,26 +48,21 @@ export const routes = [
     children: [
       {
         name: "Quick Guide",
-        path: "quick-guide",
+        path: routePaths.home.children.quickGuide,
         component: () =>
           import("../components/ViewsChildren/Home/QuickGuide.vue"),
       },
       {
         name: "Learning to Overcome It",
-        path: "overcoming-it",
+        path: routePaths.home.children.overcomingIt,
         component: () =>
           import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
       {
         name: "More Information",
-        path: "info",
-        meta: {
-          dummyData: async () => {
-            const module = await import("../data/MoreInformation.js");
-            return module.data();
-          },
-        },
-        component: () => import("../components/Blog/BlogMain.vue"),
+        path: routePaths.home.children.moreInformation,
+        component: () =>
+          import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
     ],
   },

@@ -1,7 +1,7 @@
 <template>
   <v-data-iterator
-    :items="stories"
-    :items-per-page.sync="storiesPerPage"
+    :items="itemsArray"
+    :items-per-page.sync="itemsPerPage"
     :page.sync="page"
     :search="search"
     hide-default-footer
@@ -38,8 +38,8 @@
         align-content="space-around"
       >
         <v-col
-          v-for="story in items"
-          :key="story.name + story.content"
+          v-for="item in items"
+          :key="item.title + item.body"
           cols="5"
           class="temp-border__item ma-1 pa-1"
         >
@@ -50,22 +50,19 @@
           >
             <v-img
               height="200px"
-              :src="story.img"
+              :src="item.img"
               class="flex-grow-0 flex-shrink-1"
             >
             </v-img>
 
             <!-- Fix text wrapping problem, done with word-break on css -->
             <v-card-title
-              v-text="story.name"
+              v-text="item.title"
               class="card-title-format text-h6 flex-grow-1 flex-shrink-0"
             >
             </v-card-title>
 
-            <v-card-text
-              v-text="story.content"
-              class="flex-grow-1 flex-shrink-0"
-            >
+            <v-card-text v-text="item.body" class="flex-grow-1 flex-shrink-0">
             </v-card-text>
           </v-card>
 
@@ -88,16 +85,16 @@
         <v-menu offset-y>
           <template #activator="{on, attrs}">
             <v-btn text color="primary" v-bind="attrs" v-on="on" class="ml-2">
-              {{ storiesPerPage }}
+              {{ itemsPerPage }}
               <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </template>
 
           <v-list>
             <v-list-item
-              v-for="(number, i) in storiesPerPageArray"
+              v-for="(number, i) in itemsPerPageArray"
               :key="number * i + i"
-              @click="updateStoriesPerPage(number)"
+              @click="updateItemsPerPage(number)"
             >
               <v-list-item-title v-text="number"></v-list-item-title>
             </v-list-item>
@@ -137,16 +134,18 @@
 </template>
 
 <script>
-//Vuex
-import { mapState } from "vuex";
-import { module as dummyDataModule } from "../../store/modules/dummyData.js";
-
 export default {
-  name: "GetSupportYourStories",
+  name: "CardIteratorMain",
+  props: {
+    itemsArray: {
+      type: Array,
+      required: true,
+    },
+  },
   data: () => ({
     search: "",
-    storiesPerPageArray: [3, 5, 8],
-    storiesPerPage: 3,
+    itemsPerPageArray: [3, 5, 8],
+    itemsPerPage: 3,
     page: 1,
     btn: {
       readMore: "read more",
@@ -155,16 +154,11 @@ export default {
   computed: {
     storyKeys() {
       //Pick a random story. In this case the first one since all of them should share the same structure
-      return Object.keys(this.stories[0]);
+      return Object.keys(this.itemsArray[0]);
     },
     numberOfPages() {
-      return Math.ceil(this.stories.length / this.storiesPerPage);
+      return Math.ceil(this.itemsArray.length / this.itemsPerPage);
     },
-
-    // Vuex bindings
-    ...mapState(dummyDataModule.name, {
-      stories: state => state.GetSupport.YourStories,
-    }),
   },
   methods: {
     nextPage() {
@@ -175,8 +169,8 @@ export default {
       const thereIsAPreviousPage = this.page - 1 >= 1;
       if (thereIsAPreviousPage) this.page -= 1;
     },
-    updateStoriesPerPage(number) {
-      this.storiesPerPage = number;
+    updateItemsPerPage(number) {
+      this.itemsPerPage = number;
     },
   },
 };

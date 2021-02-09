@@ -3,7 +3,7 @@
     v-if="exactRouteIsGetSupport"
     class="temp-border mt-n6 pa-2"
     fluid
-    ref="main-get-support-container"
+    :ref="refs.mainContainer"
   >
     <!-- 1st Row -->
     <v-row
@@ -90,7 +90,7 @@
   <!-- Route children -->
   <router-view
     v-else
-    ref="get-support_route-children"
+    :ref="refs.routerView"
     class="temp-border mt-n6 pa-0"
   ></router-view>
 </template>
@@ -108,6 +108,10 @@ export default {
   name: "GetSupportView",
   components: { LatestNewsCards, DonateNowCard },
   data: () => ({
+    refs: {
+      mainContainer: "get-support-view",
+      routerView: "get-support-view_route-children",
+    },
     headers: [
       {
         text: "Decibel",
@@ -225,25 +229,25 @@ export default {
   },
   methods: {
     scrollToTop() {
-      scrollToTopUtil(this, "main-get-support-container");
+      const {
+        support: { path: GetSupportPath },
+      } = routePaths;
+
+      //Scroll to top logic based on the route we actually are
+      const weAreInSupportPath = this.$route.path === GetSupportPath;
+
+      if (weAreInSupportPath) {
+        scrollToTopUtil(this, this.refs.mainContainer);
+      } else {
+        scrollToTopUtil(this, this.refs.routerView);
+      }
     },
   },
-  beforeMount() {
-    this.$store.dispatch("getLatestNews");
-  },
   mounted() {
-    //Scroll to top logic based on the route we actually are
-    const {
-      support: { path: supportPath },
-    } = routePaths;
-
-    const weAreInSupportPath = this.$route.path === supportPath;
-
-    if (weAreInSupportPath) {
-      scrollToTopUtil(this, "main-get-support-container");
-    } else {
-      scrollToTopUtil(this, "get-support_route-children");
-    }
+    this.scrollToTop();
+  },
+  updated() {
+    this.scrollToTop();
   },
 };
 </script>
