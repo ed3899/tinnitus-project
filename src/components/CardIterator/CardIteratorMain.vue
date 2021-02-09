@@ -43,28 +43,42 @@
           cols="5"
           class="temp-border__item ma-1 pa-1"
         >
-          <v-card
-            rounded="xl"
-            hover
-            class="temp-border__item pa-1 d-flex flex-column"
-          >
-            <v-img
-              height="200px"
-              :src="item.img"
-              class="flex-grow-0 flex-shrink-1"
-            >
-            </v-img>
+          <!-- Card -->
+          <v-hover #default="{hover}">
+            <v-card hover shaped class="temp-border__item d-flex flex-column">
+              <v-img
+                height="200px"
+                :src="item.img"
+                class="flex-grow-0 flex-shrink-1"
+              >
+              </v-img>
 
-            <!-- Fix text wrapping problem, done with word-break on css -->
-            <v-card-title
-              v-text="item.title"
-              class="card-title-format text-h6 flex-grow-1 flex-shrink-0"
-            >
-            </v-card-title>
+              <!-- Fixed text wrapping problem, done with word-break on css -->
+              <v-card-title
+                v-text="item.title"
+                class="card-title-format text-h6 flex-grow-1 flex-shrink-0"
+              >
+              </v-card-title>
 
-            <v-card-text v-text="item.body" class="flex-grow-1 flex-shrink-0">
-            </v-card-text>
-          </v-card>
+              <v-card-text v-text="item.body" class="flex-grow-1 flex-shrink-0">
+              </v-card-text>
+
+              <v-expand-transition>
+                <v-card
+                  v-if="hover"
+                  shaped
+                  class="d-flex align-center transition-fast-in-fast-out orange darken-2 v-card--reveal"
+                >
+                  <v-card-text class="pa-1 text-center">
+                    <h3
+                      v-text="btn.readMore"
+                      class="text-h3 text-capitalize white--text"
+                    ></h3>
+                  </v-card-text>
+                </v-card>
+              </v-expand-transition>
+            </v-card>
+          </v-hover>
 
           <v-divider></v-divider>
         </v-col>
@@ -179,5 +193,13 @@ export default {
 <style lang="scss" scoped>
 .card-title-format {
   word-break: normal;
+}
+
+.v-card--reveal {
+  bottom: 0;
+  opacity: 0.8 !important;
+  position: absolute;
+  width: 100%;
+  height: 100%;
 }
 </style>
