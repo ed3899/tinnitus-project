@@ -154,7 +154,8 @@
 </template>
 
 <script>
-import { routes } from "../router/routes";
+//Utils
+import { routeComparator as routeComparatorUtil } from "../utils/routeComparator.js";
 import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
 
 export default {
@@ -246,15 +247,7 @@ export default {
   }),
   computed: {
     exactRouteIsAbout() {
-      const [, { path: aboutPath1 }] = routes;
-      switch (this.$route.path) {
-        case aboutPath1: {
-          return true;
-        }
-        default: {
-          return false;
-        }
-      }
+      return routeComparatorUtil(this, "about");
     },
   },
   methods: {

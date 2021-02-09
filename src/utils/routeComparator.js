@@ -6,6 +6,10 @@ import { routePaths } from "../router/routes";
 //Provide string parentName and childName, this way I wouldn't need to
 // import routePaths everywhere. Just once
 
+//Component = Object
+//Parent name = string
+//child name = string
+
 export const routeComparator = (component, parentName, childName) => {
   //Add trim and to LowerCase. Cleaning functionality
   const {
@@ -16,7 +20,14 @@ export const routeComparator = (component, parentName, childName) => {
   } = routePaths;
 
   const actualPath = component.$route.path;
-  const comparisonRoute = `${parentPath}/${childPath}`;
+  const onlyParentNameProvided =
+    childName === false || childName === null || childName === undefined;
 
-  return actualPath === comparisonRoute;
+  if (onlyParentNameProvided) {
+    return actualPath === parentPath;
+  } else {
+    const comparisonRouteWithChildren = `${parentPath}/${childPath}`;
+
+    return actualPath === comparisonRouteWithChildren;
+  }
 };
