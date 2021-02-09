@@ -1,10 +1,10 @@
 <template>
-  <v-container class="temp-border__item pa-0">
+  <v-container class="temp-border__item pa-0 ma-0">
     <v-row
       v-for="{ title, body } in normalizedHeadings"
       :key="body"
       no-gutters
-      class="temp-border__item pa-3 ma-3"
+      class="temp-border__item pa-2 ma-1"
     >
       <template v-if="title.toLowerCase() === 'our mission'">
         <h2 v-text="title" class="text-h2"></h2>
@@ -85,14 +85,7 @@ export default {
           },
         ],
       },
-      {
-        title: "Together we can silence tinnitus",
-        body: `Please help us to support people living with tinnitus and drive progress towards a cure by donating here.`,
-      },
     ],
-    btns: {
-      donate: "donate",
-    },
   }),
   computed: {
     normalizedHeadings() {

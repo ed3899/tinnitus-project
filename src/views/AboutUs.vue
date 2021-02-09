@@ -149,9 +149,7 @@
     </v-container>
 
     <!-- About route-children -->
-    <v-row v-else>
-      <router-view></router-view>
-    </v-row>
+    <router-view v-else></router-view>
   </v-container>
 </template>
 

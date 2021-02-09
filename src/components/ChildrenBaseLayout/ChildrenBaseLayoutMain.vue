@@ -117,7 +117,6 @@ import GetSupportYourStories from "./GetSupport_YouStories.vue";
 
 export default {
   name: "ChildrenBaseLayoutMain",
-  ref: "children-base-layout",
   components: {
     Breadcrumbs,
     CarouselChildren,
@@ -141,6 +140,7 @@ export default {
     btns: {
       scrollToTop: "Back to top",
     },
+    ref: "children-base-layout",
   }),
   computed: {
     //% Home
