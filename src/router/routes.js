@@ -3,6 +3,8 @@
 
 //Avoid chaging property names
 
+//Next time create an object and sparce it across
+
 export const routePaths = {
   home: {
     path: "/home",
