@@ -1,235 +1,200 @@
 <template>
   <v-container fluid>
     <!-- Nav Bar -->
-    <v-app-bar
-      app
-      color="teal lighten-1"
-      height="65"
-      elevation="13"
-      class="overflow-hidden"
-    >
-      <v-container class="d-flex mt-2">
-        <v-col cols="4" align-self="center">
+    <v-app-bar app color="teal lighten-1" height="65" elevation="13">
+      <!-- First Row -->
+      <v-row
+        no-gutters
+        justify="space-around"
+        align-content="center"
+        align="center"
+      >
+        <!-- Title -->
+        <v-col cols="5">
           <v-app-bar-title v-text="appBar.title"></v-app-bar-title>
         </v-col>
 
-        <v-col cols="8">
-          <v-row
-            class="d-flex justify-end"
-            align-content="center"
-            align="center"
-            no-gutters
+        <!-- Icons -->
+        <v-col cols="6" class="d-flex justify-end align-center">
+          <!-- Search -->
+          <v-btn icon class="mr-10">
+            <v-icon v-text="appBar.icons.magnify"></v-icon>
+          </v-btn>
+
+          <!-- Social media -->
+          <v-btn
+            icon
+            v-for="({ icon, link }, i) in socialMediaIcons"
+            :key="icon + i"
+            :href="link"
           >
-            <v-btn icon class="mr-10">
-              <v-icon v-text="appBar.icons.magnify"></v-icon>
-            </v-btn>
+            <v-icon v-text="icon"></v-icon>
+          </v-btn>
 
-            <v-btn
-              icon
-              v-for="({ icon, link }, i) in socialMediaIcons"
-              :key="icon + i"
-              :href="link"
-            >
-              <v-icon v-text="icon"></v-icon>
-            </v-btn>
+          <!-- Donate and contact -->
+          <v-btn
+            v-text="appBar.btns.donate"
+            rounded
+            color="success"
+            class="ml-5"
+          ></v-btn>
 
-            <v-btn
-              v-text="appBar.btns.donate"
-              rounded
-              color="success"
-              class="ml-5"
-            ></v-btn>
+          <!-- Contact dialog -->
+          <v-dialog v-model="appBar.dialog" persistent max-width="600px">
+            <template #activator="{ on, attrs }">
+              <v-btn
+                v-text="appBar.btns.contact"
+                rounded
+                outlined
+                color="black"
+                class="ml-5"
+                v-bind="attrs"
+                v-on="on"
+              ></v-btn>
+            </template>
 
-            <v-dialog v-model="appBar.dialog" persistent max-width="600px">
-              <template #activator="{ on, attrs }">
+            <v-card>
+              <v-card-title>
+                <span class="headline">User Profile</span>
+              </v-card-title>
+              <v-card-text>
+                <v-container>
+                  <v-row>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        label="Legal first name*"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        label="Legal middle name"
+                        hint="example of helper text only on focus"
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6" md="4">
+                      <v-text-field
+                        label="Legal last name*"
+                        hint="example of persistent helper text"
+                        persistent-hint
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field label="Email*" required></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                      <v-text-field
+                        label="Password*"
+                        type="password"
+                        required
+                      ></v-text-field>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-select
+                        :items="['0-17', '18-29', '30-54', '54+']"
+                        label="Age*"
+                        required
+                      ></v-select>
+                    </v-col>
+                    <v-col cols="12" sm="6">
+                      <v-autocomplete
+                        :items="[
+                          'Skiing',
+                          'Ice hockey',
+                          'Soccer',
+                          'Basketball',
+                          'Hockey',
+                          'Reading',
+                          'Writing',
+                          'Coding',
+                          'Basejump',
+                        ]"
+                        label="Interests"
+                        multiple
+                      ></v-autocomplete>
+                    </v-col>
+                  </v-row>
+                </v-container>
+                <small>*indicates required field</small>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
                 <v-btn
-                  v-text="appBar.btns.contact"
-                  rounded
-                  outlined
-                  color="black"
-                  class="ml-5"
-                  v-bind="attrs"
-                  v-on="on"
-                ></v-btn>
-              </template>
-
-              <v-card>
-                <v-card-title>
-                  <span class="headline">User Profile</span>
-                </v-card-title>
-                <v-card-text>
-                  <v-container>
-                    <v-row>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Legal first name*"
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Legal middle name"
-                          hint="example of helper text only on focus"
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6" md="4">
-                        <v-text-field
-                          label="Legal last name*"
-                          hint="example of persistent helper text"
-                          persistent-hint
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field label="Email*" required></v-text-field>
-                      </v-col>
-                      <v-col cols="12">
-                        <v-text-field
-                          label="Password*"
-                          type="password"
-                          required
-                        ></v-text-field>
-                      </v-col>
-                      <v-col cols="12" sm="6">
-                        <v-select
-                          :items="['0-17', '18-29', '30-54', '54+']"
-                          label="Age*"
-                          required
-                        ></v-select>
-                      </v-col>
-                      <v-col cols="12" sm="6">
-                        <v-autocomplete
-                          :items="[
-                            'Skiing',
-                            'Ice hockey',
-                            'Soccer',
-                            'Basketball',
-                            'Hockey',
-                            'Reading',
-                            'Writing',
-                            'Coding',
-                            'Basejump',
-                          ]"
-                          label="Interests"
-                          multiple
-                        ></v-autocomplete>
-                      </v-col>
-                    </v-row>
-                  </v-container>
-                  <small>*indicates required field</small>
-                </v-card-text>
-                <v-card-actions>
-                  <v-spacer></v-spacer>
-                  <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="appBar.dialog = false"
-                  >
-                    Close
-                  </v-btn>
-                  <v-btn
-                    color="blue darken-1"
-                    text
-                    @click="appBar.dialog = false"
-                  >
-                    Save
-                  </v-btn>
-                </v-card-actions>
-              </v-card>
-            </v-dialog>
-          </v-row>
+                  color="blue darken-1"
+                  text
+                  @click="appBar.dialog = false"
+                >
+                  Close
+                </v-btn>
+                <v-btn
+                  color="blue darken-1"
+                  text
+                  @click="appBar.dialog = false"
+                >
+                  Save
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
         </v-col>
-      </v-container>
+      </v-row>
 
       <!-- NavTabs -->
       <template #extension>
-        <v-tabs centered slider-color="red" show-arrows>
-          <!-- Nav Tab Menu -->
-          <v-tab
+        <v-tabs
+          slider-color="red"
+          show-arrows
+          class="d-flex justify-space-around"
+        >
+          <v-menu
             v-for="({ path: parentPath, name, children }, i) in routes"
-            :key="i + parentPath"
+            :key="parentPath + name + children + i"
+            open-on-hover
+            offset-y
+            rounded="0"
+            close-on-content-click
+            right
+            transition="slide-y-transition"
           >
-            <v-menu open-on-hover offset-y rounded="0" close-on-content-click>
-              <template #activator="{on, attrs}">
-                <v-hover #default="{hover}">
-                  <v-tab
-                    :to="parentPath"
-                    exact-active-class="blue--text"
-                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                    v-text="name"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                    class="ms-3"
-                  >
-                  </v-tab>
-                </v-hover>
-              </template>
-            </v-menu>
-            <!-- <v-menu
-              open-on-hover
-              offset-y
-              rounded="0"
-              close-on-content-click
-              left
-            >
-              <template #activator="{ on, attrs }">
-                <v-hover v-if="parentAlias === '/home'" #default="{ hover }">
-                  <v-tab
-                    :to="parentAlias"
-                    exact-active-class="blue--text"
-                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                    v-text="name"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                    class="ms-3"
-                  >
-                  </v-tab>
-                </v-hover>
-
-                <v-hover v-else #default="{ hover }">
-                  <v-tab
-                    :to="parentPath"
-                    exact-active-class="blue--text"
-                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                    v-text="name"
-                    dark
-                    v-bind="attrs"
-                    v-on="on"
-                    class="ms-3"
-                  >
-                  </v-tab>
-                </v-hover>
-              </template>
-
-              <v-list>
-                <v-hover
-                  v-for="({ name, path: childrenPath }, i) in children"
-                  :key="i"
-                  #default="{ hover }"
+            <template #activator="{ on, attrs }">
+              <v-hover #default="{ hover }">
+                <!-- Menu parent -->
+                <v-tab
+                  v-text="name"
+                  v-bind="attrs"
+                  v-on="on"
+                  :to="parentPath"
+                  exact-active-class="white--text"
+                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                  class="mx-10 tab-menu-parent-format"
                 >
-                  <v-list-item
-                    v-if="parentAlias === '/home'"
-                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                    class="align-self-center mr-4"
-                    :to="`${parentAlias}/${childrenPath}`"
-                  >
-                    <v-list-item-title v-text="name"></v-list-item-title>
-                  </v-list-item>
+                </v-tab>
+              </v-hover>
+            </template>
 
-                  <v-list-item
-                    v-else
-                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                    class="align-self-center mr-4"
-                    :to="`${parentPath}/${childrenPath}`"
-                  >
-                    <v-list-item-title v-text="name"></v-list-item-title>
-                  </v-list-item>
-                </v-hover>
-              </v-list>
-            </v-menu> -->
-          </v-tab>
+            <!-- Menu children -->
+            <v-list>
+              <v-hover
+                v-for="({ name, path: childrenPath }, i) in children"
+                :key="i + childrenPath + name"
+                #default="{ hover }"
+              >
+                <v-list-item
+                  :to="`${parentPath}/${childrenPath}`"
+                  exact-active-class="blue darken-1 rounded-0 white--text"
+                  :class="{ 'blue darken-1 rounded-0': hover }"
+                  class="mr-4"
+                >
+                  <v-list-item-title
+                    v-text="name"
+                    :class="{ 'white--text': hover }"
+                    class="text-capitalize"
+                  ></v-list-item-title>
+                </v-list-item>
+              </v-hover>
+            </v-list>
+          </v-menu>
         </v-tabs>
       </template>
     </v-app-bar>
@@ -238,7 +203,6 @@
 
 <script>
 //% Vuex
-import { mapMutations } from "vuex";
 import { routes } from "../../router/routes.js";
 import { mapState } from "vuex";
 
@@ -276,28 +240,6 @@ export default {
       dialog: false,
     },
   }),
-  methods: {
-    openDrawer() {
-      this.isDrawerOpen = !this.isDrawerOpen;
-    },
-    ...mapMutations({
-      toggleCentralDrawerState: "toggleDrawerState",
-    }),
-  },
-  watch: {
-    //Closing drawer in case an option is clicked
-    group: {
-      handler(val, oldVal) {
-        this.isDrawerOpen = false;
-      },
-    },
-    //Notifying central state of drawer state
-    isDrawerOpen: {
-      handler(val, oldVal) {
-        this.toggleCentralDrawerState();
-      },
-    },
-  },
   computed: {
     ...mapState({
       socialMediaIcons: state => state.socialMediaIcons,
@@ -306,4 +248,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.tab-menu-parent-format {
+  width: 50rem;
+}
+</style>

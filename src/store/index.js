@@ -11,10 +11,6 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: () => ({
-    NavBarMain: {
-      isDrawerOpen: false,
-    },
-
     //Used by Breadcrumbs.vue
     currentBreadcrumbs: [],
 
@@ -26,9 +22,6 @@ export default new Vuex.Store({
     ],
   }),
   mutations: {
-    [Mutations.TOGGLE_DRAWER_STATE](state, payload) {
-      state.NavBarMain.isDrawerOpen = !state.NavBarMain.isDrawerOpen;
-    },
     [Mutations.CREATE_BREADCRUMBS](state, { component }) {
       const matchedRoutesArray = component.$route.matched;
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
