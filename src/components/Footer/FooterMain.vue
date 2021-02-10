@@ -150,11 +150,6 @@ export default {
       socialMediaIcons: state => state.socialMediaIcons,
     }),
   },
-  methods: {
-    revealCardToggle() {
-      this.reveal = !this.reveal;
-    },
-  },
   beforeMount() {
     this.actualYearSetter = this.materialsCard.subtitle;
   },

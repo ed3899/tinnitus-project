@@ -15,10 +15,6 @@ export default new Vuex.Store({
       isDrawerOpen: false,
     },
 
-    CentralState: {
-      currentBreadcrumbs: [],
-    },
-
     //Used by Breadcrumbs.vue
     currentBreadcrumbs: [],
 

@@ -76,11 +76,14 @@
 </template>
 
 <script>
+//Components
+import Breadcrumbs from "../../Breadcrumbs/Breadcrumbs.vue";
+
 //Utils
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
 
-//Components
-import Breadcrumbs from "../../Breadcrumbs/Breadcrumbs.vue";
+//Mutations
+import * as Mutations from "../../../store/mutations/mutations.js";
 
 export default {
   name: "QuickGuide",
@@ -156,7 +159,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.commit({ type: "createBreadcrumbs", component: vm });
+      vm.$store.commit({ type: Mutations.CREATE_BREADCRUMBS, component: vm });
     });
   },
 };

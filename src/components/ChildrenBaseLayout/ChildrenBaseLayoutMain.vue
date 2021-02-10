@@ -47,7 +47,9 @@
           v-else-if="actualRouteIsAbout_OurTeam"
           :itemsArray="about_ourTeamData"
         />
-        <AboutHowYourMoneyHelps v-else-if="actualRouteIsAbout_HowYourMoneyHelps" />
+        <AboutHowYourMoneyHelps
+          v-else-if="actualRouteIsAbout_HowYourMoneyHelps"
+        />
 
         <!-- Get Support -->
         <GetSupportWhereCanIGetHelp
@@ -98,6 +100,9 @@ import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
 //Vuex
 import { mapState } from "vuex";
 import { module as dummyDataModule } from "../../store/modules/dummyData.js";
+
+//Mutations
+import * as Mutations from "../../store/mutations/mutations.js";
 
 //Components
 import CarouselChildren from "../Carousel/CarouselChildren.vue";
@@ -206,7 +211,7 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.commit({ type: "createBreadcrumbs", component: vm });
+      vm.$store.commit({ type: Mutations.CREATE_BREADCRUMBS, component: vm });
     });
   },
 };
