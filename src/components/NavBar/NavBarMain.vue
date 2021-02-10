@@ -52,6 +52,7 @@
                   v-on="on"
                 ></v-btn>
               </template>
+
               <v-card>
                 <v-card-title>
                   <span class="headline">User Profile</span>
@@ -141,76 +142,94 @@
       </v-container>
 
       <!-- NavTabs -->
-
       <template #extension>
-        <v-tabs fixed-tabs slider-color="red" show-arrows>
+        <v-tabs centered slider-color="red" show-arrows>
           <!-- Nav Tab Menu -->
-          <v-menu
-            v-for="({ path: parentPath, alias: parentAlias, name, children },
-            i) in routes"
-            :key="i"
-            open-on-hover
-            offset-y
-            rounded="0"
-            close-on-content-click
-            left
+          <v-tab
+            v-for="({ path: parentPath, name, children }, i) in routes"
+            :key="i + parentPath"
           >
-            <template #activator="{ on, attrs }">
-              <v-hover v-if="parentAlias === '/home'" #default="{ hover }">
-                <v-tab
-                  :to="parentAlias"
-                  exact-active-class="blue--text"
-                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                  v-text="name"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  class="ms-3"
-                >
-                </v-tab>
-              </v-hover>
+            <v-menu open-on-hover offset-y rounded="0" close-on-content-click>
+              <template #activator="{on, attrs}">
+                <v-hover #default="{hover}">
+                  <v-tab
+                    :to="parentPath"
+                    exact-active-class="blue--text"
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    v-text="name"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    class="ms-3"
+                  >
+                  </v-tab>
+                </v-hover>
+              </template>
+            </v-menu>
+            <!-- <v-menu
+              open-on-hover
+              offset-y
+              rounded="0"
+              close-on-content-click
+              left
+            >
+              <template #activator="{ on, attrs }">
+                <v-hover v-if="parentAlias === '/home'" #default="{ hover }">
+                  <v-tab
+                    :to="parentAlias"
+                    exact-active-class="blue--text"
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    v-text="name"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    class="ms-3"
+                  >
+                  </v-tab>
+                </v-hover>
 
-              <v-hover v-else #default="{ hover }">
-                <v-tab
-                  :to="parentPath"
-                  exact-active-class="blue--text"
-                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                  v-text="name"
-                  dark
-                  v-bind="attrs"
-                  v-on="on"
-                  class="ms-3"
-                >
-                </v-tab>
-              </v-hover>
-            </template>
+                <v-hover v-else #default="{ hover }">
+                  <v-tab
+                    :to="parentPath"
+                    exact-active-class="blue--text"
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    v-text="name"
+                    dark
+                    v-bind="attrs"
+                    v-on="on"
+                    class="ms-3"
+                  >
+                  </v-tab>
+                </v-hover>
+              </template>
 
-            <v-list>
-              <v-hover
-                v-for="({ name, path: childrenPath }, i) in children"
-                :key="i"
-                #default="{ hover }"
-              >
-                <v-list-item
-                  v-if="parentAlias === '/home'"
-                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                  class="align-self-center mr-4"
-                  :to="`${parentAlias}/${childrenPath}`"
+              <v-list>
+                <v-hover
+                  v-for="({ name, path: childrenPath }, i) in children"
+                  :key="i"
+                  #default="{ hover }"
                 >
-                  <v-list-item-title v-text="name"></v-list-item-title>
-                </v-list-item>
+                  <v-list-item
+                    v-if="parentAlias === '/home'"
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    class="align-self-center mr-4"
+                    :to="`${parentAlias}/${childrenPath}`"
+                  >
+                    <v-list-item-title v-text="name"></v-list-item-title>
+                  </v-list-item>
 
-                <v-list-item
-                  v-else
-                  :class="{ 'blue darken-1 rounded-0 white--text': hover }"
-                  class="align-self-center mr-4"
-                  :to="`${parentPath}/${childrenPath}`"
-                >
-                  <v-list-item-title v-text="name"></v-list-item-title>
-                </v-list-item>
-              </v-hover>
-            </v-list>
-          </v-menu>
+                  <v-list-item
+                    v-else
+                    :class="{ 'blue darken-1 rounded-0 white--text': hover }"
+                    class="align-self-center mr-4"
+                    :to="`${parentPath}/${childrenPath}`"
+                  >
+                    <v-list-item-title v-text="name"></v-list-item-title>
+                  </v-list-item>
+                </v-hover>
+              </v-list>
+            </v-menu> -->
+          </v-tab>
         </v-tabs>
       </template>
     </v-app-bar>

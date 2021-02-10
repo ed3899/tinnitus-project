@@ -33,14 +33,6 @@ export const routePaths = {
       yourStories: "your-stories",
     },
   },
-  research: {
-    path: "/research",
-    name: "Research",
-    children: {
-      researchNews: "news",
-      takingPart: "taking-part",
-    },
-  },
 };
 
 export const routes = [
@@ -116,26 +108,6 @@ export const routes = [
         path: routePaths.support.children.yourStories,
         component: () =>
           import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
-      },
-    ],
-  },
-  {
-    path: routePaths.research.path,
-    name: routePaths.research.name,
-    icon: "mdi-email",
-    component: () => import("../views/ResearchView.vue"),
-    children: [
-      {
-        name: "Research News",
-        path: routePaths.research.children.researchNews,
-        component: () =>
-          import("../components/ViewsChildren/Research/ResearchNews.vue"),
-      },
-      {
-        name: "Taking Part",
-        path: routePaths.research.children.takingPart,
-        component: () =>
-          import("../components/ViewsChildren/Research/TakingPart.vue"),
       },
     ],
   },
