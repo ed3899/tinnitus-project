@@ -14,9 +14,15 @@ export default new Vuex.Store({
     NavBarMain: {
       isDrawerOpen: false,
     },
+
     CentralState: {
       currentBreadcrumbs: [],
     },
+
+    //Used by Breadcrumbs.vue
+    currentBreadcrumbs: [],
+
+    //Used by NavBarMain.vue and FooterMain.vue
     socialMediaIcons: [
       { icon: "mdi-facebook" },
       { icon: "mdi-twitter" },
@@ -41,7 +47,7 @@ export default new Vuex.Store({
             exact: true,
           };
         });
-        state.CentralState.currentBreadcrumbs = normalBreadcrumbRoutes;
+        state.currentBreadcrumbs = normalBreadcrumbRoutes;
       };
 
       if (thereAreMatchedRoutes) {

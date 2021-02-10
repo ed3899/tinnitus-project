@@ -29,11 +29,7 @@
 
     <!-- Breadcrumbs -->
     <v-row no-gutters class="temp-border__item ma-3">
-      <v-breadcrumbs :items="breadcrumbItems">
-        <template #divider>
-          <v-icon>mdi-chevron-right</v-icon>
-        </template>
-      </v-breadcrumbs>
+      <Breadcrumbs />
     </v-row>
 
     <!-- 2nd row -->
@@ -80,11 +76,17 @@
 </template>
 
 <script>
+//Utils
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
-import { mapState } from "vuex";
+
+//Components
+import Breadcrumbs from "../../Breadcrumbs/Breadcrumbs.vue";
 
 export default {
   name: "QuickGuide",
+  components: {
+    Breadcrumbs,
+  },
   data: () => ({
     firstCol: {
       heading: "What is tinnitus?",
@@ -147,11 +149,6 @@ export default {
     ],
     btnText: "Back to top",
   }),
-  computed: {
-    ...mapState({
-      breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
-    }),
-  },
   methods: {
     scrollToTop() {
       scrollToTopUtil(this, "top-container");

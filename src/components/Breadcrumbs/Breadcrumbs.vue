@@ -13,7 +13,7 @@ export default {
   name: "Breadcrumbs",
   computed: {
     ...mapState({
-      breadcrumbItems: state => state.CentralState.currentBreadcrumbs,
+      breadcrumbItems: state => state.currentBreadcrumbs,
     }),
   },
 };
