@@ -102,7 +102,10 @@ import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.
 import { routes, routePaths } from "../router/routes.js";
 import { mapState } from "vuex";
 
-import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
+import {
+  scrollToTop as scrollToTopUtil,
+  routeComparator as routeComparatorUtil,
+} from "../utils/index.js";
 
 export default {
   name: "GetSupportView",
@@ -110,7 +113,7 @@ export default {
   data: () => ({
     refs: {
       mainContainer: "get-support-view",
-      routerView: "get-support-view_route-children",
+      routerView: "get-support-view_router-view",
     },
     headers: [
       {
@@ -215,13 +218,7 @@ export default {
   }),
   computed: {
     exactRouteIsGetSupport() {
-      const [, , { path: getSupportPath }] = routes;
-      switch (this.$route.path) {
-        case getSupportPath:
-          return true;
-        default:
-          return false;
-      }
+      return routeComparatorUtil(this, "support");
     },
     ...mapState({
       latestNews: state => state.latestNews,

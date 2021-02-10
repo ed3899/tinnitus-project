@@ -284,7 +284,6 @@ export default {
       socialMediaIcons: state => state.socialMediaIcons,
     }),
   },
-  methods: {},
 };
 </script>
 
