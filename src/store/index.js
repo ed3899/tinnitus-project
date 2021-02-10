@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 import { module as dummyDataModule } from "./modules/dummyData.js";
+import * as Mutations from "./mutations/mutations";
 
 Vue.use(Vuex);
 
@@ -20,10 +21,10 @@ export default new Vuex.Store({
     ],
   }),
   mutations: {
-    toggleDrawerState(state, payload) {
+    [Mutations.TOGGLE_DRAWER_STATE](state, payload) {
       state.NavBarMain.isDrawerOpen = !state.NavBarMain.isDrawerOpen;
     },
-    createBreadcrumbs(state, { component }) {
+    [Mutations.CREATE_BREADCRUMBS](state, { component }) {
       const matchedRoutesArray = component.$route.matched;
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
 
