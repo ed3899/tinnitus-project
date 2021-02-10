@@ -47,6 +47,7 @@
           v-else-if="actualRouteIsAbout_OurTeam"
           :itemsArray="about_ourTeamData"
         />
+        <AboutHowYourMoneyHelps v-else-if="actualRouteIsAbout_HowYourMoneyHelps" />
 
         <!-- Get Support -->
         <GetSupportWhereCanIGetHelp
@@ -105,14 +106,14 @@ import DonateNowCard from "../DonateNow/DonateNowMain.vue";
 import LatestNewsCards from "../LatestNews/LatestNews.vue";
 
 //Route based components
-
 //% Home
-//In overcomingIt & More information
+//OvercomingIt & More information
 import CardIterator from "../CardIterator/CardIteratorMain.vue";
 
 //% About
 import AboutOurVision from "./About_OurVision.vue";
 import ExpansionPanelIterator from "../ExpansionPanelIterator/ExpansionPanelIterator.vue";
+import AboutHowYourMoneyHelps from "./About_HowYourMoneyHelps.vue";
 
 //% Get support
 import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
@@ -130,6 +131,7 @@ export default {
     CardIterator,
     AboutOurVision,
     ExpansionPanelIterator,
+    AboutHowYourMoneyHelps,
   },
   data: () => ({
     colors: [
@@ -169,6 +171,10 @@ export default {
     actualRouteIsAbout_OurTeam() {
       this.currentImageSrc = `https://images.unsplash.com/photo-1577962917302-cd874c4e31d2?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=889&q=80`;
       return routeComparatorUtil(this, "about", "team");
+    },
+    actualRouteIsAbout_HowYourMoneyHelps() {
+      this.currentImageSrc = `https://images.unsplash.com/photo-1579621970795-87facc2f976d?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=750&q=80`;
+      return routeComparatorUtil(this, "about", "howYourMoneyHelps");
     },
 
     //% Support

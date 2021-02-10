@@ -93,7 +93,7 @@ export const routes = [
         name: "How Your Money Helps",
         path: routePaths.about.children.howYourMoneyHelps,
         component: () =>
-          import("../components/ViewsChildren/AboutUs/Children.vue"),
+          import("../components/ChildrenBaseLayout/ChildrenBaseLayoutMain.vue"),
       },
     ],
   },
