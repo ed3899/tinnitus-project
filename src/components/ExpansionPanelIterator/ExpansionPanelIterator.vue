@@ -6,6 +6,7 @@
     :search="search"
     :footer-props="{ itemsPerPageOptions: itemsPerPageArray }"
   >
+    <!-- Header -->
     <template #header>
       <v-row no-gutters class="temp-border__item pa-1 ma-1">
         <v-text-field
@@ -20,6 +21,7 @@
       </v-row>
     </template>
 
+    <!-- Main -->
     <template #default="{items : teamArray}">
       <v-row no-gutters class="temp-border__item pa-1 ma-1">
         <v-expansion-panels>
