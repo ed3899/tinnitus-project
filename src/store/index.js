@@ -1,7 +1,10 @@
 import Vue from "vue";
 import Vuex from "vuex";
 
+//Modules
 import { module as dummyDataModule } from "./modules/dummyData.js";
+
+//Mutations
 import * as Mutations from "./mutations/mutations";
 
 Vue.use(Vuex);
