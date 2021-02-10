@@ -68,6 +68,16 @@
         cols="4"
         class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
       >
+        <DonateNowCard :height="'30%'" :width="'80%'" :elevation="8" />
+        <LatestNewsCards
+          v-for="{ title, links } in latestNews"
+          :key="title + links[0]"
+          :title="title"
+          :links="links"
+          :height="'30%'"
+          :width="'80%'"
+          :elevation="8"
+        />
       </v-col>
     </v-row>
 
@@ -99,7 +109,7 @@
 import { default as LatestNewsCards } from "../components/LatestNews/LatestNews.vue";
 import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.vue";
 
-import { routes, routePaths } from "../router/routes.js";
+import { routePaths } from "../router/routes.js";
 import { mapState } from "vuex";
 
 import {
@@ -220,8 +230,8 @@ export default {
     exactRouteIsGetSupport() {
       return routeComparatorUtil(this, "support");
     },
-    ...mapState({
-      latestNews: state => state.latestNews,
+    ...mapState("dummyData", {
+      latestNews: state => state.General.latestNews,
     }),
   },
   methods: {
