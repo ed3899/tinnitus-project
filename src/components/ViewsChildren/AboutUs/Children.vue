@@ -32,33 +32,13 @@
         class="temp-border__item pa-3 d-flex flex-column justify-space-around"
       >
         <!-- Conditional content -->
-
-        <ChildrenOurTeam
-          v-if="actualRouteIsOurTeam"
-          class="our-team-format"
-        />
-        <ChildrenHowYourMoneyHelps v-else-if="actualRouteIsMoney" />
+        <ChildrenHowYourMoneyHelps v-if="actualRouteIsMoney" />
       </v-col>
 
       <v-col
         cols="4"
         class="d-flex flex-column align-center justify-space-around second-col-format temp-border__item pa-3"
       >
-        <!-- <v-card
-          width="65%"
-          height="40%"
-          class="temp-border__item"
-          v-for="{ title, links } in dummyCardData"
-          :key="title"
-          elevation="13"
-        >
-          <v-card-title v-text="title"></v-card-title>
-
-          <v-row no-gutters v-for="link in links" :key="link">
-            <v-card-text v-text="link"></v-card-text>
-            <v-divider class="mx-4 purple"></v-divider>
-          </v-row>
-        </v-card> -->
       </v-col>
     </v-row>
 
@@ -79,12 +59,11 @@
 import { mapState } from "vuex";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
 
-import ChildrenOurTeam from "../AboutUs/ChildrenOurTeam.vue";
 import ChildrenHowYourMoneyHelps from "../AboutUs/ChildrenHowYourMoneyHelps.vue";
 
 export default {
   name: "AboutUsChildren",
-  components: { ChildrenOurTeam, ChildrenHowYourMoneyHelps },
+  components: { ChildrenHowYourMoneyHelps },
   data: () => ({
     btnText: "back to top",
   }),
