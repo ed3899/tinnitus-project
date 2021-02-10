@@ -55,7 +55,9 @@ export const routes = [
         name: "Quick Guide",
         path: routePaths.home.children.quickGuide,
         component: () =>
-          import("../components/ViewsChildren/Home/QuickGuide.vue"),
+          import(
+            "../components/ChildrenBaseLayout/UniqueChildren/QuickGuide.vue"
+          ),
       },
       {
         name: "Learning to Overcome It",
