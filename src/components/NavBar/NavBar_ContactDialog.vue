@@ -23,13 +23,15 @@
       <v-card-text>
         <v-row>
           <v-col cols="12" sm="6" md="4">
-            <v-text-field label="Legal first name*" required></v-text-field>
+            <v-text-field v-model="firstName" label="First Name*" required>
+            </v-text-field>
           </v-col>
 
           <v-col cols="12" sm="6" md="4">
             <v-text-field
-              label="Legal middle name"
+              label="Middle name"
               hint="example of helper text only on focus"
+              persistent-hint
             ></v-text-field>
           </v-col>
 
@@ -108,6 +110,12 @@
 </template>
 
 <script>
+//Vuex
+//Mutations
+import { formDialogMutations } from "../../store/mutations/index";
+//Modules
+import { formDialogModule } from "../../store/modules/index";
+
 export default {
   name: "NavBarContactDialog",
   props: {
@@ -128,6 +136,19 @@ export default {
       title: "user profile",
     },
   }),
+  computed: {
+    firstName: {
+      get() {
+        return this.$store.state.formDialog.firstName;
+      },
+      set(value) {
+        this.$store.commit({
+          type: `${formDialogModule.name}/${formDialogMutations.SET_FIRST_NAME}`,
+          value,
+        });
+      },
+    },
+  },
   methods: {
     updateToggleValue() {
       this.$emit("update:model-value");

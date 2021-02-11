@@ -2,10 +2,10 @@ import Vue from "vue";
 import Vuex from "vuex";
 
 //Modules
-import { module as dummyDataModule } from "./modules/dummyData.js";
+import { dummyDataModule, formDialogModule } from "./modules/index";
 
 //Mutations
-import * as Mutations from "./mutations/mutations";
+import { mainStoreMutations } from "./mutations/index";
 
 Vue.use(Vuex);
 
@@ -22,7 +22,7 @@ export default new Vuex.Store({
     ],
   }),
   mutations: {
-    [Mutations.CREATE_BREADCRUMBS](state, { component }) {
+    [mainStoreMutations.CREATE_BREADCRUMBS](state, { component }) {
       const matchedRoutesArray = component.$route.matched;
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
 
@@ -46,5 +46,6 @@ export default new Vuex.Store({
   },
   modules: {
     [dummyDataModule.name]: dummyDataModule,
+    [formDialogModule.name]: formDialogModule,
   },
 });

@@ -100,9 +100,8 @@ import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
 //Vuex
 import { mapState } from "vuex";
 import { module as dummyDataModule } from "../../store/modules/dummyData.js";
-
 //Mutations
-import * as Mutations from "../../store/mutations/mutations.js";
+import { mainStoreMutations } from "../../store/mutations/index";
 
 //Components
 import CarouselChildren from "../Carousel/CarouselChildren.vue";
@@ -211,7 +210,10 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.commit({ type: Mutations.CREATE_BREADCRUMBS, component: vm });
+      vm.$store.commit({
+        type: mainStoreMutations.CREATE_BREADCRUMBS,
+        component: vm,
+      });
     });
   },
 };

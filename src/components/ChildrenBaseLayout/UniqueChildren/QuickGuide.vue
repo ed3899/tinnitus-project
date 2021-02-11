@@ -83,7 +83,7 @@ import Breadcrumbs from "../../Breadcrumbs/Breadcrumbs.vue";
 import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
 
 //Mutations
-import * as Mutations from "../../../store/mutations/mutations.js";
+import { mainStoreMutations } from "../../../store/mutations/index";
 
 export default {
   name: "QuickGuide",
@@ -159,7 +159,10 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.commit({ type: Mutations.CREATE_BREADCRUMBS, component: vm });
+      vm.$store.commit({
+        type: mainStoreMutations.CREATE_BREADCRUMBS,
+        component: vm,
+      });
     });
   },
 };
