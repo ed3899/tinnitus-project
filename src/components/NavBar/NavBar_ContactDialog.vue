@@ -22,8 +22,16 @@
 
       <v-card-text>
         <v-row>
+          <!-- Name -->
           <v-col cols="12" sm="6" md="4">
-            <v-text-field v-model="firstName" label="First Name*" required>
+            <v-text-field
+              v-model="firstName"
+              :rules="formRules.firstName"
+              counter
+              label="First Name*"
+              clearable
+              required
+            >
             </v-text-field>
           </v-col>
 
@@ -134,6 +142,9 @@ export default {
     },
     popUpCard: {
       title: "user profile",
+    },
+    formRules: {
+      firstName: [v => v.length <= 25 || "Max 25 characters"],
     },
   }),
   computed: {
