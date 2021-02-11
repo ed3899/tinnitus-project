@@ -16,6 +16,7 @@
 
         <!-- Icons -->
         <v-col cols="6" class="d-flex justify-end align-center">
+          <!-- Add a row -->
           <!-- Search -->
           <v-btn icon class="mr-10">
             <v-icon v-text="appBar.icons.magnify"></v-icon>
@@ -40,103 +41,10 @@
           ></v-btn>
 
           <!-- Contact dialog -->
-          <v-dialog v-model="appBar.dialog" persistent max-width="600px">
-            <template #activator="{ on, attrs }">
-              <v-btn
-                v-text="appBar.btns.contact"
-                rounded
-                outlined
-                color="black"
-                class="ml-5"
-                v-bind="attrs"
-                v-on="on"
-              ></v-btn>
-            </template>
-
-            <v-card>
-              <v-card-title>
-                <span class="headline">User Profile</span>
-              </v-card-title>
-              <v-card-text>
-                <v-container>
-                  <v-row>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        label="Legal first name*"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        label="Legal middle name"
-                        hint="example of helper text only on focus"
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6" md="4">
-                      <v-text-field
-                        label="Legal last name*"
-                        hint="example of persistent helper text"
-                        persistent-hint
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field label="Email*" required></v-text-field>
-                    </v-col>
-                    <v-col cols="12">
-                      <v-text-field
-                        label="Password*"
-                        type="password"
-                        required
-                      ></v-text-field>
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                      <v-select
-                        :items="['0-17', '18-29', '30-54', '54+']"
-                        label="Age*"
-                        required
-                      ></v-select>
-                    </v-col>
-                    <v-col cols="12" sm="6">
-                      <v-autocomplete
-                        :items="[
-                          'Skiing',
-                          'Ice hockey',
-                          'Soccer',
-                          'Basketball',
-                          'Hockey',
-                          'Reading',
-                          'Writing',
-                          'Coding',
-                          'Basejump',
-                        ]"
-                        label="Interests"
-                        multiple
-                      ></v-autocomplete>
-                    </v-col>
-                  </v-row>
-                </v-container>
-                <small>*indicates required field</small>
-              </v-card-text>
-              <v-card-actions>
-                <v-spacer></v-spacer>
-                <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="appBar.dialog = false"
-                >
-                  Close
-                </v-btn>
-                <v-btn
-                  color="blue darken-1"
-                  text
-                  @click="appBar.dialog = false"
-                >
-                  Save
-                </v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-dialog>
+          <NavBarContactDialog
+            :model-value="appBar.dialog"
+            @update:model-value="appBar.dialog = !appBar.dialog"
+          />
         </v-col>
       </v-row>
 
@@ -157,9 +65,9 @@
             right
             transition="slide-y-transition"
           >
+            <!-- Parent menu -->
             <template #activator="{ on, attrs }">
               <v-hover #default="{ hover }">
-                <!-- Menu parent -->
                 <v-tab
                   v-text="name"
                   v-bind="attrs"
@@ -173,7 +81,7 @@
               </v-hover>
             </template>
 
-            <!-- Menu children -->
+            <!-- Children menu -->
             <v-list>
               <v-hover
                 v-for="({ name, path: childrenPath }, i) in children"
@@ -207,10 +115,11 @@ import { routes } from "../../router/routes.js";
 import { mapState } from "vuex";
 
 //% Components
+import NavBarContactDialog from "./NavBar_ContactDialog.vue";
 
 export default {
   name: "NavBarMain",
-  components: {},
+  components: { NavBarContactDialog },
   data: () => ({
     routes,
     appBar: {
