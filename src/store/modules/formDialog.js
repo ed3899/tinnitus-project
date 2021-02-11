@@ -11,6 +11,13 @@ export const module = {
     password: "",
   }),
   mutations: {
+    [formDialogMutations.RESET_FORM](state) {
+      state.middleName = "";
+      state.firstName = "";
+      state.lastName = "";
+      state.email = "";
+      state.password = "";
+    },
     [formDialogMutations.SET_FIRST_NAME](state, { value }) {
       state.firstName = value;
     },
