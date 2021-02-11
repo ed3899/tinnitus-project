@@ -50,6 +50,7 @@
           <v-col cols="12" sm="6" md="4">
             <v-text-field
               v-model="lastName"
+              :rules="formRules.lastName"
               counter
               maxlength="25"
               label="Last name*"
@@ -59,11 +60,21 @@
 
           <!-- Email -->
           <v-col cols="12">
-            <v-text-field label="Email*" required></v-text-field>
+            <v-text-field
+              v-model="email"
+              :rules="formRules.email"
+              label="Email*"
+              required
+            ></v-text-field>
           </v-col>
 
+          <!-- Password -->
           <v-col cols="12">
             <v-text-field
+              v-model="password"
+              :rules="formRules.password"
+              counter
+              minlength="8"
               label="Password*"
               type="password"
               required
@@ -151,6 +162,12 @@ export default {
     },
     formRules: {
       firstName: [v => !!v || "Name is required"],
+      lastName: [v => !!v || "Last name is required"],
+      email: [v => !!v || "Email is required"],
+      password: [
+        v => !!v || "Password is required",
+        v => (v || "").length >= 8 || "At least 8 characters",
+      ],
     },
   }),
   computed: {
@@ -183,6 +200,28 @@ export default {
       set(value) {
         this.$store.commit({
           type: `${formDialogModule.name}/${formDialogMutations.SET_LAST_NAME}`,
+          value,
+        });
+      },
+    },
+    email: {
+      get() {
+        this.$store.state.formDialog.email;
+      },
+      set(value) {
+        this.$store.commit({
+          type: `${formDialogModule.name}/${formDialogMutations.SET_EMAIL}`,
+          value,
+        });
+      },
+    },
+    password: {
+      get() {
+        this.$store.state.formDialog.password;
+      },
+      set(value) {
+        this.$store.commit({
+          type: `${formDialogModule.name}/${formDialogMutations.SET_PASSWORD}`,
           value,
         });
       },

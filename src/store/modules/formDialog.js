@@ -7,6 +7,8 @@ export const module = {
     firstName: "",
     middleName: "",
     lastName: "",
+    email: "",
+    password: "",
   }),
   mutations: {
     [formDialogMutations.SET_FIRST_NAME](state, { value }) {
@@ -17,6 +19,12 @@ export const module = {
     },
     [formDialogMutations.SET_LAST_NAME](state, { value }) {
       state.lastName = value;
+    },
+    [formDialogMutations.SET_EMAIL](state, { value }) {
+      state.email = value;
+    },
+    [formDialogMutations.SET_PASSWORD](state, { value }) {
+      state.password = value;
     },
   },
   actions: {},
