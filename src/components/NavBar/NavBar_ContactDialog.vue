@@ -27,6 +27,7 @@
             <v-text-field
               v-model="firstName"
               :rules="formRules.firstName"
+              maxlength="25"
               counter
               label="First Name*"
               clearable
@@ -35,23 +36,28 @@
             </v-text-field>
           </v-col>
 
+          <!-- Middle name -->
           <v-col cols="12" sm="6" md="4">
             <v-text-field
-              label="Middle name"
-              hint="example of helper text only on focus"
-              persistent-hint
+              v-model="middleName"
+              counter
+              maxlength="25"
+              label="Middle Name"
             ></v-text-field>
           </v-col>
 
+          <!-- Last name -->
           <v-col cols="12" sm="6" md="4">
             <v-text-field
-              label="Legal last name*"
-              hint="example of persistent helper text"
-              persistent-hint
+              v-model="lastName"
+              counter
+              maxlength="25"
+              label="Last name*"
               required
             ></v-text-field>
           </v-col>
 
+          <!-- Email -->
           <v-col cols="12">
             <v-text-field label="Email*" required></v-text-field>
           </v-col>
@@ -144,7 +150,7 @@ export default {
       title: "user profile",
     },
     formRules: {
-      firstName: [v => v.length <= 25 || "Max 25 characters"],
+      firstName: [v => !!v || "Name is required"],
     },
   }),
   computed: {
@@ -155,6 +161,28 @@ export default {
       set(value) {
         this.$store.commit({
           type: `${formDialogModule.name}/${formDialogMutations.SET_FIRST_NAME}`,
+          value,
+        });
+      },
+    },
+    middleName: {
+      get() {
+        this.$store.state.formDialog.middleName;
+      },
+      set(value) {
+        this.$store.commit({
+          type: `${formDialogModule.name}/${formDialogMutations.SET_MIDDLE_NAME}`,
+          value,
+        });
+      },
+    },
+    lastName: {
+      get() {
+        this.$store.state.formDialog.lastName;
+      },
+      set(value) {
+        this.$store.commit({
+          type: `${formDialogModule.name}/${formDialogMutations.SET_LAST_NAME}`,
           value,
         });
       },
