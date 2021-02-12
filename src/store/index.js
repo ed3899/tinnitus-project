@@ -49,15 +49,3 @@ export default new Vuex.Store({
     [formDialogModule.name]: formDialogModule,
   },
 });
-
-// if (module.hot) {
-//   module.hot.accept(["./mutations/index", "./modules/index"], () => {
-//     store.hotUpdate({
-//       mutations: require("./mutations/index"),
-//       modules: {
-//         [dummyDataModule.name]: dummyDataModule,
-//         [formDialogModule.name]: formDialogModule,
-//       },
-//     });
-//   });
-// }
