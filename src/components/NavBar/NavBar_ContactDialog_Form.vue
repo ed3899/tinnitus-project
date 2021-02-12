@@ -128,6 +128,7 @@ import { formDialogModule } from "../../store/modules/index";
 
 export default {
   name: "NavBarContactDialogForm",
+
   data: () => ({
     refs: {
       form: "popup-form",
