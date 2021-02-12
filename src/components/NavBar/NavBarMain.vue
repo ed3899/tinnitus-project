@@ -41,10 +41,7 @@
           ></v-btn>
 
           <!-- Contact dialog -->
-          <NavBarContactDialog
-            :model-value="appBar.dialog"
-            @update:model-value="appBar.dialog = !appBar.dialog"
-          />
+          <NavBarContactDialog />
         </v-col>
       </v-row>
 
@@ -146,7 +143,6 @@ export default {
           { text: "Our office: 0114 250 9933" },
         ],
       },
-      dialog: false,
     },
   }),
   computed: {

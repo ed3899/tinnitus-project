@@ -5,4 +5,6 @@ export const mutations = {
   SET_LAST_NAME: "setLastName",
   SET_EMAIL: "setEmail",
   SET_PASSWORD: "setPassword",
+  OPEN_DIALOG: "openDialog",
+  CLOSE_DIALOG: "closeDialog",
 };

@@ -9,6 +9,7 @@ export const module = {
     lastName: "",
     email: "",
     password: "",
+    isOpen: false,
   }),
   mutations: {
     [formDialogMutations.RESET_FORM](state) {
@@ -32,6 +33,12 @@ export const module = {
     },
     [formDialogMutations.SET_PASSWORD](state, { value }) {
       state.password = value;
+    },
+    [formDialogMutations.OPEN_DIALOG](state) {
+      state.isOpen = true;
+    },
+    [formDialogMutations.CLOSE_DIALOG](state) {
+      state.isOpen = false;
     },
   },
   actions: {},

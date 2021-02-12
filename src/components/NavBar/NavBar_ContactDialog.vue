@@ -1,12 +1,12 @@
 <template>
-  <v-dialog :value="modelValue" persistent max-width="600px">
+  <v-dialog :value="isOpen" persistent max-width="600px">
     <!-- Activator btn -->
     <template #activator="{ on, attrs }">
       <v-btn
         v-text="btns.contact"
         v-on="on"
         v-bind="attrs"
-        @click="updateToggleValue"
+        @click="openDialog"
         rounded
         outlined
         color="black"
@@ -15,7 +15,7 @@
     </template>
 
     <!-- Pop-up form -->
-    <v-card>
+    <!-- <v-card>
       <v-form :ref="refs.form">
         <v-card-title>
           <span
@@ -26,7 +26,7 @@
 
         <v-card-text>
           <v-row>
-            <!-- Name -->
+            
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 v-model="firstName"
@@ -40,7 +40,7 @@
               </v-text-field>
             </v-col>
 
-            <!-- Middle name -->
+            
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 v-model="middleName"
@@ -50,7 +50,7 @@
               ></v-text-field>
             </v-col>
 
-            <!-- Last name -->
+            
             <v-col cols="12" sm="6" md="4">
               <v-text-field
                 v-model="lastName"
@@ -62,7 +62,7 @@
               ></v-text-field>
             </v-col>
 
-            <!-- Email -->
+           
             <v-col cols="12">
               <v-text-field
                 v-model="email"
@@ -72,7 +72,7 @@
               ></v-text-field>
             </v-col>
 
-            <!-- Password -->
+           
             <v-col cols="12">
               <v-text-field
                 v-model="password"
@@ -135,117 +135,39 @@
           </v-btn>
         </v-card-actions>
       </v-form>
-    </v-card>
+    </v-card> -->
+    <NavBarContactDialogForm />
   </v-dialog>
 </template>
 
 <script>
 //Vuex
+import { mapState, mapMutations } from "vuex";
 //Mutations
 import { formDialogMutations } from "../../store/mutations/index";
 //Modules
 import { formDialogModule } from "../../store/modules/index";
 
+import NavBarContactDialogForm from "./NavBar_ContactDialog_Form.vue";
+
 export default {
   name: "NavBarContactDialog",
-  props: {
-    modelValue: {
-      type: Boolean,
-      default: false,
-      required: true,
-    },
-  },
+  components: { NavBarContactDialogForm },
   emits: ["update:modelValue"],
   data: () => ({
     btns: {
       contact: "contact us",
-      cancel: "cancel",
-      save: "save",
-    },
-    popUpCard: {
-      title: "user profile",
-    },
-    formRules: {
-      firstName: [v => !!v || "Name is required"],
-      lastName: [v => !!v || "Last name is required"],
-      email: [v => !!v || "Email is required"],
-      password: [
-        v => !!v || "Password is required",
-        v => (v || "").length >= 8 || "At least 8 characters",
-      ],
-    },
-    refs: {
-      form: "popup-form",
     },
   }),
   computed: {
-    firstName: {
-      get() {
-        return this.$store.state.formDialog.firstName;
-      },
-      set(value) {
-        this.$store.commit({
-          type: `${formDialogModule.name}/${formDialogMutations.SET_FIRST_NAME}`,
-          value,
-        });
-      },
-    },
-    middleName: {
-      get() {
-        return this.$store.state.formDialog.middleName;
-      },
-      set(value) {
-        this.$store.commit({
-          type: `${formDialogModule.name}/${formDialogMutations.SET_MIDDLE_NAME}`,
-          value,
-        });
-      },
-    },
-    lastName: {
-      get() {
-        return this.$store.state.formDialog.lastName;
-      },
-      set(value) {
-        this.$store.commit({
-          type: `${formDialogModule.name}/${formDialogMutations.SET_LAST_NAME}`,
-          value,
-        });
-      },
-    },
-    email: {
-      get() {
-        return this.$store.state.formDialog.email;
-      },
-      set(value) {
-        this.$store.commit({
-          type: `${formDialogModule.name}/${formDialogMutations.SET_EMAIL}`,
-          value,
-        });
-      },
-    },
-    password: {
-      get() {
-        return this.$store.state.formDialog.password;
-      },
-      set(value) {
-        this.$store.commit({
-          type: `${formDialogModule.name}/${formDialogMutations.SET_PASSWORD}`,
-          value,
-        });
-      },
-    },
+    ...mapState(`${formDialogModule.name}`, {
+      isOpen: state => state.isOpen,
+    }),
   },
   methods: {
-    updateToggleValue() {
-      this.$emit("update:model-value");
-    },
-    cancelForm() {
-      this.$emit("update:model-value");
-      this.$store.commit({
-        type: `${formDialogModule.name}/${formDialogMutations.RESET_FORM}`,
-      });
-      this.$refs[this.refs.form].reset();
-    },
+    ...mapMutations(formDialogModule.name, {
+      openDialog: formDialogMutations.OPEN_DIALOG,
+    }),
   },
 };
 </script>
