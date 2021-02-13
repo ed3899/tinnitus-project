@@ -6,19 +6,24 @@
     fluid
   >
     <!-- 1st Row -->
-    <v-row no-gutters class="mb-3">
+    <v-row class>
       <CarouselMain :height="'70vh'" />
     </v-row>
 
     <!-- 2nd Row -->
-    <v-row no-gutters class="my-3">
-      <v-row no-gutters class="my-3">
+    <v-row no-gutters class="temp-border ma-1 pa-1">
+      <v-row no-gutters class="temp-border">
         <h1 class="text-capitalize">All you need to know about tinnitus</h1>
       </v-row>
 
-      <v-row no-gutters justify="space-between" class="my-3">
-        <v-col v-for="{ title, text } in cards" cols="3" :key="title">
-          <v-card max-width="300">
+      <v-row no-gutters justify="space-between" class="temp-border my-1 pa-1">
+        <v-col
+          v-for="{ title, text } in cards"
+          cols="3"
+          :key="title"
+          class="temp-border d-flex justify-center"
+        >
+          <v-card width="90%" elevation="13">
             <v-img
               class="white--text"
               max-height="200px"
@@ -44,14 +49,19 @@
     </v-row>
 
     <!-- 3rd Row -->
-    <v-row no-gutters class="my-3">
-      <v-row no-gutters class="my-3">
+    <v-row no-gutters class="temp-border ma-1 pa-1">
+      <v-row no-gutters class="temp-border">
         <h1 class="text-capitalize">Latest news</h1>
       </v-row>
 
-      <v-row no-gutters justify="space-between" class="my-3">
-        <v-col v-for="{ title, body } in news" cols="4" :key="title">
-          <v-card max-width="400">
+      <v-row no-gutters justify="space-between" class="temp-border my-1 pa-1">
+        <v-col
+          v-for="{ title, body } in news"
+          cols="4"
+          :key="title"
+          class="temp-border d-flex justify-center"
+        >
+          <v-card width="90%">
             <v-img
               max-height="200px"
               src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
@@ -80,33 +90,32 @@
     </v-row>
 
     <!-- 4th Row -->
-    <v-row no-gutters class="my-3">
-      <v-row no-gutters justify="space-between" class="my-3">
-        <v-col
-          v-for="{ title, body, btn, color } in extra"
-          :key="body"
-          cols="4"
+    <v-row no-gutters class="temp-border ma-1 pa-1" justify="space-around">
+      <v-col
+        v-for="{ title, body, btn, color } in extra"
+        :key="body"
+        cols="4"
+        class="temp-border d-flex justify-center"
+      >
+        <v-card
+          height="275"
+          max-width="350"
+          :color="color"
+          class="d-flex flex-column justify-space-around"
         >
-          <v-card
-            height="275"
-            max-width="350"
-            :color="color"
-            class="d-flex flex-column justify-space-around"
-          >
-            <v-card-title v-text="title" class="white--text"></v-card-title>
+          <v-card-title v-text="title" class="white--text"></v-card-title>
 
-            <v-card-text v-text="body" class="card-format"></v-card-text>
+          <v-card-text v-text="body" class="card-format"></v-card-text>
 
-            <v-card-actions class="align-self-start">
-              <v-btn
-                v-text="btn"
-                color="rgb(87, 195, 178)"
-                class="white--text"
-              ></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+          <v-card-actions class="align-self-start">
+            <v-btn
+              v-text="btn"
+              color="rgb(87, 195, 178)"
+              class="white--text"
+            ></v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-col>
     </v-row>
     <!-- Add a button with scroll to top functionality -->
   </v-container>
