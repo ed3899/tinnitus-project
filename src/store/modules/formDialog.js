@@ -8,17 +8,10 @@ export const module = {
     middleName: "",
     lastName: "",
     email: "",
-    password: "",
+    subscribeToNewsletter: false,
     isOpen: false,
   }),
   mutations: {
-    [formDialogMutations.RESET_FORM](state) {
-      state.middleName = "";
-      state.firstName = "";
-      state.lastName = "";
-      state.email = "";
-      state.password = "";
-    },
     [formDialogMutations.SET_FIRST_NAME](state, { value }) {
       state.firstName = value;
     },
@@ -31,14 +24,22 @@ export const module = {
     [formDialogMutations.SET_EMAIL](state, { value }) {
       state.email = value;
     },
-    [formDialogMutations.SET_PASSWORD](state, { value }) {
-      state.password = value;
+    [formDialogMutations.SUBSCRIBE_NEWSLETTER](state) {
+      //Switch toggle
+      state.subscribeToNewsletter = !state.subscribeToNewsletter;
     },
     [formDialogMutations.OPEN_DIALOG](state) {
       state.isOpen = true;
     },
     [formDialogMutations.CLOSE_DIALOG](state) {
       state.isOpen = false;
+    },
+    [formDialogMutations.RESET_FORM](state) {
+      state.middleName = "";
+      state.firstName = "";
+      state.lastName = "";
+      state.email = "";
+      state.subscribeToNewsletter = false;
     },
   },
   actions: {},

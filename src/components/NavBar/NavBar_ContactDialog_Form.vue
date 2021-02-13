@@ -1,12 +1,12 @@
 <template>
-  <v-card>
+  <v-card height="500px">
     <v-form :ref="refs.form">
       <v-card-title>
         <span v-text="title" class="headline text-capitalize"></span>
       </v-card-title>
 
       <v-card-text>
-        <v-row>
+        <v-row class="temp-border mb-1">
           <!-- Name -->
           <v-col cols="12" sm="6" md="4">
             <v-text-field
@@ -53,43 +53,24 @@
             ></v-text-field>
           </v-col>
 
-          <!-- Password -->
           <v-col cols="12">
-            <v-text-field
-              v-model="password"
-              :rules="rules.password"
-              counter
-              minlength="8"
-              label="Password*"
-              type="password"
-              required
-            ></v-text-field>
-          </v-col>
-
-          <v-col cols="12" sm="6">
             <v-select
               :items="['0-17', '18-29', '30-54', '54+']"
+              :rules="rules.age"
               label="Age*"
               required
             ></v-select>
           </v-col>
+        </v-row>
 
+        <v-row class="temp-border my-1">
           <v-col cols="12" sm="6">
-            <v-autocomplete
-              :items="[
-                'Skiing',
-                'Ice hockey',
-                'Soccer',
-                'Basketball',
-                'Hockey',
-                'Reading',
-                'Writing',
-                'Coding',
-                'Basejump',
-              ]"
-              label="Interests"
-              multiple
-            ></v-autocomplete>
+            <v-switch
+              v-model="subscribeToNewsletter"
+              :label="switches.subscribeToNewsletter"
+              color="info"
+              inset
+            ></v-switch>
           </v-col>
         </v-row>
 
@@ -138,14 +119,14 @@ export default {
       firstName: [v => !!v || "Name is required"],
       lastName: [v => !!v || "Last name is required"],
       email: [v => !!v || "Email is required"],
-      password: [
-        v => !!v || "Password is required",
-        v => (v || "").length >= 8 || "At least 8 characters",
-      ],
+      age: [v => !!v || "Age is required"],
     },
     btns: {
       cancel: "cancel",
       save: "save",
+    },
+    switches: {
+      subscribeToNewsletter: "Subscribe to our newsletter",
     },
   }),
   computed: {
@@ -194,14 +175,13 @@ export default {
         });
       },
     },
-    password: {
+    subscribeToNewsletter: {
       get() {
-        return this.$store.state.formDialog.password;
+        return this.$store.state.formDialog.subscribeToNewsletter;
       },
-      set(value) {
+      set() {
         this.$store.commit({
-          type: `${formDialogModule.name}/${formDialogMutations.SET_PASSWORD}`,
-          value,
+          type: `${formDialogModule.name}/${formDialogMutations.SUBSCRIBE_NEWSLETTER}`,
         });
       },
     },
