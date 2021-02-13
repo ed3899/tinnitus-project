@@ -8,6 +8,12 @@ export const module = {
     middleName: "",
     lastName: "",
     email: "",
+    ageRange: "",
+    inquiry: {
+      type: "",
+      subject: "",
+    },
+    textArea: "",
     subscribeToNewsletter: false,
     isOpen: false,
   }),
@@ -24,22 +30,27 @@ export const module = {
     [formDialogMutations.SET_EMAIL](state, { value }) {
       state.email = value;
     },
-    [formDialogMutations.SUBSCRIBE_NEWSLETTER](state) {
+    [formDialogMutations.SET_AGE_RANGE](state, { value }) {
+      state.ageRange = value;
+    },
+    [formDialogMutations.SET_INQUIRY_TYPE](state, { value }) {
+      state.inquiry.type = value;
+    },
+    [formDialogMutations.SET_INQUIRY_SUB](state, { value }) {
+      state.inquiry.subject = value;
+    },
+    [formDialogMutations.SET_TEXTAREA](state, { value }) {
+      state.textArea = value;
+    },
+    [formDialogMutations.SUBSCRIBE_NEWSLETTER](state, { value }) {
       //Switch toggle
-      state.subscribeToNewsletter = !state.subscribeToNewsletter;
+      state.subscribeToNewsletter = value;
     },
     [formDialogMutations.OPEN_DIALOG](state) {
       state.isOpen = true;
     },
     [formDialogMutations.CLOSE_DIALOG](state) {
       state.isOpen = false;
-    },
-    [formDialogMutations.RESET_FORM](state) {
-      state.middleName = "";
-      state.firstName = "";
-      state.lastName = "";
-      state.email = "";
-      state.subscribeToNewsletter = false;
     },
   },
   actions: {},
