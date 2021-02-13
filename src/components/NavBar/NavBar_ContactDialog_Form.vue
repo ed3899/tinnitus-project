@@ -204,7 +204,7 @@ export default {
       { option: "just saying thank you!" },
       { option: "other" },
     ],
-    maxTextAreaCharacters: 50,
+    maxTextAreaCharacters: 1000,
   }),
   computed: {
     //To Vuex
