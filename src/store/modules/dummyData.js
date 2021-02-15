@@ -46,6 +46,14 @@ export const module = {
             title: "Covid-19, the BTA & you",
             text: `We’re all following the news and have concerns re: Covid-19. This is what we're doing at the BTA to continue to support you.`,
           },
+          {
+            title: "Lorem ipsum dolor sit amet consectetur asdfasdfas",
+            text: `adipisicasdfasdfing elit. Eius quam facere animi sequi facilis quis, ab eos, nostrum illo laboriosam odit delectus, consequasdfatur dolores officiis sit necessitatibus officiasdfaa corrupti magnam`,
+          },
+          {
+            title: "Lorem ipsum dolor sit amet consectetur bbcvbcvbc",
+            text: `adipisicing elit. Eius quam facere animi sequi facilis quis, ab eos, nostrum illo laboasdfriosam odit delectus, jfdghfconsequatur dolores officiis sit necessitatibus officia corrupti magnam`,
+          },
         ],
         news: [
           {

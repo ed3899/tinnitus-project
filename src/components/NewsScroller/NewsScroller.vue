@@ -13,7 +13,7 @@
     </template>
 
     <!-- Windows item -->
-    <v-window-item v-for="n in 5" :key="`card-${n}`">
+    <v-window-item v-for="n in numberOfWindows" :key="`card-${n}`">
       <v-row
         align="center"
         align-content="center"
@@ -44,8 +44,40 @@
 </template>
 
 <script>
+//%Vuex
+import { mapState } from "vuex";
+import { dummyDataModule } from "../../store/modules/index";
+
 export default {
   name: "NewsScroller",
+  data: () => ({
+    cardsPerWindow: 3,
+    baseSlice: 0,
+    cutSlice: 3,
+  }),
+  computed: {
+    ...mapState(dummyDataModule.name, {
+      cards: state => state.Home.mainView.cards,
+    }),
+    numberOfWindows() {
+      return Math.ceil(this.cards.length / this.cardsPerWindow);
+    },
+    currentSliceOfCards() {
+      return this.cards.slice(this.baseSlice, this.cutSlice);
+    },
+  },
+  methods: {
+    prevSlice() {
+      if (this.baseSlice === 0) return;
+      this.baseSlice = this.baseSlice - this.cardsPerWindow;
+      this.cutSlice = this.cutSlice - this.cardsPerWindow;
+    },
+    nextSlice() {
+      if (this.cutSlice === this.cards.length) return;
+      this.baseSlice = this.baseSlice + this.cardsPerWindow;
+      this.cutSlice = this.cutSlice + this.cardsPerWindow;
+    },
+  },
 };
 </script>
 
