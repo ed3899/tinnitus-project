@@ -26,6 +26,62 @@ export const module = {
       ],
     },
     Home: {
+      mainView: {
+        cards: [
+          {
+            title: "What is tinnitus?",
+            text: `Here are some answers to commonly asked questions about tinnitus.
+                  Tinnitus is often called ringing in the ears, but it can be
+                  buzzing, hissing, whistling or any sound!`,
+          },
+          {
+            title: "What can I do about it?",
+            text: `There are several strategies that can be very helpful in managing tinnitus. Learn more about them here.`,
+          },
+          {
+            title: "How do I prevent it?",
+            text: `Tinnitus can occur for different reasons, but sometimes it is preventable. Read on to find out what prevention measures you can take.`,
+          },
+          {
+            title: "Covid-19, the BTA & you",
+            text: `We’re all following the news and have concerns re: Covid-19. This is what we're doing at the BTA to continue to support you.`,
+          },
+        ],
+        news: [
+          {
+            title: "Molly's mammoth sponsored silence",
+            body: `Please support Molly in raising awareness and funds to provide support for people living with tinnitus right now and, ultimately, a cure.`,
+          },
+          {
+            title: "We're investing a further £118k for research",
+            body: `We've awarded £118,000 to a team from Macquarie University, Australia for a study that's using artificial intelligence to try and discover an objective measure of tinnitus.`,
+          },
+          {
+            title: "Well done to our Christmas Raffle winners!",
+            body: `Find out who our three lucky winners were in our Christmas Raffle!`,
+          },
+        ],
+        extra: [
+          {
+            title: "Shop",
+            body: `We have carefully chosen a selection of products to help you manage the buzzing and or ringing in your ears more effectively.`,
+            btn: "Shop now",
+            color: "rgb(55, 68, 81)",
+          },
+          {
+            title: "Our corporate members",
+            body: `By joining as a corporate member and signing our membership charter, our corporate members are sending a message to the tinnitus community that they are dedicated to helping those affected by tinnitus.`,
+            btn: "Find out more",
+            color: "rgb(136, 16, 32)",
+          },
+          {
+            title: "Donate now",
+            body: `As we receive no direct government funding the support we provide can only be offered with your help. 100% of our work relies on the generosity of our fundraisers and donors, people like you!`,
+            btn: "Donate",
+            color: "rgb(165, 135, 1)",
+          },
+        ],
+      },
       OvercomingIt: [
         {
           title: "Tinnitus and hearing aids",

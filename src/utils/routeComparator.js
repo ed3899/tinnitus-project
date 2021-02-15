@@ -15,6 +15,7 @@ export const routeComparator = (component, parentName, childName) => {
   const {
     [parentName]: {
       path: parentPath,
+      alias: parentAlias,
       children: { [childName]: childPath },
     },
   } = routePaths;
@@ -24,7 +25,16 @@ export const routeComparator = (component, parentName, childName) => {
     childName === false || childName === null || childName === undefined;
 
   if (onlyParentNameProvided) {
-    return actualPath === parentPath;
+    if (parentAlias) {
+      switch (component.$route.path) {
+        case parentPath:
+        case parentAlias: {
+          return true;
+        }
+      }
+    } else {
+      return actualPath === parentPath;
+    }
   } else {
     const comparisonRouteWithChildren = `${parentPath}/${childPath}`;
 
