@@ -52,21 +52,33 @@ export const module = {
           },
           {
             title: "Lorem ipsum dolor sit amet consectetur bbcvbcvbc",
-            text: `adipisicing elit. Eius quam facere animi sequi facilis quis, ab eos, nostrum illo laboasdfriosam odit delectus, jfdghfconsequatur dolores officiis sit necessitatibus officia corrupti magnam`,
+            text: `adipisicing elit. Eius quam facere animi sequi facilis quis, ab eos, nostrum illo laboasdfriosam odit delectus, jfdadipisicing elit. Eius quam facere animi sequi facilis quis, ab eos`,
           },
         ],
         news: [
           {
             title: "Molly's mammoth sponsored silence",
-            body: `Please support Molly in raising awareness and funds to provide support for people living with tinnitus right now and, ultimately, a cure.`,
+            text: `Please support Molly in raising awareness and funds to provide support for people living with tinnitus right now and, ultimately, a cure.`,
           },
           {
             title: "We're investing a further £118k for research",
-            body: `We've awarded £118,000 to a team from Macquarie University, Australia for a study that's using artificial intelligence to try and discover an objective measure of tinnitus.`,
+            text: `We've awarded £118,000 to a team from Macquarie University, Australia for a study that's using artificial intelligence to try and discover an objective measure of tinnitus.`,
           },
           {
             title: "Well done to our Christmas Raffle winners!",
-            body: `Find out who our three lucky winners were in our Christmas Raffle!`,
+            text: `Find out who our three lucky winners were in our Christmas Raffle!`,
+          },
+          {
+            title: "Well done to our Casdfahristmas Raffle winners!asdfasdf",
+            text: `Fisdfand out who our three lucky winners were in our Christmas Raffle!`,
+          },
+          {
+            title: "Well dones234 to our Christmas Raffle winners!345343",
+            text: `Find out who our thasdfaree lucky winners were in our Christmas Raffle!`,
+          },
+          {
+            title: "Well done to our Chrsadfaistmas Raffle winners!",
+            text: `Find outasdfas who our three lucky winners were in our Christmas Raffle!`,
           },
         ],
         extra: [

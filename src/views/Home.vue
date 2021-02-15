@@ -7,86 +7,28 @@
   >
     <!-- 1st Row -->
     <v-row class>
-      <CarouselMain :height="'70vh'" />
+      <Carousel :height="'70vh'" />
     </v-row>
 
     <!-- 2nd Row -->
     <v-row no-gutters class="temp-border ma-1 pa-1">
-      <v-row no-gutters class="temp-border">
+      <v-row no-gutters class="temp-border mb-1">
         <h1 class="text-capitalize">All you need to know about tinnitus</h1>
       </v-row>
-
-      <v-row no-gutters justify="space-between" class="temp-border my-1 pa-1">
-        <v-col
-          v-for="{ title, text } in cards"
-          cols="3"
-          :key="title"
-          class="temp-border d-flex justify-center"
-        >
-          <v-card width="90%" elevation="13">
-            <v-img
-              class="white--text"
-              max-height="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            >
-              <v-card-title v-text="title"></v-card-title>
-            </v-img>
-
-            <v-card-text v-text="text" style="height: 150px;"></v-card-text>
-
-            <v-card-actions>
-              <v-btn
-                v-for="btn in btns"
-                :key="btn"
-                color="orange"
-                text
-                v-text="btn"
-              ></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+      <v-col cols="12" class="temp-border__item">
+        <NewsSlider :width="'100%'" :cards="cards" />
+      </v-col>
     </v-row>
 
     <!-- 3rd Row -->
     <v-row no-gutters class="temp-border ma-1 pa-1">
-      <v-row no-gutters class="temp-border">
+      <v-row no-gutters class="temp-border mb-1">
         <h1 class="text-capitalize">Latest news</h1>
       </v-row>
 
-      <v-row no-gutters justify="space-between" class="temp-border my-1 pa-1">
-        <v-col
-          v-for="{ title, body } in news"
-          cols="4"
-          :key="title"
-          class="temp-border d-flex justify-center"
-        >
-          <v-card width="90%">
-            <v-img
-              max-height="200px"
-              src="https://cdn.vuetifyjs.com/images/cards/docks.jpg"
-            >
-            </v-img>
-
-            <v-card-title
-              v-text="title"
-              class="text-justify text-h5"
-            ></v-card-title>
-
-            <v-card-text v-text="body" style="height: 150px;"></v-card-text>
-
-            <v-card-actions>
-              <v-btn
-                v-for="btn in btns"
-                :key="btn"
-                color="orange"
-                text
-                v-text="btn"
-              ></v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-col>
-      </v-row>
+      <v-col cols="12" class="temp-border__item">
+        <NewsSlider :width="'100%'" :cards="news" />
+      </v-col>
     </v-row>
 
     <!-- 4th Row -->
@@ -94,20 +36,26 @@
       <v-col
         v-for="{ title, body, btn, color } in extra"
         :key="body"
-        cols="4"
-        class="temp-border d-flex justify-center"
+        cols="3"
+        class="temp-border d-flex justify-center pa-1"
       >
         <v-card
           height="275"
           max-width="350"
           :color="color"
-          class="d-flex flex-column justify-space-around"
+          class="d-flex flex-column justify-space-between"
         >
-          <v-card-title v-text="title" class="white--text"></v-card-title>
+          <v-card-title
+            v-text="title"
+            class="white--text flex-grow-0 flex-shrink-0"
+          ></v-card-title>
 
-          <v-card-text v-text="body" class="card-format"></v-card-text>
+          <v-card-text
+            v-text="body"
+            class="card-format flex-grow-1 flex-shrink-0"
+          ></v-card-text>
 
-          <v-card-actions class="align-self-start">
+          <v-card-actions class="align-self-start flex-grow-0 flex-shrink-0">
             <v-btn
               v-text="btn"
               color="rgb(87, 195, 178)"
@@ -118,17 +66,17 @@
       </v-col>
     </v-row>
 
+    <!-- Scroll to top -->
     <v-row
       no-gutters
       class="temp-border ma-1 pa-1"
       justify="center"
-      align="center"
+      align-content="center"
     >
-      <v-col cols="12" class="temp-border__item">
-        <NewsScroller />
-      </v-col>
+      <v-btn @click="scrollToTop" rounded class="primary text-uppercase">
+        Back to top
+      </v-btn>
     </v-row>
-    <!-- Add a button with scroll to top functionality -->
   </v-container>
 
   <!-- Home route children -->
@@ -152,14 +100,14 @@ import {
 } from "../utils/index";
 
 //% Components
-import CarouselMain from "../components/Carousel/CarouselChildren.vue";
-import NewsScroller from "../components/NewsScroller/NewsScroller.vue";
+import Carousel from "../components/Carousel/CarouselChildren.vue";
+import NewsSlider from "../components/NewsSlider/NewsSlider.vue";
 
 export default {
   name: "HomeView",
   components: {
-    CarouselMain,
-    NewsScroller,
+    Carousel,
+    NewsSlider,
   },
   data: () => ({
     btns: {
@@ -195,8 +143,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-.card-format {
-  @extend %card-format;
-}
-</style>
+<style lang="scss" scoped></style>

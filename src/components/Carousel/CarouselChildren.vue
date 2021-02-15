@@ -1,5 +1,5 @@
-<template
-  ><v-carousel
+<template>
+  <v-carousel
     cycle
     :height="height"
     hide-delimiter-background
