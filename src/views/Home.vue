@@ -117,6 +117,17 @@
         </v-card>
       </v-col>
     </v-row>
+
+    <v-row
+      no-gutters
+      class="temp-border ma-1 pa-1"
+      justify="center"
+      align="center"
+    >
+      <v-col cols="12" class="temp-border__item">
+        <NewsScroller />
+      </v-col>
+    </v-row>
     <!-- Add a button with scroll to top functionality -->
   </v-container>
 
@@ -133,11 +144,13 @@
 import CarouselMain from "../components/Carousel/CarouselChildren.vue";
 import { routePaths } from "../router/routes";
 import { scrollToTop as scrollToTopUtil } from "../utils/scrollToTop.js";
+import NewsScroller from "../components/NewsScroller/NewsScroller.vue";
 
 export default {
   name: "HomeView",
   components: {
     CarouselMain,
+    NewsScroller,
   },
   data: () => ({
     cards: [
