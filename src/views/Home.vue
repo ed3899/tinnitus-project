@@ -26,98 +26,100 @@
         <h1 class="text-capitalize">All you need to know about tinnitus</h1>
       </v-row>
       <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
-        <v-lazy
-          v-model="areNewsLoaded"
-          :options="{
-            threshold: 0.5,
-          }"
-          transition="fade-transition"
-        >
-          <NewsSlider :width="'100%'" :cards="cards" />
-        </v-lazy>
+        <NewsSlider :width="'100%'" :cards="cards" />
       </v-col>
     </v-row>
 
-    <!-- 3rd Row -->
-    <v-row
-      no-gutters
-      class="ma-1 pa-1"
-      :style="[weAreOnDevMode ? brownBorder : '']"
+    <!-- Second news -->
+    <v-lazy
+      v-model="areNewsLoaded2"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
       <v-row
         no-gutters
-        class="mb-1"
-        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="ma-1 pa-1"
+        :style="[weAreOnDevMode ? brownBorder : '']"
       >
-        <h1 class="text-capitalize">Latest news</h1>
-      </v-row>
-
-      <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
-        <v-lazy
-          v-model="areNewsLoaded"
-          :options="{
-            threshold: 0.5,
-          }"
-          transition="fade-transition"
+        <v-row
+          no-gutters
+          class="mb-1"
+          :style="[weAreOnDevMode ? greenBorder : '']"
         >
+          <h1 class="text-capitalize">Latest news</h1>
+        </v-row>
+
+        <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
           <NewsSlider :width="'100%'" :cards="news" />
-        </v-lazy>
-      </v-col>
-    </v-row>
+        </v-col>
+      </v-row>
+    </v-lazy>
 
     <!-- Extras -->
-    <v-row
-      no-gutters
-      class="ma-1 pa-1"
-      justify="space-around"
-      :style="[weAreOnDevMode ? brownBorder : '']"
+    <v-lazy
+      v-model="areExtrasLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-col
-        v-for="{ title, body, btn, color } in extra"
-        :key="body"
-        cols="3"
-        class="d-flex justify-center pa-1"
-        :style="[weAreOnDevMode ? greenBorder : '']"
+      <v-row
+        no-gutters
+        class="ma-1 pa-1"
+        justify="space-around"
+        :style="[weAreOnDevMode ? brownBorder : '']"
       >
-        <v-card
-          height="275"
-          max-width="350"
-          :color="color"
-          class="d-flex flex-column justify-space-between"
+        <v-col
+          v-for="{ title, body, btn, color } in extra"
+          :key="body"
+          cols="3"
+          class="d-flex justify-center pa-1"
+          :style="[weAreOnDevMode ? greenBorder : '']"
         >
-          <v-card-title
-            v-text="title"
-            class="white--text flex-grow-0 flex-shrink-0"
-          ></v-card-title>
+          <v-card
+            height="275"
+            max-width="350"
+            :color="color"
+            class="d-flex flex-column justify-space-between"
+          >
+            <v-card-title
+              v-text="title"
+              class="white--text flex-grow-0 flex-shrink-0"
+            ></v-card-title>
 
-          <v-card-text
-            v-text="body"
-            class="card-format flex-grow-1 flex-shrink-0"
-          ></v-card-text>
+            <v-card-text
+              v-text="body"
+              class="card-format flex-grow-1 flex-shrink-0"
+            ></v-card-text>
 
-          <v-card-actions class="align-self-start flex-grow-0 flex-shrink-0">
-            <v-btn
-              v-text="btn"
-              color="rgb(87, 195, 178)"
-              class="white--text"
-            ></v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-col>
-    </v-row>
+            <v-card-actions class="align-self-start flex-grow-0 flex-shrink-0">
+              <v-btn
+                v-text="btn"
+                color="rgb(87, 195, 178)"
+                class="white--text"
+              ></v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-lazy>
 
     <!-- Scroll to top -->
-    <v-row
-      no-gutters
-      class="ma-1 pa-1"
-      justify="center"
-      align-content="center"
-      :style="[weAreOnDevMode ? brownBorder : '']"
+    <v-lazy
+      v-model="isBackToTopLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-btn @click="scrollToTop" rounded class="primary text-uppercase">
-        Back to top
-      </v-btn>
-    </v-row>
+      <v-row
+        no-gutters
+        class="ma-1 pa-1"
+        justify="center"
+        align-content="center"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+      >
+        <v-btn @click="scrollToTop" rounded class="primary text-uppercase">
+          Back to top
+        </v-btn>
+      </v-row>
+    </v-lazy>
   </v-container>
 
   <!-- Router view -->
@@ -155,8 +157,16 @@ export default {
     NewsSlider,
   },
   data: () => ({
-    areNewsLoaded: false,
+    //These trigger an update(). Lazy load
+    areNewsLoaded1: false,
+    areNewsLoaded2: false,
     areExtrasLoaded: false,
+    isBackToTopLoaded: false,
+
+    lazy: {
+      options: { threshold: 0.5 },
+      transition: "fade-transition",
+    },
 
     htmlRefs: {
       main_view: "home-view",
@@ -176,13 +186,6 @@ export default {
     brownBorder,
     greenBorder,
   },
-  mounted() {
-    this.scrollToTop();
-  },
-  updated() {
-    console.log("Updated");
-    this.scrollToTop();
-  },
   methods: {
     scrollToTop() {
       if (this.exactRouteIsHome) {
@@ -191,6 +194,11 @@ export default {
         scrollToTopUtil(this, this.htmlRefs.router_view);
       }
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$nextTick(() => vm.scrollToTop());
+    });
   },
 };
 </script>

@@ -1,6 +1,6 @@
 <template>
   <v-container :ref="htmlsTagRefs.main_component" fluid>
-    <!-- 1st row - Image -->
+    <!-- Image -->
     <v-row
       no-gutters
       justify="center"
@@ -23,12 +23,12 @@
       </v-col>
     </v-row>
 
-    <!-- 2nd row - Breadcrumbs -->
+    <!-- Breadcrumbs -->
     <v-row no-gutters :style="[weAreOnDevMode ? brownBorder : '']" class="ma-1">
       <Breadcrumbs />
     </v-row>
 
-    <!-- 3rd row - Main -->
+    <!-- Main -->
     <v-row
       no-gutters
       align="center"
@@ -74,21 +74,27 @@
       </v-col>
     </v-row>
 
-    <!-- 4th row - Back to top btn -->
-    <v-row
-      justify="center"
-      class="ma-1"
-      :style="[weAreOnDevMode ? brownBorder : '']"
+    <!-- Back to top btn -->
+    <v-lazy
+      v-model="isBackToTopLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-btn
-        @click="scrollToTop"
-        v-text="btns.backToTop"
-        rounded
-        color="primary"
-        class="my-1"
+      <v-row
+        justify="center"
+        class="ma-1"
+        :style="[weAreOnDevMode ? brownBorder : '']"
       >
-      </v-btn>
-    </v-row>
+        <v-btn
+          @click="scrollToTop"
+          v-text="btns.backToTop"
+          rounded
+          color="primary"
+          class="my-1"
+        >
+        </v-btn>
+      </v-row>
+    </v-lazy>
   </v-container>
 </template>
 
@@ -113,6 +119,14 @@ export default {
     Breadcrumbs,
   },
   data: () => ({
+    //Lazy options
+    isBackToTopLoaded: false,
+
+    lazy: {
+      options: { threshold: 0.5 },
+      transition: "fade-transition",
+    },
+
     expansionPanels: [
       {
         header: "What does tinnitus sound like?",
@@ -182,9 +196,13 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.commit({
-        type: mainStoreMutations.CREATE_BREADCRUMBS,
-        component: vm,
+      vm.$nextTick(() => {
+        vm.$store.commit({
+          type: mainStoreMutations.CREATE_BREADCRUMBS,
+          component: vm,
+        });
+
+        vm.scrollToTop();
       });
     });
   },

@@ -242,9 +242,11 @@ export default {
   },
   beforeRouteEnter(to, from, next) {
     next(vm => {
-      vm.$store.commit({
-        type: mainStoreMutations.CREATE_BREADCRUMBS,
-        component: vm,
+      vm.$nextTick(() => {
+        vm.$store.commit({
+          type: mainStoreMutations.CREATE_BREADCRUMBS,
+          component: vm,
+        });
       });
     });
   },
