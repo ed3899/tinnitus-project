@@ -2,8 +2,8 @@
   <v-container
     v-if="exactRouteIsHome"
     ref="home-view"
-    class="temp-border mt-n6 pa-0"
     fluid
+    class="temp-border mt-n6 pa-0"
   >
     <!-- 1st Row -->
     <v-row class>
@@ -11,7 +11,11 @@
     </v-row>
 
     <!-- 2nd Row -->
-    <v-row no-gutters class="temp-border ma-1 pa-1">
+    <v-row
+      no-gutters
+      class="ma-1 pa-1"
+      :class="[weAreOnDevMode ? tempBorder : '']"
+    >
       <v-row no-gutters class="temp-border mb-1">
         <h1 class="text-capitalize">All you need to know about tinnitus</h1>
       </v-row>
@@ -97,6 +101,9 @@ import { dummyDataModule } from "../store/modules/index";
 import {
   scrollToTop as scrollToTopUtil,
   routeComparator as routeComparatorUtil,
+  weAreOnDevMode,
+  tempBorder,
+  tempBorderItem,
 } from "../utils/index";
 
 //% Components
@@ -114,6 +121,8 @@ export default {
       share: "Share",
       read: "Read More",
     },
+    tempBorder,
+    tempBorderItem,
   }),
   computed: {
     exactRouteIsHome() {
@@ -124,6 +133,7 @@ export default {
       news: state => state.Home.mainView.news,
       extra: state => state.Home.mainView.extra,
     }),
+    weAreOnDevMode,
   },
   mounted() {
     this.scrollToTop();
@@ -143,4 +153,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss"></style>

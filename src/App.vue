@@ -24,9 +24,9 @@ export default {
 
   components: { NavBarMain, FooterMain, NewsletterPopUp },
 
-  data: () => ({
-    //
-  }),
+  mounted() {
+    console.log(process.env.NODE_ENV);
+  },
 };
 </script>
 

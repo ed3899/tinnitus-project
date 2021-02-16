@@ -70,6 +70,7 @@
                   v-bind="attrs"
                   v-on="on"
                   :to="parentPath"
+                  active-class="white--text"
                   exact-active-class="white--text"
                   :class="{ 'blue darken-1 rounded-0 white--text': hover }"
                   class="mx-10 tab-menu-parent-format"
