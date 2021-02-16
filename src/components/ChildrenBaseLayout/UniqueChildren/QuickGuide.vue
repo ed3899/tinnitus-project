@@ -1,74 +1,91 @@
 <template>
-  <v-container ref="top-container" fluid class="temp-border">
-    <!-- 1st row -->
-    <v-row class="temp-border__item ma-3 pa-3" no-gutters justify="center">
+  <v-container :ref="htmlsTagRefs.main_component" fluid>
+    <!-- 1st row - Image -->
+    <v-row
+      no-gutters
+      justify="center"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+      class="ma-1 pa-1"
+    >
       <v-col
-        class="temp-border__item pa-3 d-flex justify-center"
-        cols="8"
-        align-self="center"
+        cols="12"
+        class="pa-1 d-flex justify-center"
+        :style="[weAreOnDevMode ? greenBorder : '']"
       >
         <v-img
-          class="temp-border__item"
           src="https://images.unsplash.com/photo-1446511437394-36cdff3ae1b3?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&w=1000&q=80&h=300"
           height="300"
           width="300"
           contain
+          :style="[weAreOnDevMode ? greenBorder : '']"
         >
-          <!-- Temporary placeholder -->
-          <template #placeholder>
-            <v-row class="fill-height ma-0" align="center" justify="center">
-              <v-progress-circular
-                indeterminate
-                color="grey lighten-5"
-              ></v-progress-circular>
-            </v-row>
-          </template>
         </v-img>
       </v-col>
     </v-row>
 
-    <!-- Breadcrumbs -->
-    <v-row no-gutters class="temp-border__item ma-3">
+    <!-- 2nd row - Breadcrumbs -->
+    <v-row no-gutters :style="[weAreOnDevMode ? brownBorder : '']" class="ma-1">
       <Breadcrumbs />
     </v-row>
 
-    <!-- 2nd row -->
+    <!-- 3rd row - Main -->
     <v-row
       no-gutters
-      class="temp-border__item ma-3 pa-3"
       align="center"
       justify="space-around"
+      class="ma-1 pa-1"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     >
-      <v-col cols="5" class="temp-border__item pa-3">
-        <h1 v-text="firstCol.heading" class="text-h1"></h1>
-        <p v-text="firstCol.body" class="text-body-1"></p>
+      <!-- Heading -->
+      <v-col cols="5" class="pa-1" :style="[weAreOnDevMode ? greenBorder : '']">
+        <h1 class="text-h1 text-capitalize">What is tinnitus?</h1>
+        <p class="text-body-1">
+          Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, rem
+          sed hic deserunt mollitia animi perspiciatis est temporibus! Optio hic
+          enim sed maxime ab error dolorum? Quasi soluta odit et? Lorem ipsum
+          dolor sit amet consectetur adipisicing elit. Reiciendis neque
+          excepturi in saepe modi. Molestiae eveniet provident laborum iste eius
+          iusto aperiam reprehenderit numquam fugit cum. Dolores nemo quidem
+          dolor?
+        </p>
       </v-col>
 
+      <!-- Expansion panels -->
       <v-col cols="5">
-        <v-expansion-panels class="temp-border__item" popout mandatory>
+        <v-expansion-panels
+          popout
+          mandatory
+          :style="[weAreOnDevMode ? greenBorder : '']"
+        >
           <v-expansion-panel
-            v-for="({ header, body }, i) in secondCol"
-            :key="i"
+            v-for="({ header, body }, i) in expansionPanels"
+            :key="header + body + i"
           >
             <v-expansion-panel-header class="text-h6"
               >{{ i + 1 }}. {{ header }}</v-expansion-panel-header
             >
-            <v-expansion-panel-content class="text-body-2">
-              {{ body }}
+            <v-expansion-panel-content
+              v-text="body"
+              class="ml-5 mb-5 text-body-2"
+            >
             </v-expansion-panel-content>
           </v-expansion-panel>
         </v-expansion-panels>
       </v-col>
     </v-row>
 
-    <!-- 3th row -->
-    <v-row class="temp-border__item ma-3" justify="center">
+    <!-- 4th row - Back to top btn -->
+    <v-row
+      justify="center"
+      class="ma-1"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+    >
       <v-btn
         @click="scrollToTop"
-        v-text="btnText"
+        v-text="btns.backToTop"
         rounded
         color="primary"
-        class="my-5"
+        class="my-1"
       >
       </v-btn>
     </v-row>
@@ -76,13 +93,18 @@
 </template>
 
 <script>
-//Components
+// %Components
 import Breadcrumbs from "../../Breadcrumbs/Breadcrumbs.vue";
 
-//Utils
-import { scrollToTop as scrollToTopUtil } from "../../../utils/scrollToTop.js";
+//% Utils
+import {
+  scrollToTop as scrollToTopUtil,
+  weAreOnDevMode,
+  brownBorder,
+  greenBorder,
+} from "../../../utils/index";
 
-//Mutations
+//% Mutations
 import { mainStoreMutations } from "../../../store/mutations/index";
 
 export default {
@@ -91,16 +113,7 @@ export default {
     Breadcrumbs,
   },
   data: () => ({
-    firstCol: {
-      heading: "What is tinnitus?",
-      body: `Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, rem
-        sed hic deserunt mollitia animi perspiciatis est temporibus! Optio hic
-        enim sed maxime ab error dolorum? Quasi soluta odit et? Lorem ipsum
-        dolor sit amet consectetur adipisicing elit. Reiciendis neque excepturi
-        in saepe modi. Molestiae eveniet provident laborum iste eius iusto
-        aperiam reprehenderit numquam fugit cum. Dolores nemo quidem dolor?`,
-    },
-    secondCol: [
+    expansionPanels: [
       {
         header: "What does tinnitus sound like?",
         body: `Ut enim
@@ -150,11 +163,21 @@ export default {
             aliquip ex ea commodo consequat.`,
       },
     ],
-    btnText: "Back to top",
+    btns: {
+      backToTop: "Back to top",
+    },
+    htmlsTagRefs: {
+      main_component: "quick-guide",
+    },
   }),
+  computed: {
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
+  },
   methods: {
     scrollToTop() {
-      scrollToTopUtil(this, "top-container");
+      scrollToTopUtil(this, this.htmlsTagRefs.main_component);
     },
   },
   beforeRouteEnter(to, from, next) {
@@ -167,5 +190,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

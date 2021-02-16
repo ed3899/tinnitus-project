@@ -23,10 +23,6 @@ export default {
   name: "App",
 
   components: { NavBarMain, FooterMain, NewsletterPopUp },
-
-  mounted() {
-    console.log(process.env.NODE_ENV);
-  },
 };
 </script>
 

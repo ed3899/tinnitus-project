@@ -1,7 +1,8 @@
 <template>
+  <!-- Main view -->
   <v-container
     v-if="exactRouteIsHome"
-    ref="home-view"
+    :ref="htmlRefs.main_view"
     fluid
     class="mt-n6 pa-0"
     :style="[weAreOnDevMode ? brownBorder : '']"
@@ -103,11 +104,12 @@
     </v-row>
   </v-container>
 
-  <!-- Home route children -->
+  <!-- Router view -->
   <v-fade-transition v-else mode="out-in">
     <router-view
-      ref="home-view_router-view"
-      class="temp-border__item mt-n6 pa-0"
+      :ref="htmlRefs.router_view"
+      class="mt-n6 pa-0"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     ></router-view>
   </v-fade-transition>
 </template>
@@ -141,8 +143,10 @@ export default {
       share: "Share",
       read: "Read More",
     },
-    // brownBorder: brownBorder(),
-    // greenBorder: greenBorder(),
+    htmlRefs: {
+      main_view: "home-view",
+      router_view: "home-view_router-view",
+    },
   }),
   computed: {
     exactRouteIsHome() {
@@ -166,13 +170,11 @@ export default {
   methods: {
     scrollToTop() {
       if (this.exactRouteIsHome) {
-        scrollToTopUtil(this, "home-view");
+        scrollToTopUtil(this, this.htmlRefs.main_view);
       } else {
-        scrollToTopUtil(this, "home-view_router-view");
+        scrollToTopUtil(this, this.htmlRefs.router_view);
       }
     },
   },
 };
 </script>
-
-<style lang="scss"></style>
