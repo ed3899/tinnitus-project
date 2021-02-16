@@ -1,8 +1,8 @@
 <template>
-  <v-app>
+  <v-app :style="[weAreOnDevMode ? brownBorder : '']">
     <NavBarMain />
 
-    <v-main>
+    <v-main :style="[weAreOnDevMode ? greenBorder : '']">
       <v-fade-transition mode="out-in">
         <router-view></router-view>
       </v-fade-transition>
@@ -15,6 +15,10 @@
 </template>
 
 <script>
+//%Utils
+import { weAreOnDevMode, brownBorder, greenBorder } from "./utils/index";
+
+//%Components
 import NavBarMain from "./components/NavBar/NavBarMain.vue";
 import FooterMain from "./components/Footer/FooterMain.vue";
 import NewsletterPopUp from "./components/NewsletterPopUp/NewsletterPopUp.vue";
@@ -23,6 +27,12 @@ export default {
   name: "App",
 
   components: { NavBarMain, FooterMain, NewsletterPopUp },
+
+  computed: {
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
+  },
 };
 </script>
 
