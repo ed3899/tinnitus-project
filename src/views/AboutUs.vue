@@ -120,49 +120,58 @@
     </v-row>
 
     <!-- Timeline -->
-    <v-row
-      no-gutters
-      :style="[weAreOnDevMode ? greenBorder : '']"
-      class="my-1 pa-1"
+    <v-lazy
+      v-model="isTimelineLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-col cols="12" class="d-flex flex-column justify-start">
-        <h2 class="text-h2">History</h2>
+      <v-row
+        no-gutters
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="my-1 pa-1"
+      >
+        <v-col cols="12" class="d-flex flex-column justify-start">
+          <h2 class="text-h2">History</h2>
 
-        <v-timeline>
-          <v-timeline-item
-            v-for="{ year, info } in thirdRow.timeline"
-            :key="info"
-            color="blue"
-            small
-          >
-            <template #opposite>
-              <div>
-                <p v-text="year" class="ma-0"></p>
-              </div>
-            </template>
+          <v-timeline>
+            <v-timeline-item
+              v-for="{ year, info } in timeline"
+              :key="info"
+              color="blue"
+              small
+            >
+              <template #opposite>
+                <div>
+                  <p v-text="year" class="ma-0"></p>
+                </div>
+              </template>
 
-            <v-card class="d-flex align-center pa-3">
-              <p v-text="info" class="ma-0"></p>
-            </v-card>
-          </v-timeline-item>
-        </v-timeline>
-      </v-col>
-    </v-row>
+              <v-card class="d-flex align-center pa-3">
+                <p v-text="info" class="ma-0"></p>
+              </v-card>
+            </v-timeline-item>
+          </v-timeline>
+        </v-col>
+      </v-row>
+    </v-lazy>
 
     <!-- Back to top btn -->
-    <v-row
-      no-gutters
-      :style="[weAreOnDevMode ? greenBorder : '']"
-      class="mt-1 pa-1"
-      justify="center"
+    <v-lazy
+      v-model="isBackToTopLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-btn
-        v-text="btns.backToTop"
-        @click="scrollToTop"
-        rounded
-        class="primary text-uppercase"
-      ></v-btn>
-    </v-row>
+      <v-row
+        no-gutters
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="mt-1 pa-1"
+        justify="center"
+      >
+        <v-btn @click="scrollToTop" rounded class="primary text-uppercase"
+          >back to top</v-btn
+        >
+      </v-row>
+    </v-lazy>
   </v-container>
 
   <!-- About route-children -->
@@ -185,97 +194,97 @@ import {
   greenBorder,
 } from "../utils/index";
 
+import { mapState } from "vuex";
+
 export default {
   name: "AboutUsView",
   data: () => ({
-    thirdRow: {
-      title: "History",
-      timeline: [
-        {
-          year: "1971",
-          info: `ATA came about through the efforts of Charles Unice, M.D.`,
-        },
-        {
-          year: "1975",
-          info: `The first ATA newsletter is sent out to members in April. The newsletter notes that, “There are about 95 members of ATA.”`,
-        },
-        {
-          year: "1976",
-          info: `ATA forms a Scientific Advisory Committee to guide the association in all areas of tinnitus science and research. This committee is comprised of leading specialists in tinnitus and other auditory disorders.`,
-        },
-        {
-          year: "1977",
-          info: `ATA coordinates nationwide educational workshops on tinnitus, providing information to more than 1,200 hearing health professionals.`,
-        },
-        {
-          year: "1980",
-          info: `ATA awards its first tinnitus research grant to Mary B. Meikle, Ph.D., who uses the money to start the first-ever registry of tinnitus patients. The project eventually attracts funding from the National Institutes of Health (NIH) and grows into a valuable tool for tinnitus researchers.`,
-        },
-        {
-          year: "1982",
-          info: `ATA establishes a nationwide support group network, helping tinnitus patients connect with each other and learn from shared experience.`,
-        },
-        {
-          year: "1986",
-          info: `Jack A. Vernon, Ph.D., and Gloria Reich, Ph.D., former Executive Director appear on the MacNeil/Lehrer Newshour.`,
-        },
-        {
-          year: "1988",
-          info: `ATA's newsletter, published since 1975, becomes Tinnitus Today, a regular magazine focused on the needs of tinnitus patients.`,
-        },
-        {
-          year: "1995",
-          info: `ATA hosts the Fifth International Tinnitus Seminar in Portland, Oregon. Scientists from 25 countries appear and present papers about tinnitus.`,
-        },
-        {
-          year: "2004",
-          info: `Thanks to a generous donation from an anonymous donor ATA creates The FDL Tinnitus Assistance Fund to financially assist in-need tinnitus patients with hearing evaluations and treatments.`,
-        },
-        {
-          year: "2005",
-          info: `ATA develops the Roadmap to a Cure, an innovative guide that identifies what researchers now know about tinnitus and what information is needed to develop a cure.`,
-        },
-        {
-          year: "2007",
-          info: `ATA adopts a more focused mission to fund resources to advance research that will lead to a tinnitus cure.`,
-        },
-        {
-          year: "2008",
-          info: `Awards a record high $595,462 in annual research grants.`,
-        },
-        {
-          year: "2009",
-          info: `Tinnitus becomes the leading service-connected disability for veterans from all periods of service helping to raise the urgency for tinnitus solutions.  `,
-        },
-        {
-          year: "2010",
-          info: `The first ATA Walk to Silence Tinnitus is held in Portland. This event goes on to become an annual tradition, raising valuable resources for tinnitus research and support programs.`,
-        },
-      ],
-    },
-    btns: {
-      backToTop: "back to top",
-    },
+    timeline: [
+      {
+        year: "1971",
+        info: `ATA came about through the efforts of Charles Unice, M.D.`,
+      },
+      {
+        year: "1975",
+        info: `The first ATA newsletter is sent out to members in April. The newsletter notes that, “There are about 95 members of ATA.”`,
+      },
+      {
+        year: "1976",
+        info: `ATA forms a Scientific Advisory Committee to guide the association in all areas of tinnitus science and research. This committee is comprised of leading specialists in tinnitus and other auditory disorders.`,
+      },
+      {
+        year: "1977",
+        info: `ATA coordinates nationwide educational workshops on tinnitus, providing information to more than 1,200 hearing health professionals.`,
+      },
+      {
+        year: "1980",
+        info: `ATA awards its first tinnitus research grant to Mary B. Meikle, Ph.D., who uses the money to start the first-ever registry of tinnitus patients. The project eventually attracts funding from the National Institutes of Health (NIH) and grows into a valuable tool for tinnitus researchers.`,
+      },
+      {
+        year: "1982",
+        info: `ATA establishes a nationwide support group network, helping tinnitus patients connect with each other and learn from shared experience.`,
+      },
+      {
+        year: "1986",
+        info: `Jack A. Vernon, Ph.D., and Gloria Reich, Ph.D., former Executive Director appear on the MacNeil/Lehrer Newshour.`,
+      },
+      {
+        year: "1988",
+        info: `ATA's newsletter, published since 1975, becomes Tinnitus Today, a regular magazine focused on the needs of tinnitus patients.`,
+      },
+      {
+        year: "1995",
+        info: `ATA hosts the Fifth International Tinnitus Seminar in Portland, Oregon. Scientists from 25 countries appear and present papers about tinnitus.`,
+      },
+      {
+        year: "2004",
+        info: `Thanks to a generous donation from an anonymous donor ATA creates The FDL Tinnitus Assistance Fund to financially assist in-need tinnitus patients with hearing evaluations and treatments.`,
+      },
+      {
+        year: "2005",
+        info: `ATA develops the Roadmap to a Cure, an innovative guide that identifies what researchers now know about tinnitus and what information is needed to develop a cure.`,
+      },
+      {
+        year: "2007",
+        info: `ATA adopts a more focused mission to fund resources to advance research that will lead to a tinnitus cure.`,
+      },
+      {
+        year: "2008",
+        info: `Awards a record high $595,462 in annual research grants.`,
+      },
+      {
+        year: "2009",
+        info: `Tinnitus becomes the leading service-connected disability for veterans from all periods of service helping to raise the urgency for tinnitus solutions.  `,
+      },
+      {
+        year: "2010",
+        info: `The first ATA Walk to Silence Tinnitus is held in Portland. This event goes on to become an annual tradition, raising valuable resources for tinnitus research and support programs.`,
+      },
+    ],
+
     htmlTagRefs: {
       mainView: "about-view",
       routerView: "about-view_router-view",
     },
+
+    // Lazy
+    isTimelineLoaded: false,
+    isBackToTopLoaded: false,
   }),
   computed: {
     exactRouteIsAbout() {
       return routeComparatorUtil(this, "about");
     },
 
+    //% Vuex
+    ...mapState({
+      lazy: state => state.lazy,
+    }),
+
     //% Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,
-  },
-  mounted() {
-    this.scrollToTop();
-  },
-  updated() {
-    this.scrollToTop();
   },
   methods: {
     scrollToTop() {
@@ -285,6 +294,11 @@ export default {
         scrollToTopUtil(this, this.htmlTagRefs.routerView);
       }
     },
+  },
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$nextTick(() => vm.scrollToTop());
+    });
   },
 };
 </script>

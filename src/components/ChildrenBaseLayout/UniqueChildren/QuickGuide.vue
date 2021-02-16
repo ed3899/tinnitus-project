@@ -85,13 +85,8 @@
         class="ma-1"
         :style="[weAreOnDevMode ? brownBorder : '']"
       >
-        <v-btn
-          @click="scrollToTop"
-          v-text="btns.backToTop"
-          rounded
-          color="primary"
-          class="my-1"
-        >
+        <v-btn @click="scrollToTop" rounded color="primary" class="my-1">
+          Back to top
         </v-btn>
       </v-row>
     </v-lazy>
@@ -111,6 +106,7 @@ import {
 } from "../../../utils/index";
 
 //% Vuex
+import { mapState } from "vuex";
 import { mainStoreMutations } from "../../../store/mutations/index";
 
 export default {
@@ -119,14 +115,6 @@ export default {
     Breadcrumbs,
   },
   data: () => ({
-    //Lazy options
-    isBackToTopLoaded: false,
-
-    lazy: {
-      options: { threshold: 0.5 },
-      transition: "fade-transition",
-    },
-
     expansionPanels: [
       {
         header: "What does tinnitus sound like?",
@@ -177,17 +165,23 @@ export default {
             aliquip ex ea commodo consequat.`,
       },
     ],
-    btns: {
-      backToTop: "Back to top",
-    },
+
     htmlsTagRefs: {
       main_component: "quick-guide",
     },
+
+    //%Lazy options
+    isBackToTopLoaded: false,
   }),
   computed: {
     weAreOnDevMode,
     brownBorder,
     greenBorder,
+
+    //%Vuex
+    ...mapState({
+      lazy: state => state.lazy,
+    }),
   },
   methods: {
     scrollToTop() {

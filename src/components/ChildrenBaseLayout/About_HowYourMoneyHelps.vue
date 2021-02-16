@@ -32,58 +32,77 @@
     <v-divider></v-divider>
 
     <!-- Highlights-->
-    <v-row
-      no-gutters
-      :style="[weAreOnDevMode ? brownBorder : '']"
-      class="pa-1 my-1"
+    <v-lazy
+      v-model="areHighlightsLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <!-- Title -->
       <v-row
         no-gutters
-        :style="[weAreOnDevMode ? greenBorder : '']"
-        class="pa-1 mb-1"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="pa-1 my-1"
       >
-        <h2 class="text-h2">2020 Highlights</h2>
-      </v-row>
+        <!-- Title -->
+        <v-row
+          no-gutters
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          class="pa-1 mb-1"
+        >
+          <h2 class="text-h2">2020 Highlights</h2>
+        </v-row>
 
-      <!-- Content -->
-      <v-row
-        no-gutters
-        :style="[weAreOnDevMode ? greenBorder : '']"
-        class="pa-1"
-      >
-        <ul>
-          <li
-            v-for="{ content } in highlights"
-            v-text="content"
-            :key="content"
-          ></li>
-        </ul>
+        <!-- Content -->
+        <v-row
+          no-gutters
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          class="pa-1"
+        >
+          <ul>
+            <li
+              v-for="{ content } in highlights"
+              v-text="content"
+              :key="content"
+            ></li>
+          </ul>
+        </v-row>
       </v-row>
-    </v-row>
+    </v-lazy>
 
     <v-divider></v-divider>
 
     <!-- Mini footer -->
-    <v-row no-gutters :style="[weAreOnDevMode ? brownBorder : '']" class="pa-1">
-      <v-col
-        cols="12"
-        :style="[weAreOnDevMode ? greenBorder : '']"
-        class="pa-1 d-flex justify-space-around align-center"
+    <v-lazy
+      v-model="isOurImpactLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
+    >
+      <v-row
+        no-gutters
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="pa-1"
       >
-        <p class="ma-0 text-body-2">
-          Download our latest annual review to read more
-        </p>
+        <v-col
+          cols="12"
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          class="pa-1 d-flex justify-space-around align-center"
+        >
+          <p class="ma-0 text-body-2">
+            Download our latest annual review to read more
+          </p>
 
-        <v-btn color="success">Our impact</v-btn>
-      </v-col>
-    </v-row>
+          <v-btn color="success">Our impact</v-btn>
+        </v-col>
+      </v-row>
+    </v-lazy>
   </v-container>
 </template>
 
 <script>
 //% Utils
 import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
+
+//% Vuex
+import { mapState } from "vuex";
 
 export default {
   name: "AboutHowYourMoneyHelps",
@@ -108,8 +127,18 @@ export default {
         content: `Provide training for 224 professionals through our events, workshops and lectures - helping to improve the quality of support offered to tinnitus patients`,
       },
     ],
+
+    //% Lazy
+    areHighlightsLoaded: false,
+    isOurImpactLoaded: false,
   }),
+
   computed: {
+    //% Vuex
+    ...mapState({
+      lazy: state => state.lazy,
+    }),
+    //% Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,

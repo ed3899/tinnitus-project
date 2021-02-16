@@ -104,6 +104,8 @@ export default {
       );
       return values[0];
     },
+
+    //% Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,

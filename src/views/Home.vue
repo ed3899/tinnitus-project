@@ -163,11 +163,6 @@ export default {
     areExtrasLoaded: false,
     isBackToTopLoaded: false,
 
-    lazy: {
-      options: { threshold: 0.5 },
-      transition: "fade-transition",
-    },
-
     htmlRefs: {
       main_view: "home-view",
       router_view: "home-view_router-view",
@@ -177,10 +172,15 @@ export default {
     exactRouteIsHome() {
       return routeComparatorUtil(this, "home");
     },
+
+    //% Vuex
     ...mapState(dummyDataModule.name, {
       cards: state => state.Home.mainView.cards,
       news: state => state.Home.mainView.news,
       extra: state => state.Home.mainView.extra,
+    }),
+    ...mapState({
+      lazy: state => state.lazy,
     }),
     weAreOnDevMode,
     brownBorder,

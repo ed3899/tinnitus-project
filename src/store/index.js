@@ -20,6 +20,14 @@ export default new Vuex.Store({
       { icon: "mdi-twitter" },
       { icon: "mdi-linkedin" },
     ],
+
+    //%Lazy
+    lazy: {
+      options: {
+        threshold: 0.5,
+      },
+      transition: "fade-transition",
+    },
   }),
   mutations: {
     [mainStoreMutations.CREATE_BREADCRUMBS](state, { component }) {

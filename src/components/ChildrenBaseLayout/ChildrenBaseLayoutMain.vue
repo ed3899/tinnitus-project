@@ -93,20 +93,23 @@
     </v-row>
 
     <!-- Scroll to top button -->
-    <v-row
-      no-gutters
-      justify="space-around"
-      align-content="start"
-      class="ma-1 pa-1"
-      :style="[weAreOnDevMode ? brownBorder : '']"
+    <v-lazy
+      v-model="isBackToTopLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-btn
-        v-text="btns.scrollToTop"
-        rounded
-        class="primary text-uppercase"
-        @click="scrollToTop"
-      ></v-btn
-    ></v-row>
+      <v-row
+        no-gutters
+        justify="space-around"
+        align-content="start"
+        class="ma-1 pa-1"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+      >
+        <v-btn rounded class="primary text-uppercase" @click="scrollToTop">
+          Back to top
+        </v-btn>
+      </v-row>
+    </v-lazy>
   </v-container>
 </template>
 
@@ -169,14 +172,17 @@ export default {
       "red lighten-1",
       "deep-purple accent-4",
     ],
+
     slides: ["First", "Second", "Third", "Fourth", "Fifth"],
+
     currentImageSrc: "",
-    btns: {
-      scrollToTop: "Back to top",
-    },
+
     htmlTagRef: {
       main_component: "children-base-layout",
     },
+
+    //Lazy
+    isBackToTopLoaded: false,
   }),
   computed: {
     //% Home
@@ -230,6 +236,10 @@ export default {
       about_ourTeamData: state => state.About.OurTeam,
     }),
 
+    ...mapState({
+      lazy: state => state.lazy,
+    }),
+
     //% Development
     weAreOnDevMode,
     brownBorder,
@@ -247,6 +257,8 @@ export default {
           type: mainStoreMutations.CREATE_BREADCRUMBS,
           component: vm,
         });
+
+        vm.scrollToTop();
       });
     });
   },
