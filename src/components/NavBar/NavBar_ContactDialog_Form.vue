@@ -1,12 +1,12 @@
 <template>
   <v-card>
-    <v-form :ref="refs.form">
+    <v-form :ref="htmlTagsRefs.main">
       <v-card-title>
         <span class="headline text-capitalize">Send us your thoughts</span>
       </v-card-title>
 
       <v-card-text>
-        <v-row class="temp-border mb-1">
+        <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
           <!-- Name -->
           <v-col cols="12" sm="6" md="4">
             <v-text-field
@@ -79,7 +79,8 @@
                   v-if="option != 'other'"
                   :key="option"
                   align="center"
-                  class="temp-border my-1 text-capitalize"
+                  :style="[weAreOnDevMode ? greenBorder : '']"
+                  class="my-1 text-capitalize"
                 >
                   <v-radio :label="option" :value="option"></v-radio>
                 </v-row>
@@ -90,7 +91,8 @@
                   v-else
                   :key="option"
                   align="center"
-                  class="temp-border my-1 text-capitalize"
+                  :style="[weAreOnDevMode ? greenBorder : '']"
+                  class="my-1 text-capitalize"
                 >
                   <v-radio
                     :label="option"
@@ -130,7 +132,7 @@
           <v-col cols="12" sm="6">
             <v-switch
               v-model="subscribeToNewsletter"
-              :label="switches.subscribeToNewsletter"
+              label="Subscribe to our newsletter"
               color="info"
               inset
             ></v-switch>
@@ -143,20 +145,12 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn
-          v-text="btns.cancel"
-          color="blue darken-1"
-          text
-          @click="cancelForm"
-        >
+        <v-btn color="blue darken-1" text @click="cancelForm">
+          cancel
         </v-btn>
 
-        <v-btn
-          v-text="btns.save"
-          color="blue darken-1"
-          text
-          @click="cancelForm"
-        >
+        <v-btn color="blue darken-1" text @click="cancelForm">
+          save
         </v-btn>
       </v-card-actions>
     </v-form>
@@ -177,9 +171,10 @@ export default {
   name: "NavBarContactDialogForm",
 
   data: () => ({
-    refs: {
-      form: "popup-form",
+    htmlTagsRefs: {
+      main: "popup-form",
     },
+
     rules: {
       firstName: [v => !!v || "Name is required"],
       lastName: [v => !!v || "Last name is required"],
@@ -188,17 +183,13 @@ export default {
       inquiryType: [v => !!v || "Inquiry type is required"],
       textArea: [
         v => !!v || "Inquiry message is required",
-        v => v.length >= 50 || "Message has to be at least 50 characters",
+        v =>
+          (!!v && v.length) >= 50 || "Message has to be at least 50 characters",
       ],
     },
-    btns: {
-      cancel: "cancel",
-      save: "save",
-    },
-    switches: {
-      subscribeToNewsletter: "Subscribe to our newsletter",
-    },
+
     ages: ["0-17", "18-29", "30-54", "54+"],
+
     radioOptions: [
       {
         option: "business",
@@ -206,10 +197,11 @@ export default {
       { option: "just saying thank you!" },
       { option: "other" },
     ],
+
     maxTextAreaCharacters: 1000,
   }),
   computed: {
-    //To Vuex
+    //% Vuex
     firstName: {
       get() {
         return this.$store.state.formDialog.firstName;
@@ -329,10 +321,8 @@ export default {
       });
 
       //Reset local form state
-      this.$refs[this.refs.form].reset();
+      this.$refs[this.htmlTagsRefs.main].reset();
     },
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

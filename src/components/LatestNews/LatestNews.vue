@@ -4,7 +4,7 @@
     :height="height"
     :width="width"
     :elevation="elevation"
-    class="temp-border__item"
+    :style="[weAreOnDevMode ? border__item : '']"
   >
     <v-card-title v-text="title"></v-card-title>
 
@@ -16,6 +16,9 @@
 </template>
 
 <script>
+//% Utils
+import { weAreOnDevMode, greenBorder } from "../../utils/index";
+
 export default {
   name: "LatestNews",
   props: {
@@ -40,7 +43,9 @@ export default {
       required: true,
     },
   },
+  computed: {
+    weAreOnDevMode,
+    greenBorder,
+  },
 };
 </script>
-
-<style lang="scss" scoped></style>
