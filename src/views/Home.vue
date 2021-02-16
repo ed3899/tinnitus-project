@@ -7,12 +7,12 @@
     class="mt-n6 pa-0"
     :style="[weAreOnDevMode ? brownBorder : '']"
   >
-    <!-- 1st Row -->
+    <!-- Carousel -->
     <v-row class>
       <Carousel :height="'70vh'" />
     </v-row>
 
-    <!-- 2nd Row -->
+    <!-- First news -->
     <v-row
       no-gutters
       class="ma-1 pa-1"
@@ -26,7 +26,15 @@
         <h1 class="text-capitalize">All you need to know about tinnitus</h1>
       </v-row>
       <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
-        <NewsSlider :width="'100%'" :cards="cards" />
+        <v-lazy
+          v-model="areNewsLoaded"
+          :options="{
+            threshold: 0.5,
+          }"
+          transition="fade-transition"
+        >
+          <NewsSlider :width="'100%'" :cards="cards" />
+        </v-lazy>
       </v-col>
     </v-row>
 
@@ -45,11 +53,19 @@
       </v-row>
 
       <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
-        <NewsSlider :width="'100%'" :cards="news" />
+        <v-lazy
+          v-model="areNewsLoaded"
+          :options="{
+            threshold: 0.5,
+          }"
+          transition="fade-transition"
+        >
+          <NewsSlider :width="'100%'" :cards="news" />
+        </v-lazy>
       </v-col>
     </v-row>
 
-    <!-- 4th Row -->
+    <!-- Extras -->
     <v-row
       no-gutters
       class="ma-1 pa-1"
@@ -139,10 +155,9 @@ export default {
     NewsSlider,
   },
   data: () => ({
-    btns: {
-      share: "Share",
-      read: "Read More",
-    },
+    areNewsLoaded: false,
+    areExtrasLoaded: false,
+
     htmlRefs: {
       main_view: "home-view",
       router_view: "home-view_router-view",
@@ -165,6 +180,7 @@ export default {
     this.scrollToTop();
   },
   updated() {
+    console.log("Updated");
     this.scrollToTop();
   },
   methods: {

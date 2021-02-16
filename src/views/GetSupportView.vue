@@ -166,12 +166,13 @@
   </v-container>
 
   <!-- Route children -->
-  <router-view
-    v-else
-    :ref="refs.routerView"
-    :style="[weAreOnDevMode ? brownBorder : '']"
-    class="mt-n6 pa-0"
-  ></router-view>
+  <v-fade-transition v-else mode="out-in">
+    <router-view
+      :ref="refs.routerView"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+      class="mt-n6 pa-0"
+    ></router-view>
+  </v-fade-transition>
 </template>
 
 <script>

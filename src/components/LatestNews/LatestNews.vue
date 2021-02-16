@@ -4,7 +4,7 @@
     :height="height"
     :width="width"
     :elevation="elevation"
-    :style="[weAreOnDevMode ? border__item : '']"
+    :style="[weAreOnDevMode ? greenBorder : '']"
   >
     <v-card-title v-text="title"></v-card-title>
 
