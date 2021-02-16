@@ -98,7 +98,7 @@
       justify="space-around"
       align-content="start"
       class="ma-1 pa-1"
-      :style="[weAreOnDevMode ? greenBorder : '']"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     >
       <v-btn
         v-text="btns.scrollToTop"

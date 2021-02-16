@@ -5,15 +5,17 @@
     :page.sync="page"
     :search="search"
     hide-default-footer
-    class="temp-border__item ma-1 pa-1"
+    :style="[weAreOnDevMode ? brownBorder : '']"
+    class="ma-1 pa-1"
   >
     <!-- Data header -->
     <template #header>
       <v-row
         no-gutters
-        class="temp-border__item ma-1 pa-0"
         align="center"
         justify="center"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="temp-border__item ma-1 pa-0"
       >
         <v-toolbar>
           <v-text-field
@@ -33,19 +35,26 @@
     <template #default="{items}">
       <v-row
         no-gutters
-        class="temp-border__item ma-1 pa-1"
         justify="space-around"
         align-content="space-around"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="ma-1 pa-1"
       >
         <v-col
           v-for="item in items"
           :key="item.title + item.body"
           cols="5"
-          class="temp-border__item ma-1 pa-1"
+          class="ma-1 pa-1"
+          :style="[weAreOnDevMode ? greenBorder : '']"
         >
           <!-- Card -->
           <v-hover #default="{hover}">
-            <v-card hover shaped class="temp-border__item d-flex flex-column">
+            <v-card
+              hover
+              shaped
+              class="d-flex flex-column"
+              :style="[weAreOnDevMode ? greenBorder : '']"
+            >
               <v-img
                 height="200px"
                 :src="item.img"
@@ -63,6 +72,7 @@
               <v-card-text v-text="item.body" class="flex-grow-1 flex-shrink-0">
               </v-card-text>
 
+              <!-- Card transition -->
               <v-expand-transition>
                 <v-card
                   v-if="hover"
@@ -89,14 +99,16 @@
     <template #footer>
       <v-row
         no-gutters
-        class="temp-border__item ma-1 pa-1"
+        class="ma-1 pa-1"
         align="center"
         justify="center"
+        :style="[weAreOnDevMode ? brownBorder : '']"
       >
         <span>Items per page</span>
 
-        <!-- Data footer menu -->
+        <!-- Menu -->
         <v-menu offset-y>
+          <!-- Items p/page -->
           <template #activator="{on, attrs}">
             <v-btn text color="primary" v-bind="attrs" v-on="on" class="ml-2">
               {{ itemsPerPage }}
@@ -117,6 +129,7 @@
 
         <v-spacer></v-spacer>
 
+        <!-- Page btns -->
         <span class="mr-4 grey--text">
           Page {{ page }} of {{ numberOfPages }}
         </span>
@@ -148,6 +161,9 @@
 </template>
 
 <script>
+//% Utils
+import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
+
 export default {
   name: "CardIteratorMain",
   props: {
@@ -173,6 +189,11 @@ export default {
     numberOfPages() {
       return Math.ceil(this.itemsArray.length / this.itemsPerPage);
     },
+
+    //% Development
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
   methods: {
     nextPage() {
