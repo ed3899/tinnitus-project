@@ -1,10 +1,11 @@
 <template>
-  <v-container class="temp-border__item pa-0 ma-0">
+  <v-container :style="weAreOnDevMode ? brownBorder : ''" class="pa-0 ma-0">
     <v-row
       v-for="{ title, body } in normalizedHeadings"
       :key="body"
       no-gutters
-      class="temp-border__item pa-2 ma-1"
+      :style="weAreOnDevMode ? greenBorder : ''"
+      class="pa-2 ma-1"
     >
       <template v-if="title.toLowerCase() === 'our mission'">
         <h2 v-text="title" class="text-h2"></h2>
@@ -16,7 +17,8 @@
         <v-row
           v-for="{ name, description } in valuesHeading.values"
           no-gutters
-          class="temp-border__item pa-3 my-3 d-flex flex-column"
+          :style="weAreOnDevMode ? greenBorder : ''"
+          class="pa-3 my-3 d-flex flex-column"
           :key="description"
         >
           <h3 v-text="name" class="text-h6"></h3>
@@ -34,6 +36,9 @@
 </template>
 
 <script>
+//%Utils
+import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
+
 export default {
   name: "AboutOurVision",
   data: () => ({
@@ -99,8 +104,9 @@ export default {
       );
       return values[0];
     },
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
