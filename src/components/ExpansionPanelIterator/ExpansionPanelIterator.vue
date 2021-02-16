@@ -5,10 +5,16 @@
     :page.sync="page"
     :search="search"
     :footer-props="{ itemsPerPageOptions: itemsPerPageArray }"
+    :style="[weAreOnDevMode ? brownBorder : '']"
+    class="pa-1"
   >
     <!-- Header -->
     <template #header>
-      <v-row no-gutters class="temp-border__item pa-1 ma-1">
+      <v-row
+        no-gutters
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="pa-1"
+      >
         <v-text-field
           v-model="search"
           clearable
@@ -23,13 +29,17 @@
 
     <!-- Main -->
     <template #default="{items : teamArray}">
-      <v-row no-gutters class="temp-border__item pa-1 ma-1">
+      <v-row
+        no-gutters
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="pa-1 my-1"
+      >
         <v-expansion-panels>
           <v-expansion-panel
             v-for="{ name, bio } in teamArray"
             :key="name + bio"
           >
-            <v-expansion-panel-header :expand-icon="icons.menuDown">
+            <v-expansion-panel-header :expand-icon="'mdi-menu-down'">
               {{ name }}
             </v-expansion-panel-header>
             <v-expansion-panel-content
@@ -44,6 +54,9 @@
 </template>
 
 <script>
+//% Utils
+import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
+
 export default {
   name: "ExpansionPanelIterator",
   props: {
@@ -53,15 +66,15 @@ export default {
     },
   },
   data: () => ({
-    icons: {
-      menuDown: "mdi-menu-down",
-    },
     itemsPerPageArray: [3, 5, 8, -1],
     search: "",
     page: 1,
     itemsPerPage: 5,
   }),
+  computed: {
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
+  },
 };
 </script>
-
-<style lang="scss" scoped></style>
