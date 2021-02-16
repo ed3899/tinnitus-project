@@ -1,57 +1,125 @@
 <template>
   <v-container
     v-if="exactRouteIsGetSupport"
-    class="temp-border mt-n6 pa-2"
     fluid
     :ref="refs.mainContainer"
+    :style="[weAreOnDevMode ? brownBorder : '']"
+    class="mt-n7 pa-1"
   >
-    <!-- 1st Row -->
+    <!-- Main-->
     <v-row
       no-gutters
-      class="temp-border__item ma-2 pa-2"
       justify="space-around"
       align-content="start"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+      class="pa-1"
     >
-      <v-col cols="7" class="temp-border__item">
-        <!-- 1st row -->
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <h2 v-text="firstRow.title" class="text-h2"></h2>
+      <v-col cols="7" :style="[weAreOnDevMode ? brownBorder : '']" class="pa-1">
+        <!-- Local info -->
+        <v-row
+          no-gutters
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          class="pa-1"
+        >
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="pa-1"
+          >
+            <h2 class="text-h2">How loud is loud?</h2>
           </v-row>
 
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <p v-text="firstRow.p1" class="text-body-2"></p>
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="mt-1 pa-1"
+          >
+            <p class="text-body-2">
+              If you are trying to understand how loud sounds are, and what is
+              and isn’t safe then this information should help.
+            </p>
 
-            <p v-text="firstRow.p2" class="text-body-2"></p>
+            <p class="text-body-2">
+              When thinking about sound levels you also need to be aware of
+              exposure times, so how long sounds are safe for, this will help
+              you understand when and how to protect yourself.
+            </p>
           </v-row>
         </v-row>
 
-        <!-- 2nd row -->
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <h2 v-text="secondRow.title" class="text-h2"></h2>
+        <v-row
+          no-gutters
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          class="my-1 pa-1"
+        >
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="pa-1"
+          >
+            <h2 class="text-h2">What is a decibel?</h2>
           </v-row>
 
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <p v-text="secondRow.p1" class="text-body-2"></p>
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="mt-1 pa-1"
+          >
+            <p class="text-body-2">
+              A decibel dB is the unit used to measure the intensity of a sound
+              – 85dB and above is the level at which noise becomes unsafe
+              without the use of hearing protection. 85dB and over hearing
+              protection should be provided.
+            </p>
 
-            <p v-text="secondRow.p2" class="text-body-2"></p>
+            <p class="text-body-2">
+              For sounds under 85dB, there should be no need for hearing
+              protection. Although if you work in a noisy environment, up to
+              80dB, you should be trained and educated to understand the risks
+              and hearing protection should be made available.
+            </p>
 
-            <p v-text="secondRow.p3" class="text-body-2"></p>
+            <p class="text-body-2">
+              These rules do not relate to social noise, and that’s where you
+              need to make sure you protect yourself.
+            </p>
           </v-row>
         </v-row>
 
-        <!-- 3rd row -->
-        <v-row no-gutters class="temp-border__item ma-3 pa-3">
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <h2 v-text="thirdRow.title" class="text-h2"></h2>
+        <v-row
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          no-gutters
+          class="pa-1"
+        >
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="temp-border__item pa-1"
+          >
+            <h2 class="text-h2">
+              Sound levels and exposure times
+            </h2>
           </v-row>
 
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
-            <p v-text="thirdRow.p1" class="text-body-1"></p>
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="my-1 pa-1"
+          >
+            <p class="text-body-1">
+              Here are some examples of sound levels and maximum exposure times,
+              after which hearing protection is required. These examples should
+              give you a gauge for sound levels, some sounds are unavoidable and
+              we aren't saying avoid the below sounds - for example, you can't
+              avoid a crying baby, but it's good to know how to understand what
+            </p>
           </v-row>
 
-          <v-row no-gutters class="temp-border__item ma-3 pa-3">
+          <v-row
+            no-gutters
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="pa-1"
+          >
             <v-data-table
               :headers="headers"
               :items="items"
@@ -64,9 +132,11 @@
         </v-row>
       </v-col>
 
+      <!-- Fixed content -->
       <v-col
         cols="4"
-        class="temp-border__item pa-1 d-flex flex-column justify-space-around align-center"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="pa-1 d-flex flex-column justify-space-around align-center"
       >
         <DonateNowCard :height="'30%'" :width="'80%'" :elevation="8" />
         <LatestNewsCards
@@ -81,19 +151,17 @@
       </v-col>
     </v-row>
 
-    <!-- 2nd Row -->
+    <!-- Back to top btn-->
     <v-row
       no-gutters
-      class="temp-border__item ma-2 pa-2"
       justify="center"
       align-content="center"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+      class="mt-1 pa-1"
     >
-      <v-btn
-        v-text="btns.scrollToTop"
-        rounded
-        class="primary text-uppercase"
-        @click="scrollToTop"
-      ></v-btn>
+      <v-btn rounded class="primary text-uppercase" @click="scrollToTop"
+        >Back to top</v-btn
+      >
     </v-row>
   </v-container>
 
@@ -101,20 +169,26 @@
   <router-view
     v-else
     :ref="refs.routerView"
-    class="temp-border mt-n6 pa-0"
+    :style="[weAreOnDevMode ? brownBorder : '']"
+    class="mt-n6 pa-0"
   ></router-view>
 </template>
 
 <script>
+//% Components
 import { default as LatestNewsCards } from "../components/LatestNews/LatestNews.vue";
 import { default as DonateNowCard } from "../components/DonateNow/DonateNowMain.vue";
 
-import { routePaths } from "../router/routes.js";
+//%Vuex
 import { mapState } from "vuex";
 
+//%Utils
 import {
   scrollToTop as scrollToTopUtil,
   routeComparator as routeComparatorUtil,
+  weAreOnDevMode,
+  brownBorder,
+  greenBorder,
 } from "../utils/index.js";
 
 export default {
@@ -125,6 +199,7 @@ export default {
       mainContainer: "get-support-view",
       routerView: "get-support-view_router-view",
     },
+
     headers: [
       {
         text: "Decibel",
@@ -141,6 +216,7 @@ export default {
         value: "hours",
       },
     ],
+
     items: [
       {
         decibels: "85db",
@@ -193,38 +269,6 @@ export default {
         hours: "0.01 hours or '66 secs'",
       },
     ],
-    firstRow: {
-      title: "How loud is loud?",
-      p1: `If you are trying to understand how loud sounds are, and what is and
-          isn’t safe then this information should help.`,
-      p2: `When thinking about sound levels you also need to be aware of exposure
-          times, so how long sounds are safe for, this will help you understand
-          when and how to protect yourself.`,
-    },
-    secondRow: {
-      title: "What is a decibel?",
-      p1: `A decibel dB is the unit used to measure the intensity of a sound –
-          85dB and above is the level at which noise becomes unsafe without the
-          use of hearing protection. 85dB and over hearing protection should be
-          provided.`,
-      p2: `For sounds under 85dB, there should be no need for hearing protection.
-          Although if you work in a noisy environment, up to 80dB, you should be
-          trained and educated to understand the risks and hearing protection
-          should be made available.`,
-      p3: `These rules do not relate to social noise, and that’s where you need
-          to make sure you protect yourself.`,
-    },
-    thirdRow: {
-      title: "Sound levels and exposure times",
-      p1: `Here are some examples of sound levels and maximum exposure times,
-          after which hearing protection is required. These examples should give
-          you a gauge for sound levels, some sounds are unavoidable and we
-          aren't saying avoid the below sounds - for example, you can't avoid a
-          crying baby, but it's good to know how to understand what`,
-    },
-    btns: {
-      scrollToTop: "Back to top",
-    },
   }),
   computed: {
     exactRouteIsGetSupport() {
@@ -233,17 +277,13 @@ export default {
     ...mapState("dummyData", {
       latestNews: state => state.General.latestNews,
     }),
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
   methods: {
     scrollToTop() {
-      const {
-        support: { path: GetSupportPath },
-      } = routePaths;
-
-      //Scroll to top logic based on the route we actually are
-      const weAreInSupportPath = this.$route.path === GetSupportPath;
-
-      if (weAreInSupportPath) {
+      if (this.exactRouteIsGetSupport) {
         scrollToTopUtil(this, this.refs.mainContainer);
       } else {
         scrollToTopUtil(this, this.refs.routerView);
@@ -258,5 +298,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

@@ -340,15 +340,6 @@ export const module = {
           Outside work Shakeela enjoys spending time with friends and family.`,
         },
       ],
-      HowYourMoneyHelps: {
-        secondRow: {
-          title: "2020 Highlights",
-        },
-        thirdRow: {
-          paragraph: "Download our latest annual review to read more",
-          btn: "Our impact",
-        },
-      },
     },
     GetSupport: {
       YourStories: [
