@@ -2,7 +2,7 @@
   <v-card>
     <v-form :ref="refs.form">
       <v-card-title>
-        <span v-text="title" class="headline text-capitalize"></span>
+        <span class="headline text-capitalize">Send us your thoughts</span>
       </v-card-title>
 
       <v-card-text>
@@ -164,11 +164,14 @@
 </template>
 
 <script>
-//Vuex
+//% Vuex
 //Mutations
 import { formDialogMutations } from "../../store/mutations/index";
 //Modules
 import { formDialogModule } from "../../store/modules/index";
+
+//% Util
+import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 
 export default {
   name: "NavBarContactDialogForm",
@@ -177,7 +180,6 @@ export default {
     refs: {
       form: "popup-form",
     },
-    title: "user profile",
     rules: {
       firstName: [v => !!v || "Name is required"],
       lastName: [v => !!v || "Last name is required"],
@@ -313,6 +315,11 @@ export default {
       const notOther = this.$store.state.formDialog.inquiry.type !== "other";
       return notOther;
     },
+
+    //% Development
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
   methods: {
     cancelForm() {

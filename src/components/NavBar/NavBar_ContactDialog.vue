@@ -3,15 +3,15 @@
     <!-- Activator btn -->
     <template #activator="{ on, attrs }">
       <v-btn
-        v-text="btns.contact"
         v-on="on"
         v-bind="attrs"
         @click="openDialog"
         rounded
         outlined
         color="black"
-        class="ml-5"
-      ></v-btn>
+        class="text-uppercase ml-5"
+        >contact us</v-btn
+      >
     </template>
 
     <!-- Pop-up form -->
@@ -20,24 +20,19 @@
 </template>
 
 <script>
-//Vuex
+//% Vuex
 import { mapState, mapMutations } from "vuex";
 //Mutations
 import { formDialogMutations } from "../../store/mutations/index";
 //Modules
 import { formDialogModule } from "../../store/modules/index";
 
+//% Components
 import NavBarContactDialogForm from "./NavBar_ContactDialog_Form.vue";
 
 export default {
   name: "NavBarContactDialog",
   components: { NavBarContactDialogForm },
-  emits: ["update:modelValue"],
-  data: () => ({
-    btns: {
-      contact: "contact us",
-    },
-  }),
   computed: {
     ...mapState(`${formDialogModule.name}`, {
       isOpen: state => state.isOpen,
@@ -50,5 +45,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>

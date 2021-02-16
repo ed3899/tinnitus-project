@@ -5,15 +5,17 @@
     :page.sync="page"
     :search="search"
     hide-default-footer
-    class="temp-border__item ma-1 pa-1"
+    :style="[weAreOnDevMode ? brownBorder : '']"
+    class="pa-1"
   >
     <!-- Data header -->
     <template #header>
       <v-row
         no-gutters
-        class="temp-border__item ma-1 pa-0"
         align="center"
         justify="center"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="pa-1"
       >
         <v-toolbar>
           <v-text-field
@@ -33,20 +35,23 @@
     <template #default="{items}">
       <v-row
         no-gutters
-        class="temp-border__item ma-1 pa-1"
         justify="space-around"
         align-content="space-around"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="my-1 pa-1"
       >
         <v-col
           v-for="story in items"
           :key="story.name + story.content"
           cols="5"
-          class="temp-border__item ma-1 pa-1"
+          :style="[weAreOnDevMode ? greenBorder : '']"
+          class="ma-1 pa-1"
         >
           <v-card
             rounded="xl"
             hover
-            class="temp-border__item pa-1 d-flex flex-column"
+            :style="[weAreOnDevMode ? greenBorder : '']"
+            class="pa-1 d-flex flex-column"
           >
             <v-img
               height="200px"
@@ -55,7 +60,6 @@
             >
             </v-img>
 
-            <!-- Fix text wrapping problem, done with word-break on css -->
             <v-card-title
               v-text="story.name"
               class="card-title-format text-h6 flex-grow-1 flex-shrink-0"
@@ -78,9 +82,10 @@
     <template #footer>
       <v-row
         no-gutters
-        class="temp-border__item ma-1 pa-1"
         align="center"
         justify="center"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+        class="pa-1"
       >
         <span>Items per page</span>
 
@@ -137,9 +142,12 @@
 </template>
 
 <script>
-//Vuex
+//% Vuex
 import { mapState } from "vuex";
-import { module as dummyDataModule } from "../../store/modules/dummyData.js";
+import { dummyDataModule } from "../../store/modules/index";
+
+//% Utils
+import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 
 export default {
   name: "GetSupportYourStories",
@@ -165,6 +173,10 @@ export default {
     ...mapState(dummyDataModule.name, {
       stories: state => state.GetSupport.YourStories,
     }),
+
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
   methods: {
     nextPage() {

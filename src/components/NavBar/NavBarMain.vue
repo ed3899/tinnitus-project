@@ -11,15 +11,14 @@
       >
         <!-- Title -->
         <v-col cols="5">
-          <v-app-bar-title v-text="appBar.title"></v-app-bar-title>
+          <v-app-bar-title>The Tinnitus Community Project</v-app-bar-title>
         </v-col>
 
         <!-- Icons -->
         <v-col cols="6" class="d-flex justify-end align-center">
-          <!-- Add a row -->
           <!-- Search -->
           <v-btn icon class="mr-10">
-            <v-icon v-text="appBar.icons.magnify"></v-icon>
+            <v-icon>mdi-magnify</v-icon>
           </v-btn>
 
           <!-- Social media -->
@@ -33,12 +32,7 @@
           </v-btn>
 
           <!-- Donate and contact -->
-          <v-btn
-            v-text="appBar.btns.donate"
-            rounded
-            color="success"
-            class="ml-5"
-          ></v-btn>
+          <v-btn rounded color="success" class="ml-5">Donate</v-btn>
 
           <!-- Contact dialog -->
           <NavBarContactDialog />
@@ -120,31 +114,6 @@ export default {
   components: { NavBarContactDialog },
   data: () => ({
     routes,
-    appBar: {
-      title: "The Tinnitus Community Project",
-      icons: {
-        magnify: "mdi-magnify",
-      },
-      btns: {
-        donate: "Donate",
-        contact: "Contact Us",
-      },
-      info: {
-        title: "Tinnitus Support Team: 0800 018 0527",
-        body: [
-          {
-            text: "Mon-Fri, 9am-5pm",
-          },
-          {
-            text: "Text/SMS: 07537 416841 | Web chat: via chat icon",
-          },
-          {
-            text: "Our forum | Our free e-newsletter",
-          },
-          { text: "Our office: 0114 250 9933" },
-        ],
-      },
-    },
   }),
   computed: {
     ...mapState({
