@@ -104,7 +104,7 @@ import {
   greenBorder,
 } from "../../../utils/index";
 
-//% Mutations
+//% Vuex
 import { mainStoreMutations } from "../../../store/mutations/index";
 
 export default {

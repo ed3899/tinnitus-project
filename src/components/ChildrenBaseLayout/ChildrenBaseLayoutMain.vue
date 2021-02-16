@@ -1,22 +1,27 @@
 <template>
-  <v-container fluid ref="children-base-layout">
+  <v-container fluid :ref="htmlTagRef.main_component">
     <!-- Carousel -->
     <v-row
       v-if="actualRouteIsHomeChild || actualRouteIsSupport_YourStories"
       no-gutters
-      class="temp-border ma-2"
+      class="ma-1"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     >
       <CarouselChildren :height="'45vh'" />
     </v-row>
 
     <!-- Img -->
-    <v-row v-else no-gutters class="temp-border__item ma-2 pa-0">
-      <!-- Re-center image based on route -->
+    <v-row
+      v-else
+      no-gutters
+      class="ma-1"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+    >
       <v-img height="45vh" :src="currentImageSrc"></v-img>
     </v-row>
 
     <!-- Breadcrumbs -->
-    <v-row no-gutters class="temp-border__item ma-2 pa-0">
+    <v-row no-gutters class="ma-1" :style="[weAreOnDevMode ? brownBorder : '']">
       <Breadcrumbs />
     </v-row>
 
@@ -25,9 +30,15 @@
       no-gutters
       justify="space-around"
       align-content="start"
-      class="temp-border__item ma-2 pa-0"
+      class="ma-1"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     >
-      <v-col cols="7" class="temp-border__item ma-2 pa-2">
+      <!-- Conditional content based on routes -->
+      <v-col
+        cols="7"
+        class="ma-1 pa-1"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+      >
         <!-- Home -->
         <!-- OvercomingIt -->
         <CardIterator
@@ -43,10 +54,12 @@
 
         <!-- About -->
         <AboutOurVision v-else-if="actualRouteIsAbout_OurVision" />
+
         <ExpansionPanelIterator
           v-else-if="actualRouteIsAbout_OurTeam"
           :itemsArray="about_ourTeamData"
         />
+
         <AboutHowYourMoneyHelps
           v-else-if="actualRouteIsAbout_HowYourMoneyHelps"
         />
@@ -55,14 +68,18 @@
         <GetSupportWhereCanIGetHelp
           v-else-if="actualRouteIsSupport_WhereCanIGetHelp"
         />
+
         <GetSupportYourStories v-else-if="actualRouteIsSupport_YourStories" />
       </v-col>
 
+      <!-- Fixed content -->
       <v-col
         cols="4"
-        class="temp-border__item ma-2 pa-0 d-flex flex-column justify-space-around align-center"
+        class="ma-1 d-flex flex-column justify-space-around align-center"
+        :style="[weAreOnDevMode ? greenBorder : '']"
       >
         <DonateNowCard :height="'30%'" :width="'80%'" :elevation="13" />
+
         <LatestNewsCards
           v-for="{ title, links } in latestNews"
           :key="title"
@@ -80,7 +97,8 @@
       no-gutters
       justify="space-around"
       align-content="start"
-      class="temp-border__item ma-2 pa-2"
+      class="ma-1 pa-1"
+      :style="[weAreOnDevMode ? greenBorder : '']"
     >
       <v-btn
         v-text="btns.scrollToTop"
@@ -93,33 +111,39 @@
 </template>
 
 <script>
-//Utils
-import { routeComparator as routeComparatorUtil } from "../../utils/routeComparator.js";
-import { scrollToTop as scrollToTopUtil } from "../../utils/scrollToTop.js";
+//% Utils
+import {
+  routeComparator as routeComparatorUtil,
+  scrollToTop as scrollToTopUtil,
+  weAreOnDevMode,
+  brownBorder,
+  greenBorder,
+} from "../../utils/index";
 
-//Vuex
+//% Vuex
 import { mapState } from "vuex";
-import { module as dummyDataModule } from "../../store/modules/dummyData.js";
+//Modules
+import { dummyDataModule } from "../../store/modules/index";
 //Mutations
 import { mainStoreMutations } from "../../store/mutations/index";
 
-//Components
+//% Components
 import CarouselChildren from "../Carousel/CarouselChildren.vue";
 import Breadcrumbs from "../Breadcrumbs/Breadcrumbs.vue";
 import DonateNowCard from "../DonateNow/DonateNowMain.vue";
 import LatestNewsCards from "../LatestNews/LatestNews.vue";
 
-//Route based components
-//% Home
+//% Route based components
+//Home
 //OvercomingIt & More information
 import CardIterator from "../CardIterator/CardIteratorMain.vue";
 
-//% About
+// About
 import AboutOurVision from "./About_OurVision.vue";
 import ExpansionPanelIterator from "../ExpansionPanelIterator/ExpansionPanelIterator.vue";
 import AboutHowYourMoneyHelps from "./About_HowYourMoneyHelps.vue";
 
-//% Get support
+// Get support
 import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
 import GetSupportYourStories from "./GetSupport_YouStories.vue";
 
@@ -150,7 +174,9 @@ export default {
     btns: {
       scrollToTop: "Back to top",
     },
-    ref: "children-base-layout",
+    htmlTagRef: {
+      main_component: "children-base-layout",
+    },
   }),
   computed: {
     //% Home
@@ -196,16 +222,22 @@ export default {
       );
     },
 
+    //%Vuex bindings
     ...mapState(dummyDataModule.name, {
       latestNews: state => state.General.latestNews,
       home_overcomingItCards: state => state.Home.OvercomingIt,
       home_moreInfomationCards: state => state.Home.MoreInformation,
       about_ourTeamData: state => state.About.OurTeam,
     }),
+
+    //% Development
+    weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
   methods: {
     scrollToTop() {
-      scrollToTopUtil(this, this.ref);
+      scrollToTopUtil(this, this.htmlTagRef.main_component);
     },
   },
   beforeRouteEnter(to, from, next) {
@@ -218,5 +250,3 @@ export default {
   },
 };
 </script>
-
-<style lang="scss" scoped></style>
