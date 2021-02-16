@@ -3,7 +3,8 @@
     v-if="exactRouteIsHome"
     ref="home-view"
     fluid
-    class="temp-border mt-n6 pa-0"
+    class="mt-n6 pa-0"
+    :style="[weAreOnDevMode ? brownBorder : '']"
   >
     <!-- 1st Row -->
     <v-row class>
@@ -14,34 +15,52 @@
     <v-row
       no-gutters
       class="ma-1 pa-1"
-      :class="[weAreOnDevMode ? tempBorder : '']"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     >
-      <v-row no-gutters class="temp-border mb-1">
+      <v-row
+        no-gutters
+        class="mb-1"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+      >
         <h1 class="text-capitalize">All you need to know about tinnitus</h1>
       </v-row>
-      <v-col cols="12" class="temp-border__item">
+      <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
         <NewsSlider :width="'100%'" :cards="cards" />
       </v-col>
     </v-row>
 
     <!-- 3rd Row -->
-    <v-row no-gutters class="temp-border ma-1 pa-1">
-      <v-row no-gutters class="temp-border mb-1">
+    <v-row
+      no-gutters
+      class="ma-1 pa-1"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+    >
+      <v-row
+        no-gutters
+        class="mb-1"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+      >
         <h1 class="text-capitalize">Latest news</h1>
       </v-row>
 
-      <v-col cols="12" class="temp-border__item">
+      <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
         <NewsSlider :width="'100%'" :cards="news" />
       </v-col>
     </v-row>
 
     <!-- 4th Row -->
-    <v-row no-gutters class="temp-border ma-1 pa-1" justify="space-around">
+    <v-row
+      no-gutters
+      class="ma-1 pa-1"
+      justify="space-around"
+      :style="[weAreOnDevMode ? brownBorder : '']"
+    >
       <v-col
         v-for="{ title, body, btn, color } in extra"
         :key="body"
         cols="3"
-        class="temp-border d-flex justify-center pa-1"
+        class="d-flex justify-center pa-1"
+        :style="[weAreOnDevMode ? greenBorder : '']"
       >
         <v-card
           height="275"
@@ -73,9 +92,10 @@
     <!-- Scroll to top -->
     <v-row
       no-gutters
-      class="temp-border ma-1 pa-1"
+      class="ma-1 pa-1"
       justify="center"
       align-content="center"
+      :style="[weAreOnDevMode ? brownBorder : '']"
     >
       <v-btn @click="scrollToTop" rounded class="primary text-uppercase">
         Back to top
@@ -102,8 +122,8 @@ import {
   scrollToTop as scrollToTopUtil,
   routeComparator as routeComparatorUtil,
   weAreOnDevMode,
-  tempBorder,
-  tempBorderItem,
+  brownBorder,
+  greenBorder,
 } from "../utils/index";
 
 //% Components
@@ -121,8 +141,8 @@ export default {
       share: "Share",
       read: "Read More",
     },
-    tempBorder,
-    tempBorderItem,
+    // brownBorder: brownBorder(),
+    // greenBorder: greenBorder(),
   }),
   computed: {
     exactRouteIsHome() {
@@ -134,6 +154,8 @@ export default {
       extra: state => state.Home.mainView.extra,
     }),
     weAreOnDevMode,
+    brownBorder,
+    greenBorder,
   },
   mounted() {
     this.scrollToTop();

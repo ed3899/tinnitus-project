@@ -1,3 +1,3 @@
 export * from "./routeComparator.js";
 export * from "./scrollToTop.js";
-export { weAreOnDevMode, tempBorder, tempBorderItem } from "./devMode.js";
+export { weAreOnDevMode, brownBorder, greenBorder } from "./devMode.js";
