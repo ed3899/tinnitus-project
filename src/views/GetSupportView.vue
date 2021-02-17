@@ -115,20 +115,26 @@
             </p>
           </v-row>
 
-          <v-row
-            no-gutters
-            :style="[weAreOnDevMode ? greenBorder : '']"
-            class="pa-1"
+          <v-lazy
+            v-model="isDecibelTableLoaded"
+            :options="lazy.options"
+            :transition="lazy.transition"
           >
-            <v-data-table
-              :headers="headers"
-              :items="items"
-              :items-per-page="5"
-              dense
-              class="elevation-8"
+            <v-row
+              no-gutters
+              :style="[weAreOnDevMode ? greenBorder : '']"
+              class="pa-1"
             >
-            </v-data-table>
-          </v-row>
+              <v-data-table
+                :headers="headers"
+                :items="items"
+                :items-per-page="5"
+                dense
+                class="elevation-8"
+              >
+              </v-data-table>
+            </v-row>
+          </v-lazy>
         </v-row>
       </v-col>
 
@@ -152,17 +158,23 @@
     </v-row>
 
     <!-- Back to top btn-->
-    <v-row
-      no-gutters
-      justify="center"
-      align-content="center"
-      :style="[weAreOnDevMode ? brownBorder : '']"
-      class="mt-1 pa-1"
+    <v-lazy
+      v-model="isBackToTopLoaded"
+      :options="lazy.options"
+      :transition="lazy.transition"
     >
-      <v-btn rounded class="primary text-uppercase" @click="scrollToTop"
-        >Back to top</v-btn
+      <v-row
+        no-gutters
+        justify="center"
+        align-content="center"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="mt-1 pa-1"
       >
-    </v-row>
+        <v-btn rounded class="primary text-uppercase" @click="scrollToTop"
+          >Back to top</v-btn
+        >
+      </v-row>
+    </v-lazy>
   </v-container>
 
   <!-- Route children -->
@@ -270,14 +282,26 @@ export default {
         hours: "0.01 hours or '66 secs'",
       },
     ],
+
+    //Lazy
+    isDecibelTableLoaded: false,
+    isBackToTopLoaded: false,
   }),
   computed: {
     exactRouteIsGetSupport() {
       return routeComparatorUtil(this, "support");
     },
+
+    //% Vuex
     ...mapState("dummyData", {
       latestNews: state => state.General.latestNews,
     }),
+
+    ...mapState({
+      lazy: state => state.lazy,
+    }),
+
+    //% Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,
@@ -291,11 +315,10 @@ export default {
       }
     },
   },
-  mounted() {
-    this.scrollToTop();
-  },
-  updated() {
-    this.scrollToTop();
+  beforeRouteEnter(to, from, next) {
+    next(vm => {
+      vm.$nextTick(() => vm.scrollToTop());
+    });
   },
 };
 </script>
