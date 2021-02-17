@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!-- Nav Bar -->
-    <v-app-bar app color="teal lighten-1" height="65" elevation="13">
+    <v-app-bar app :color="navBarColor" height="65" elevation="13">
       <!-- First Row -->
       <v-row
         no-gutters
@@ -36,6 +36,13 @@
 
           <!-- Contact dialog -->
           <NavBarContactDialog />
+
+          <!-- Toggle dark mode -->
+          <v-btn @click.stop="toggleDarkMode" icon class="ml-5 mr-n5">
+            <v-icon v-show="areWeOnDarkMode">mdi-weather-sunny</v-icon>
+
+            <v-icon v-show="!areWeOnDarkMode">mdi-moon-waxing-crescent</v-icon>
+          </v-btn>
         </v-col>
       </v-row>
 
@@ -119,6 +126,20 @@ export default {
     ...mapState({
       socialMediaIcons: state => state.socialMediaIcons,
     }),
+    navBarColor() {
+      const weAreOnLightMode = !this.$vuetify.theme.dark;
+      if (weAreOnLightMode) {
+        return "teal lighten-1";
+      }
+    },
+    areWeOnDarkMode() {
+      return this.$vuetify.theme.dark;
+    },
+  },
+  methods: {
+    toggleDarkMode() {
+      this.$vuetify.theme.dark = !this.$vuetify.theme.dark;
+    },
   },
 };
 </script>
