@@ -1,6 +1,6 @@
 <template>
   <v-container fluid :ref="htmlTagRef.main_component" class="mt-n7">
-    <!-- Carousel -->
+    <!-- Carousel --> 
     <v-row
       v-if="actualRouteIsHomeChild || actualRouteIsSupport_YourStories"
       no-gutters
