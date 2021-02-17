@@ -142,8 +142,6 @@
 //% Utils
 import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 
-
-
 export default {
   name: "GetSupportWhereCanIGetHelp",
   data: () => ({
@@ -184,6 +182,7 @@ export default {
     ],
   }),
   computed: {
+    //% Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,

@@ -1,5 +1,5 @@
 <template>
-  <v-container :ref="htmlsTagRefs.main_component" fluid>
+  <v-container :ref="htmlsTagRefs.main_component" fluid class="mt-n7">
     <!-- Image -->
     <v-row
       no-gutters
