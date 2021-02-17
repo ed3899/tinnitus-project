@@ -93,7 +93,7 @@
             <v-card-actions class="align-self-start flex-grow-0 flex-shrink-0">
               <v-btn
                 v-text="btn"
-                color="rgb(87, 195, 178)"
+                :color="darkModeIsOn ? 'teal darken-2' : 'teal lighten-1'"
                 class="white--text"
               ></v-btn>
             </v-card-actions>
@@ -115,7 +115,12 @@
         align-content="center"
         :style="[weAreOnDevMode ? brownBorder : '']"
       >
-        <v-btn @click="scrollToTop" rounded class="primary text-uppercase">
+        <v-btn
+          @click="scrollToTop"
+          rounded
+          :class="darkModeIsOn ? 'teal darken-3' : 'teal lighten-1 white--text'"
+          class="text-uppercase"
+        >
           Back to top
         </v-btn>
       </v-row>
@@ -152,10 +157,12 @@ import NewsSlider from "../components/NewsSlider/NewsSlider.vue";
 
 export default {
   name: "HomeView",
+
   components: {
     Carousel,
     NewsSlider,
   },
+
   data: () => ({
     //These trigger an update(). Lazy load
     areNewsLoaded1: false,
@@ -168,6 +175,7 @@ export default {
       router_view: "home-view_router-view",
     },
   }),
+
   computed: {
     exactRouteIsHome() {
       return routeComparatorUtil(this, "home");
@@ -179,13 +187,22 @@ export default {
       news: state => state.Home.mainView.news,
       extra: state => state.Home.mainView.extra,
     }),
+
     ...mapState({
       lazy: state => state.lazy,
     }),
+
+    //%Dark mode
+    darkModeIsOn() {
+      return this.$vuetify.theme.dark;
+    },
+
+    //% Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,
   },
+
   methods: {
     scrollToTop() {
       if (this.exactRouteIsHome) {
@@ -195,6 +212,7 @@ export default {
       }
     },
   },
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.$nextTick(() => vm.scrollToTop());

@@ -118,10 +118,13 @@ import NavBarContactDialog from "./NavBar_ContactDialog.vue";
 
 export default {
   name: "NavBarMain",
+
   components: { NavBarContactDialog },
+
   data: () => ({
     routes,
   }),
+
   computed: {
     ...mapState({
       socialMediaIcons: state => state.socialMediaIcons,
@@ -131,11 +134,13 @@ export default {
     isDarkModeOn() {
       return this.$vuetify.theme.dark;
     },
+
     navBarClass() {
       return {
         "teal lighten-1": !this.isDarkModeOn,
       };
     },
+
     navBarDonate() {
       return {
         success: !this.isDarkModeOn,
@@ -143,6 +148,40 @@ export default {
       };
     },
   },
+
+  watch: {
+    isDarkModeOn(newVal) {
+      //Local storage only parses string key value pairs
+      if (newVal) {
+        this.$vuetify.theme.options.themeCache.set(
+          process.env.VUE_APP_DARK_MODE_LOCAL_STORAGE_NAME,
+          "true"
+        );
+      } else {
+        this.$vuetify.theme.options.themeCache.set(
+          process.env.VUE_APP_DARK_MODE_LOCAL_STORAGE_NAME,
+          "false"
+        );
+      }
+    },
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      const appLocalStorageDarkVal = this.$vuetify.theme.options.themeCache.get(
+        process.env.VUE_APP_DARK_MODE_LOCAL_STORAGE_NAME
+      );
+
+      const thereWasAPreviousDarkMode = appLocalStorageDarkVal === "true";
+
+      if (thereWasAPreviousDarkMode) {
+        this.$vuetify.theme.dark = true;
+      } else {
+        this.$vuetify.theme.dark = false;
+      }
+    });
+  },
+
   methods: {
     toggleDarkMode() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark;

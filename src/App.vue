@@ -29,14 +29,10 @@ export default {
   components: { NavBarMain, FooterMain, NewsletterPopUp },
 
   computed: {
+    //%Development
     weAreOnDevMode,
     brownBorder,
     greenBorder,
   },
 };
 </script>
-
-<style lang="scss">
-.temp-border {
-}
-</style>
