@@ -111,4 +111,9 @@ export const routes = [
       },
     ],
   },
+  {
+    path: "/:pathMatch(.*)*",
+    name: "NotFound404",
+    component: () => import("../components/NotFound404/NotFound404.vue"),
+  },
 ];

@@ -58,7 +58,7 @@
           >
             <!-- Parent menu -->
             <template #activator="{ on, attrs }">
-              <v-hover #default="{ hover }">
+              <v-hover v-if="name !== 'NotFound404'" #default="{ hover }">
                 <v-tab
                   v-text="name"
                   v-bind="attrs"

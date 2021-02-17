@@ -21,6 +21,7 @@ export const module = {
     [formDialogMutations.SET_FIRST_NAME](state, { value }) {
       state.firstName = value;
     },
+
     [formDialogMutations.SET_MIDDLE_NAME](state, { value }) {
       state.middleName = value;
     },
