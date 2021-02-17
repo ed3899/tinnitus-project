@@ -21,7 +21,7 @@ export default new Vuex.Store({
       { icon: "mdi-linkedin" },
     ],
 
-    //%Lazy
+    // %Lazy
     lazy: {
       options: {
         threshold: 0.5,

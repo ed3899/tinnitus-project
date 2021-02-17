@@ -1,7 +1,7 @@
 <template>
   <v-container fluid>
     <!-- Nav Bar -->
-    <v-app-bar app :color="navBarColor" height="65" elevation="13">
+    <v-app-bar app height="65" elevation="13" :class="navBarClass">
       <!-- First Row -->
       <v-row
         no-gutters
@@ -32,16 +32,16 @@
           </v-btn>
 
           <!-- Donate and contact -->
-          <v-btn rounded color="success" class="ml-5">Donate</v-btn>
+          <v-btn rounded :class="navBarDonate" class="ml-5">Donate</v-btn>
 
           <!-- Contact dialog -->
           <NavBarContactDialog />
 
           <!-- Toggle dark mode -->
           <v-btn @click.stop="toggleDarkMode" icon class="ml-5 mr-n5">
-            <v-icon v-show="areWeOnDarkMode">mdi-weather-sunny</v-icon>
+            <v-icon v-show="isDarkModeOn">mdi-weather-sunny</v-icon>
 
-            <v-icon v-show="!areWeOnDarkMode">mdi-moon-waxing-crescent</v-icon>
+            <v-icon v-show="!isDarkModeOn">mdi-moon-waxing-crescent</v-icon>
           </v-btn>
         </v-col>
       </v-row>
@@ -126,14 +126,21 @@ export default {
     ...mapState({
       socialMediaIcons: state => state.socialMediaIcons,
     }),
-    navBarColor() {
-      const weAreOnLightMode = !this.$vuetify.theme.dark;
-      if (weAreOnLightMode) {
-        return "teal lighten-1";
-      }
-    },
-    areWeOnDarkMode() {
+
+    //%Computed classes
+    isDarkModeOn() {
       return this.$vuetify.theme.dark;
+    },
+    navBarClass() {
+      return {
+        "teal lighten-1": !this.isDarkModeOn,
+      };
+    },
+    navBarDonate() {
+      return {
+        success: !this.isDarkModeOn,
+        "green darken-2": this.isDarkModeOn,
+      };
     },
   },
   methods: {

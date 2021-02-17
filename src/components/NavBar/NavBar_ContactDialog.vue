@@ -8,8 +8,8 @@
         @click="openDialog"
         rounded
         outlined
-        color="black"
-        class="text-uppercase ml-5"
+        :class="activatorBtnClass"
+        class="ml-5"
         >contact us</v-btn
       >
     </template>
@@ -37,6 +37,13 @@ export default {
     ...mapState(`${formDialogModule.name}`, {
       isOpen: state => state.isOpen,
     }),
+
+    activatorBtnClass() {
+      return {
+        "black--text": !this.$vuetify.theme.dark,
+        "white--text": this.$vuetify.theme.dark,
+      };
+    },
   },
   methods: {
     ...mapMutations(formDialogModule.name, {

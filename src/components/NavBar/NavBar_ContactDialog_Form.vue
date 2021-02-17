@@ -145,11 +145,11 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn color="blue darken-1" text @click="cancelForm">
+        <v-btn text :class="cancelBtnClass" @click="cancelForm">
           cancel
         </v-btn>
 
-        <v-btn color="blue darken-1" text @click="cancelForm">
+        <v-btn text :class="saveBtnClass" @click="cancelForm">
           save
         </v-btn>
       </v-card-actions>
@@ -306,6 +306,21 @@ export default {
       //Disable if is different from other
       const notOther = this.$store.state.formDialog.inquiry.type !== "other";
       return notOther;
+    },
+
+    //%Btn classes
+    cancelBtnClass() {
+      return {
+        "red darken-1 white--text": !this.$vuetify.theme.dark,
+        "red darken-4 white--text": this.$vuetify.theme.dark,
+      };
+    },
+
+    saveBtnClass() {
+      return {
+        "green darken-1 white--text": !this.$vuetify.theme.dark,
+        "green darken-4 white--text": this.$vuetify.theme.dark,
+      };
     },
 
     //% Development
