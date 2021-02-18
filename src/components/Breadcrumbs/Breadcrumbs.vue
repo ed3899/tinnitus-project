@@ -19,15 +19,18 @@
 </template>
 
 <script>
+//% Vuex
 import { mapState } from "vuex";
 
 export default {
   name: "Breadcrumbs",
+
   computed: {
     ...mapState({
       breadcrumbItems: state => state.currentBreadcrumbs,
     }),
 
+    //% Dark mode
     weAreOnDarkMode() {
       return this.$vuetify.theme.dark;
     },
