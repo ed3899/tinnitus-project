@@ -137,19 +137,20 @@ export default {
 
     navBarClass() {
       return {
-        "teal lighten-1": !this.isDarkModeOn,
+        "teal lighten-1": !this.$vuetify.theme.dark,
       };
     },
 
     navBarDonate() {
       return {
-        success: !this.isDarkModeOn,
-        "green darken-2": this.isDarkModeOn,
+        success: !this.$vuetify.theme.dark,
+        "green darken-2": this.$vuetify.theme.dark,
       };
     },
   },
 
   watch: {
+    //Set dark mode key values to local storage
     isDarkModeOn(newVal) {
       //Local storage only parses string key value pairs
       if (newVal) {
@@ -167,6 +168,7 @@ export default {
   },
 
   mounted() {
+    //Verify is there was a previous dark mode
     this.$nextTick(() => {
       const appLocalStorageDarkVal = this.$vuetify.theme.options.themeCache.get(
         process.env.VUE_APP_DARK_MODE_LOCAL_STORAGE_NAME

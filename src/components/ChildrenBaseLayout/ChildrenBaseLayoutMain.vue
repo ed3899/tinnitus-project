@@ -1,6 +1,6 @@
 <template>
   <v-container fluid :ref="htmlTagRef.main_component" class="mt-n7">
-    <!-- Carousel --> 
+    <!-- Carousel -->
     <v-row
       v-if="actualRouteIsHomeChild || actualRouteIsSupport_YourStories"
       no-gutters
@@ -68,8 +68,11 @@
         <GetSupportWhereCanIGetHelp
           v-else-if="actualRouteIsSupport_WhereCanIGetHelp"
         />
-
-        <GetSupportYourStories v-else-if="actualRouteIsSupport_YourStories" />
+        <!-- Your stories -->
+        <CardIterator
+          v-else-if="actualRouteIsSupport_YourStories"
+          :itemsArray="support_yourStories"
+        />
       </v-col>
 
       <!-- Fixed content -->
@@ -148,22 +151,22 @@ import AboutHowYourMoneyHelps from "./About_HowYourMoneyHelps.vue";
 
 // Get support
 import GetSupportWhereCanIGetHelp from "./GetSupport_WhereCanIGetHelp.vue";
-import GetSupportYourStories from "./GetSupport_YouStories.vue";
 
 export default {
   name: "ChildrenBaseLayoutMain",
+
   components: {
     Breadcrumbs,
     CarouselChildren,
     DonateNowCard,
     LatestNewsCards,
     GetSupportWhereCanIGetHelp,
-    GetSupportYourStories,
     CardIterator,
     AboutOurVision,
     ExpansionPanelIterator,
     AboutHowYourMoneyHelps,
   },
+
   data: () => ({
     colors: [
       "indigo",
@@ -184,6 +187,7 @@ export default {
     //Lazy
     isBackToTopLoaded: false,
   }),
+
   computed: {
     //% Home
     actualRouteIsHome_OvercomingIt() {
@@ -234,6 +238,7 @@ export default {
       home_overcomingItCards: state => state.Home.OvercomingIt,
       home_moreInfomationCards: state => state.Home.MoreInformation,
       about_ourTeamData: state => state.About.OurTeam,
+      support_yourStories: state => state.GetSupport.YourStories,
     }),
 
     ...mapState({
@@ -245,11 +250,13 @@ export default {
     brownBorder,
     greenBorder,
   },
+
   methods: {
     scrollToTop() {
       scrollToTopUtil(this, this.htmlTagRef.main_component);
     },
   },
+
   beforeRouteEnter(to, from, next) {
     next(vm => {
       vm.$nextTick(() => {

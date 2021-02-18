@@ -90,7 +90,9 @@
             Download our latest annual review to read more
           </p>
 
-          <v-btn color="success">Our impact</v-btn>
+          <v-btn :color="darkModeIsOn ? 'green darken-2' : 'success'"
+            >Our impact</v-btn
+          >
         </v-col>
       </v-row>
     </v-lazy>
@@ -138,6 +140,12 @@ export default {
     ...mapState({
       lazy: state => state.lazy,
     }),
+
+    //%Dark
+    darkModeIsOn() {
+      return this.$vuetify.theme.dark;
+    },
+
     //% Development
     weAreOnDevMode,
     brownBorder,

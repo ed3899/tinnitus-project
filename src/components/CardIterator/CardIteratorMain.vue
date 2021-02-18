@@ -15,7 +15,7 @@
         align="center"
         justify="center"
         :style="[weAreOnDevMode ? brownBorder : '']"
-        class="temp-border__item ma-1 pa-0"
+        class="ma-1 pa-0"
       >
         <v-toolbar>
           <v-text-field
@@ -41,8 +41,8 @@
         class="ma-1 pa-1"
       >
         <v-col
-          v-for="item in items"
-          :key="item.title + item.body"
+          v-for="({ title, body, img }, i) in items"
+          :key="title + body + i + img"
           cols="5"
           class="ma-1 pa-1"
           :style="[weAreOnDevMode ? greenBorder : '']"
@@ -57,19 +57,19 @@
             >
               <v-img
                 height="200px"
-                :src="item.img"
+                :src="img"
                 class="flex-grow-0 flex-shrink-1"
               >
               </v-img>
 
               <!-- Fixed text wrapping problem, done with word-break on css -->
               <v-card-title
-                v-text="item.title"
+                v-text="title"
                 class="card-title-format text-h6 flex-grow-1 flex-shrink-0"
               >
               </v-card-title>
 
-              <v-card-text v-text="item.body" class="flex-grow-1 flex-shrink-0">
+              <v-card-text v-text="body" class="flex-grow-1 flex-shrink-0">
               </v-card-text>
 
               <!-- Card transition -->
@@ -80,10 +80,9 @@
                   class="d-flex align-center transition-fast-in-fast-out orange darken-2 v-card--reveal"
                 >
                   <v-card-text class="pa-1 text-center">
-                    <h3
-                      v-text="btn.readMore"
-                      class="text-h3 text-capitalize white--text"
-                    ></h3>
+                    <h3 class="text-h3 text-capitalize white--text">
+                      Read more
+                    </h3>
                   </v-card-text>
                 </v-card>
               </v-expand-transition>
@@ -110,27 +109,41 @@
         <v-menu offset-y>
           <!-- Items p/page -->
           <template #activator="{on, attrs}">
-            <v-btn text color="primary" v-bind="attrs" v-on="on" class="ml-2">
+            <v-btn
+              text
+              :color="darkModeIsOn ? 'blue lighten-3' : 'primary'"
+              v-bind="attrs"
+              v-on="on"
+              class="ml-2"
+            >
               {{ itemsPerPage }}
               <v-icon>mdi-chevron-down</v-icon>
             </v-btn>
           </template>
 
-          <v-list>
-            <v-list-item
+          <v-list :color="darkModeIsOn ? 'blue-grey lighten-3' : ''">
+            <v-hover
+              #default="{hover}"
               v-for="(number, i) in itemsPerPageArray"
               :key="number * i + i"
-              @click="updateItemsPerPage(number)"
             >
-              <v-list-item-title v-text="number"></v-list-item-title>
-            </v-list-item>
+              <v-list-item
+                :class="{ 'teal lighten-2': hover }"
+                @click="updateItemsPerPage(number)"
+              >
+                <v-list-item-title
+                  v-text="number"
+                  class="black--text"
+                ></v-list-item-title>
+              </v-list-item>
+            </v-hover>
           </v-list>
         </v-menu>
 
         <v-spacer></v-spacer>
 
         <!-- Page btns -->
-        <span class="mr-4 grey--text">
+        <span :class="pageBtnsSpanClass">
           Page {{ page }} of {{ numberOfPages }}
         </span>
 
@@ -138,7 +151,7 @@
           fab
           outlined
           dark
-          color="blue darken-3"
+          :color="darkModeIsOn ? 'teal lighten-4' : 'blue darken-3'"
           class="mr-1"
           @click="formerPage"
         >
@@ -149,7 +162,7 @@
           fab
           outlined
           dark
-          color="blue darken-3"
+          :color="darkModeIsOn ? 'teal lighten-4' : 'blue darken-3'"
           class="ml-1"
           @click="nextPage"
         >
@@ -166,28 +179,41 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 
 export default {
   name: "CardIteratorMain",
+
   props: {
     itemsArray: {
       type: Array,
       required: true,
     },
   },
+
   data: () => ({
     search: "",
     itemsPerPageArray: [3, 5, 8],
     itemsPerPage: 3,
     page: 1,
-    btn: {
-      readMore: "read more",
-    },
   }),
+
   computed: {
     storyKeys() {
       //Pick a random story. In this case the first one since all of them should share the same structure
       return Object.keys(this.itemsArray[0]);
     },
+
     numberOfPages() {
       return Math.ceil(this.itemsArray.length / this.itemsPerPage);
+    },
+
+    //%Dark mode
+    darkModeIsOn() {
+      return this.$vuetify.theme.dark;
+    },
+
+    pageBtnsSpanClass() {
+      return {
+        "mr-4 black--text": !this.$vuetify.theme.dark,
+        "mr-4 white--text": this.$vuetify.theme.dark,
+      };
     },
 
     //% Development
@@ -195,15 +221,18 @@ export default {
     brownBorder,
     greenBorder,
   },
+
   methods: {
     nextPage() {
       const thereIsANextPage = this.page + 1 <= this.numberOfPages;
       if (thereIsANextPage) this.page += 1;
     },
+
     formerPage() {
       const thereIsAPreviousPage = this.page - 1 >= 1;
       if (thereIsAPreviousPage) this.page -= 1;
     },
+
     updateItemsPerPage(number) {
       this.itemsPerPage = number;
     },
