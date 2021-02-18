@@ -8,8 +8,6 @@
       </v-fade-transition>
     </v-main>
 
-    <NewsletterPopUp />
-
     <FooterMain />
   </v-app>
 </template>
@@ -21,12 +19,11 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "./utils/index";
 //%Components
 import NavBarMain from "./components/NavBar/NavBarMain.vue";
 import FooterMain from "./components/Footer/FooterMain.vue";
-import NewsletterPopUp from "./components/NewsletterPopUp/NewsletterPopUp.vue";
 
 export default {
   name: "App",
 
-  components: { NavBarMain, FooterMain, NewsletterPopUp },
+  components: { NavBarMain, FooterMain },
 
   computed: {
     //%Development

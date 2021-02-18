@@ -125,6 +125,8 @@
         </v-btn>
       </v-row>
     </v-lazy>
+
+    <NewsletterPopUp :isVisible="isNewsletterVisible" />
   </v-container>
 
   <!-- Router view -->
@@ -146,6 +148,7 @@ import { dummyDataModule } from "../store/modules/index";
 import {
   scrollToTop as scrollToTopUtil,
   routeComparator as routeComparatorUtil,
+  checkCookie as checkCookieUtil,
   weAreOnDevMode,
   brownBorder,
   greenBorder,
@@ -154,6 +157,7 @@ import {
 //% Components
 import Carousel from "../components/Carousel/CarouselChildren.vue";
 import NewsSlider from "../components/NewsSlider/NewsSlider.vue";
+import NewsletterPopUp from "../components/NewsletterPopUp/NewsletterPopUp.vue";
 
 export default {
   name: "HomeView",
@@ -161,6 +165,7 @@ export default {
   components: {
     Carousel,
     NewsSlider,
+    NewsletterPopUp,
   },
 
   data: () => ({
@@ -169,6 +174,9 @@ export default {
     areNewsLoaded2: false,
     areExtrasLoaded: false,
     isBackToTopLoaded: false,
+
+    //Newsletter pop up
+    isNewsletterVisible: false,
 
     htmlRefs: {
       main_view: "home-view",
@@ -201,6 +209,20 @@ export default {
     weAreOnDevMode,
     brownBorder,
     greenBorder,
+  },
+
+  mounted() {
+    this.$nextTick(() => {
+      const thereANewsletterCookie = checkCookieUtil(
+        process.env.VUE_APP_NEWSLETTER_COOKIE_NAME
+      );
+
+      if (!thereANewsletterCookie) {
+        setTimeout(() => {
+          this.isNewsletterVisible = true;
+        }, 3000);
+      }
+    });
   },
 
   methods: {

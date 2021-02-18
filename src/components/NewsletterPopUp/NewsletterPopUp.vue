@@ -43,20 +43,30 @@
 <script>
 export default {
   name: "NewsletterPopUp",
+
+  props: {
+    isVisible: {
+      type: Boolean,
+      required: true,
+    },
+  },
+
   data: () => ({
     overlay: false,
   }),
+
+  watch: {
+    isVisible(newVal) {
+      if (newVal) {
+        this.overlay = true;
+      }
+    },
+  },
+
   methods: {
     closePopUp() {
       this.overlay = false;
     },
-  },
-  mounted() {
-    this.$nextTick(() => {
-      setTimeout(() => {
-        this.overlay = true;
-      }, 3000);
-    });
   },
 };
 </script>
