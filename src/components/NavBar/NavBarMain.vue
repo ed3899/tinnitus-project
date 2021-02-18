@@ -1,7 +1,18 @@
 <template>
-  <v-container fluid>
+  <v-container>
     <!-- Nav Bar -->
-    <v-app-bar app height="65" elevation="13" :class="navBarClass">
+    <v-app-bar
+      app
+      :height="$vuetify.breakpoint.smAndDown ? 100 : 75"
+      elevation="13"
+      :class="navBarClass"
+    >
+      <!-- Hamburguer menu -->
+      <v-app-bar-nav-icon
+        @click="drawerProp = true"
+        class="hidden-md-and-up"
+      ></v-app-bar-nav-icon>
+
       <!-- First Row -->
       <v-row
         no-gutters
@@ -19,7 +30,10 @@
             $vuetify.breakpoint.smAndDown ? 'd-flex justify-center mb-1' : '',
           ]"
         >
-          <v-app-bar-title>The Tinnitus Community Project</v-app-bar-title>
+          <v-app-bar-title
+            :class="[$vuetify.breakpoint.smAndDown ? 'mt-10' : '']"
+            >The Tinnitus Community Project</v-app-bar-title
+          >
         </v-col>
 
         <!-- Icons -->
@@ -52,13 +66,24 @@
           </v-btn>
 
           <!-- Donate and contact -->
-          <v-btn rounded :class="navBarDonate" class="ml-5">Donate</v-btn>
+          <v-btn
+            :small="$vuetify.breakpoint.smAndDown ? true : false"
+            rounded
+            :class="navBarDonate"
+            class="ml-5"
+            >Donate</v-btn
+          >
 
           <!-- Contact dialog -->
+          <!-- Contact btn -->
           <NavBarContactDialog />
 
           <!-- Toggle dark mode -->
-          <v-btn @click.stop="toggleDarkMode" icon class="ml-5 mr-n5">
+          <v-btn
+            @click.stop="toggleDarkMode"
+            icon
+            :class="[$vuetify.breakpoint.smAndDown ? 'ml-1' : 'ml-5 mr-n5']"
+          >
             <v-icon v-show="isDarkModeOn">mdi-weather-sunny</v-icon>
 
             <v-icon v-show="!isDarkModeOn">mdi-moon-waxing-crescent</v-icon>
@@ -71,7 +96,11 @@
         <v-tabs
           slider-color="red"
           show-arrows
-          class="d-flex justify-space-around"
+          :class="[
+            $vuetify.breakpoint.mdAndUp
+              ? 'd-flex justify-space-around'
+              : 'd-none',
+          ]"
         >
           <v-menu
             v-for="({ path: parentPath, name, children }, i) in routes"
@@ -125,6 +154,12 @@
         </v-tabs>
       </template>
     </v-app-bar>
+
+    <!-- NavDrawer - Mobile Only -->
+    <NavBarNavDrawer
+      :modelValue="drawerProp"
+      @update:modelValue="drawerProp = $event"
+    />
   </v-container>
 </template>
 
@@ -135,14 +170,16 @@ import { mapState } from "vuex";
 
 //% Components
 import NavBarContactDialog from "./NavBar_ContactDialog.vue";
+import NavBarNavDrawer from "./NavBar_NavDrawer.vue";
 
 export default {
   name: "NavBarMain",
 
-  components: { NavBarContactDialog },
+  components: { NavBarContactDialog, NavBarNavDrawer },
 
   data: () => ({
     routes,
+    drawerProp: false,
   }),
 
   computed: {

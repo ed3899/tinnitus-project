@@ -5,6 +5,7 @@
       <v-btn
         v-on="on"
         v-bind="attrs"
+        :small="$vuetify.breakpoint.smAndDown ? true : false"
         @click="openDialog"
         rounded
         outlined
