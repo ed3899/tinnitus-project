@@ -10,14 +10,33 @@
         align="center"
       >
         <!-- Title -->
-        <v-col cols="5">
+        <v-col
+          sm="12"
+          md="5"
+          lg="5"
+          xl="5"
+          :class="[
+            $vuetify.breakpoint.smAndDown ? 'd-flex justify-center mb-1' : '',
+          ]"
+        >
           <v-app-bar-title>The Tinnitus Community Project</v-app-bar-title>
         </v-col>
 
         <!-- Icons -->
-        <v-col cols="6" class="d-flex justify-end align-center">
+        <v-col
+          sm="12"
+          md="6"
+          lg="6"
+          xl="6"
+          class="d-flex"
+          :class="[
+            $vuetify.breakpoint.smAndDown
+              ? 'justify-center align-center'
+              : 'justify-end align-center',
+          ]"
+        >
           <!-- Search -->
-          <v-btn icon class="mr-10">
+          <v-btn icon class="mr-10 hidden-sm-and-down">
             <v-icon>mdi-magnify</v-icon>
           </v-btn>
 
@@ -27,6 +46,7 @@
             v-for="({ icon, link }, i) in socialMediaIcons"
             :key="icon + i"
             :href="link"
+            class="hidden-sm-and-down"
           >
             <v-icon v-text="icon"></v-icon>
           </v-btn>
@@ -168,7 +188,7 @@ export default {
   },
 
   mounted() {
-    //Verify is there was a previous dark mode
+    //Verify if there was a previous dark mode
     this.$nextTick(() => {
       const appLocalStorageDarkVal = this.$vuetify.theme.options.themeCache.get(
         process.env.VUE_APP_DARK_MODE_LOCAL_STORAGE_NAME
