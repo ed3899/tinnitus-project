@@ -43,7 +43,10 @@
         <v-col
           v-for="({ title, body, img }, i) in items"
           :key="title + body + i + img"
-          cols="5"
+          sm="8"
+          md="5"
+          lg="5"
+          xl="5"
           class="ma-1 pa-1"
           :style="[weAreOnDevMode ? greenBorder : '']"
         >
@@ -52,11 +55,16 @@
             <v-card
               hover
               shaped
-              class="d-flex flex-column"
+              :class="[
+                $vuetify.breakpoint.smAndDown
+                  ? 'd-flex flex-column mx-auto'
+                  : 'd-flex flex-column',
+              ]"
               :style="[weAreOnDevMode ? greenBorder : '']"
+              :width="[$vuetify.breakpoint.smAndDown ? '80%' : '100%']"
             >
               <v-img
-                height="200px"
+                :height="$vuetify.breakpoint.smAndDown ? '100px' : '200px'"
                 :src="img"
                 class="flex-grow-0 flex-shrink-1"
               >
@@ -75,7 +83,7 @@
               <!-- Card transition -->
               <v-expand-transition>
                 <v-card
-                  v-if="hover"
+                  v-if="hover && $vuetify.breakpoint.mdAndUp"
                   shaped
                   class="d-flex align-center transition-fast-in-fast-out orange darken-2 v-card--reveal"
                 >

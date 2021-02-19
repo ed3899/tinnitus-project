@@ -80,11 +80,14 @@
 
       <!-- Fixed content -->
       <v-col
-        sm="12"
         md="4"
         lg="4"
         xl="4"
-        class="mt-1 d-flex flex-column justify-space-around align-center"
+        :class="[
+          $vuetify.breakpoint.smAndDown
+            ? 'd-none'
+            : 'mt-1 d-flex flex-column justify-space-around align-center',
+        ]"
         :style="[
           weAreOnDevMode ? greenBorder : '',
           $vuetify.breakpoint.smAndDown ? { height: '60rem' } : '',
