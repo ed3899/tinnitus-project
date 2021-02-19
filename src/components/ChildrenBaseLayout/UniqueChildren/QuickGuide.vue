@@ -37,7 +37,11 @@
       :style="[weAreOnDevMode ? brownBorder : '']"
     >
       <!-- Heading -->
-      <v-col cols="5" class="pa-1" :style="[weAreOnDevMode ? greenBorder : '']">
+      <v-col
+        cols="5"
+        class="pa-1 hidden-sm-and-down"
+        :style="[weAreOnDevMode ? greenBorder : '']"
+      >
         <h1 class="text-h1 text-capitalize">What is tinnitus?</h1>
         <p class="text-body-1">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Corporis, rem
@@ -51,7 +55,7 @@
       </v-col>
 
       <!-- Expansion panels -->
-      <v-col cols="5">
+      <v-col sm="12" md="5" lg="5">
         <v-expansion-panels
           popout
           mandatory
