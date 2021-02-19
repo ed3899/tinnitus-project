@@ -61,7 +61,7 @@
                   : 'd-flex flex-column',
               ]"
               :style="[weAreOnDevMode ? greenBorder : '']"
-              :width="[$vuetify.breakpoint.smAndDown ? '80%' : '100%']"
+              :width="$vuetify.breakpoint.smAndDown ? '80%' : '100%'"
             >
               <v-img
                 :height="$vuetify.breakpoint.smAndDown ? '100px' : '200px'"

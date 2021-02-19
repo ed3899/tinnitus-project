@@ -30,24 +30,41 @@
         </h2>
 
         <!-- Contact list -->
-        <v-list two-line>
+        <v-list two-line width="90%">
           <v-list-item
             v-for="({ title, subtitle, icon }, i) in contactList"
             :key="title + subtitle + icon + i"
-            class="d-flex justify-space-around align-center"
+            :class="[
+              $vuetify.breakpoint.smAndDown
+                ? 'd-flex flex-column justify-space-around align-center'
+                : 'd-flex justify-space-around align-center',
+            ]"
           >
-            <v-list-item-icon class="ma-5">
+            <v-list-item-icon
+              :class="[
+                { 'align-self-center ml-4': $vuetify.breakpoint.smAndDown },
+                'ma-5',
+              ]"
+            >
               <v-icon v-text="icon" color="indigo"></v-icon>
             </v-list-item-icon>
 
-            <v-list-item-content>
+            <v-list-item-content
+              :class="{ 'align-self-center': $vuetify.breakpoint.smAndDown }"
+            >
               <v-list-item-title
                 v-text="title"
-                class="text-h6"
+                :class="[
+                  { 'text-center': $vuetify.breakpoint.smAndDown },
+                  'text-h6',
+                ]"
               ></v-list-item-title>
               <v-list-item-subtitle
                 v-text="subtitle"
-                class="text-subtitle-1"
+                :class="[
+                  { 'text-center': $vuetify.breakpoint.smAndDown },
+                  'text-subtitle-1 subtitle-text-fix',
+                ]"
               ></v-list-item-subtitle>
             </v-list-item-content>
           </v-list-item>
@@ -189,3 +206,9 @@ export default {
   },
 };
 </script>
+
+<style lang="scss" scoped>
+.subtitle-text-fix {
+  white-space: pre-line !important;
+}
+</style>
