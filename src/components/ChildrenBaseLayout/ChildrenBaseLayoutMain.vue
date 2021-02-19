@@ -30,13 +30,16 @@
       no-gutters
       justify="space-around"
       align-content="start"
-      class="ma-1"
+      class="ma-1 pa-1"
       :style="[weAreOnDevMode ? brownBorder : '']"
     >
       <!-- Conditional content based on routes -->
       <v-col
-        cols="7"
-        class="ma-1 pa-1"
+        sm="12"
+        md="7"
+        lg="7"
+        xl="7"
+        class="pa-1"
         :style="[weAreOnDevMode ? greenBorder : '']"
       >
         <!-- Home -->
@@ -77,9 +80,15 @@
 
       <!-- Fixed content -->
       <v-col
-        cols="4"
-        class="ma-1 d-flex flex-column justify-space-around align-center"
-        :style="[weAreOnDevMode ? greenBorder : '']"
+        sm="12"
+        md="4"
+        lg="4"
+        xl="4"
+        class="mt-1 d-flex flex-column justify-space-around align-center"
+        :style="[
+          weAreOnDevMode ? greenBorder : '',
+          $vuetify.breakpoint.smAndDown ? { height: '60rem' } : '',
+        ]"
       >
         <DonateNowCard :height="'30%'" :width="'80%'" :elevation="13" />
 
@@ -89,7 +98,7 @@
           :title="title"
           :links="links"
           :width="'80%'"
-          :height="'30%'"
+          :height="$vuetify.breakpoint.smAndDown ? '40%' : '30%'"
           :elevation="13"
         />
       </v-col>

@@ -3,7 +3,11 @@
     :width="width"
     :height="height"
     :elevation="elevation"
-    class="temp-border__item d-flex flex-column justify-space-between align-center pa-2"
+    :class="[
+      $vuetify.breakpoint.smAndDown
+        ? 'd-none'
+        : 'd-flex flex-column justify-space-between align-center pa-2',
+    ]"
   >
     <v-img
       height="40%"
@@ -13,16 +17,21 @@
     ></v-img>
 
     <v-card-actions class="mt-3">
-      <v-btn v-text="cardBtn" rounded outlined class="text-uppercase"></v-btn>
+      <v-btn rounded outlined class="text-uppercase">Donate now</v-btn>
     </v-card-actions>
 
-    <v-card-text v-text="cardText" class="align-self-left"></v-card-text>
+    <v-card-text class="align-self-left"
+      >TOGETHER WE CAN SILENCE TINNITUS. The Covid-19 pandemic has made tinnitus
+      worse for nearly half of UK sufferers. We urgently need your help to
+      support more people living with tinnitus.</v-card-text
+    >
   </v-card>
 </template>
 
 <script>
 export default {
   name: "DonateNow",
+
   props: {
     height: {
       type: [String, Number],
@@ -37,13 +46,5 @@ export default {
       required: true,
     },
   },
-  data: () => ({
-    cardBtn: "Donate now",
-    cardText: `TOGETHER WE CAN SILENCE TINNITUS. The Covid-19 pandemic has made tinnitus
-      worse for nearly half of UK sufferers. We urgently need your help to
-      support more people living with tinnitus.`,
-  }),
 };
 </script>
-
-<style lang="scss" scoped></style>
