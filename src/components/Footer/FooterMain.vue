@@ -3,10 +3,17 @@
     color="teal lighten-3"
     elevation="13"
     :style="[weAreOnDevMode ? brownBorder : '']"
-    class="pa-1 justify-space-around align-start"
+    class="pa-1 d-flex justify-space-around align-start"
   >
     <!-- Contact -->
-    <v-card elevation="13" width="30%" shaped class="d-flex flex-column pa-3">
+    <v-card
+      elevation="13"
+      width="30%"
+      shaped
+      :class="[
+        $vuetify.breakpoint.smAndDown ? 'd-none' : 'd-flex flex-column pa-3',
+      ]"
+    >
       <v-card-title>Contact us</v-card-title>
 
       <v-list
@@ -32,7 +39,11 @@
       elevation="13"
       width="30%"
       shaped
-      class="d-flex flex-column justify-space-around pa-3"
+      :class="[
+        $vuetify.breakpoint.mobile
+          ? 'd-none'
+          : 'd-flex flex-column justify-space-around pa-3',
+      ]"
     >
       <v-card-title>Useful links</v-card-title>
       <v-list dense rounded>
@@ -52,7 +63,13 @@
       </v-list>
     </v-card>
 
-    <v-card elevation="13" width="30%" shaped class="d-flex flex-column pa-3">
+    <!-- Medical disclaimer -->
+    <v-card
+      elevation="13"
+      :width="$vuetify.breakpoint.smAndDown ? '90%' : '30%'"
+      shaped
+      class="d-flex flex-column pa-3"
+    >
       <v-card-text>
         Material on this site is for information purposes only and is not a
         substitute for medical advice - you should always see your doctor and/or
@@ -101,6 +118,7 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 
 export default {
   name: "FooterMain",
+
   data: () => ({
     contactItems: [
       {
@@ -124,6 +142,7 @@ export default {
         subtitle: "Text/SMS",
       },
     ],
+
     usefulLinks: [
       "Sitemap",
       "Accesibility",
@@ -135,6 +154,7 @@ export default {
       "Press contact",
     ],
   }),
+
   computed: {
     actualYear() {
       return `${new Date().getFullYear()} - Tinnitus project`;

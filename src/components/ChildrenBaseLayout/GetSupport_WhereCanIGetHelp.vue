@@ -30,7 +30,11 @@
         </h2>
 
         <!-- Contact list -->
-        <v-list two-line width="90%">
+        <v-list
+          two-line
+          width="90%"
+          :class="{ 'align-self-center': $vuetify.breakpoint.smAndDown }"
+        >
           <v-list-item
             v-for="({ title, subtitle, icon }, i) in contactList"
             :key="title + subtitle + icon + i"
