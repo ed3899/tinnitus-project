@@ -16,6 +16,7 @@
           class="ma-4 d-flex flex-column justify-space-around"
           width="20rem"
           @click="toggle"
+          rounded="xl"
         >
           <v-img
             height="15rem"

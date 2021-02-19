@@ -36,7 +36,11 @@
             <v-col
               cols="7"
               :style="weAreOnDevMode ? greenBorder : ''"
-              class="pa-3 d-flex flex-column justify-center"
+              :class="[
+                $vuetify.breakpoint.smAndDown
+                  ? 'd-none'
+                  : 'pa-3 d-flex flex-column justify-center',
+              ]"
             >
               <h3
                 class="blue--text text--darken-1 text-h3 text-capitalize font-italic"
@@ -52,13 +56,21 @@
             </v-col>
 
             <v-col
-              cols="4"
+              cols="12"
+              sm="12"
+              md="4"
+              lg="4"
+              xl="4"
               :style="weAreOnDevMode ? greenBorder : ''"
               class="pa-3 mt-n16"
             >
               <v-card
                 shaped
-                color="cyan darken-3 pa-3"
+                :color="
+                  $vuetify.breakpoint.smAndDown
+                    ? 'rgba(11, 136, 199, 0.4)'
+                    : 'cyan darken-3 pa-3'
+                "
                 class="d-flex flex-column"
               >
                 <v-card-title class="text-h6 text-capitalize white--text">
@@ -72,7 +84,9 @@
                 </v-card-text>
 
                 <v-card-actions>
-                  <v-btn class="rounded-tl-xl rounded-br-xl"> Join now</v-btn>
+                  <v-btn class="rounded-tl-xl rounded-br-xl green accent-4">
+                    Join now</v-btn
+                  >
                 </v-card-actions>
               </v-card>
             </v-col>
@@ -124,6 +138,7 @@
       v-model="isTimelineLoaded"
       :options="lazy.options"
       :transition="lazy.transition"
+      class="hidden-sm-and-down"
     >
       <v-row
         no-gutters
@@ -306,5 +321,9 @@ export default {
 <style lang="scss" scoped>
 .sheet-format {
   background-color: rgba(23, 25, 26, 0.5);
+}
+
+.card-mobile-color {
+  background-color: rgba(11, 136, 199, 0.5);
 }
 </style>

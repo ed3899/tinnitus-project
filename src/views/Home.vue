@@ -9,13 +9,13 @@
   >
     <!-- Carousel -->
     <v-row class>
-      <Carousel :height="'70vh'" />
+      <Carousel :height="$vuetify.breakpoint.smAndDown ? '50vh' : '70vh'" />
     </v-row>
 
     <!-- First news -->
     <v-row
       no-gutters
-      class="ma-1 pa-1"
+      class="ma-1 pa-1 hidden-sm-and-down"
       :style="[weAreOnDevMode ? brownBorder : '']"
     >
       <v-row
@@ -23,8 +23,11 @@
         class="mb-1"
         :style="[weAreOnDevMode ? greenBorder : '']"
       >
-        <h1 class="text-capitalize">All you need to know about tinnitus</h1>
+        <h3 class="text-h3 text-capitalize">
+          All you need to know about tinnitus
+        </h3>
       </v-row>
+
       <v-col cols="12" :style="[weAreOnDevMode ? greenBorder : '']">
         <NewsSlider :width="'100%'" :cards="cards" />
       </v-col>
@@ -38,7 +41,7 @@
     >
       <v-row
         no-gutters
-        class="ma-1 pa-1"
+        class="ma-1 pa-1 hidden-sm-and-down"
         :style="[weAreOnDevMode ? brownBorder : '']"
       >
         <v-row
@@ -65,32 +68,54 @@
         no-gutters
         class="ma-1 pa-1"
         justify="space-around"
+        align-content="space-around"
         :style="[weAreOnDevMode ? brownBorder : '']"
       >
         <v-col
           v-for="{ title, body, btn, color } in extra"
-          :key="body"
-          cols="3"
-          class="d-flex justify-center pa-1"
+          :key="body + title"
+          cols="12"
+          sm="12"
+          md="3"
+          lg="3"
+          xl="3"
+          :class="[
+            { 'my-3': $vuetify.breakpoint.smAndDown },
+            'd-flex justify-center pa-1',
+          ]"
           :style="[weAreOnDevMode ? greenBorder : '']"
         >
           <v-card
             height="275"
-            max-width="350"
+            :width="$vuetify.breakpoint.smAndDown ? '100%' : ''"
             :color="color"
             class="d-flex flex-column justify-space-between"
           >
             <v-card-title
               v-text="title"
-              class="white--text flex-grow-0 flex-shrink-0"
+              :class="[
+                $vuetify.breakpoint.smAndDown
+                  ? ''
+                  : 'white--text flex-grow-0 flex-shrink-0',
+              ]"
             ></v-card-title>
 
             <v-card-text
               v-text="body"
-              class="card-format flex-grow-1 flex-shrink-0"
+              :class="[
+                $vuetify.breakpoint.smAndDown
+                  ? ''
+                  : 'flex-grow-1 flex-shrink-0',
+              ]"
             ></v-card-text>
 
-            <v-card-actions class="align-self-start flex-grow-0 flex-shrink-0">
+            <v-card-actions
+              :class="[
+                $vuetify.breakpoint.smAndDown
+                  ? ''
+                  : ' align-self-start flex-grow-0 flex-shrink-0',
+              ]"
+            >
               <v-btn
                 v-text="btn"
                 :color="darkModeIsOn ? 'teal darken-2' : 'teal lighten-1'"
