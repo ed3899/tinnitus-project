@@ -6,17 +6,23 @@
         v-for="({ path: parentPath, name, icon: parentIcon, children },
         i) in normalizedRoutes"
         :key="name + parentPath + i"
-        :prepend-icon="parentIcon"
+        v-touch="{ right: () => goToPro(parentPath) }"
         no-action
         :group="parentPath"
       >
+        <template #prependIcon>
+          <v-icon @click="goToPro(parentPath)" v-text="parentIcon"></v-icon>
+        </template>
+
         <template #activator>
           <v-list-item-content>
-            <v-list-item-title v-text="name"></v-list-item-title>
+            <v-list-item-title
+              v-text="name"
+              @click="goToPro(parentPath)"
+            ></v-list-item-title>
           </v-list-item-content>
         </template>
 
-        <!-- Children -->
         <v-list-item
           v-for="({ path: childPath, name }, i) in children"
           :key="childPath + name + i"
@@ -60,6 +66,17 @@ export default {
 
     normalizedRoutes() {
       return routes.filter(({ name }) => name !== "NotFound404");
+    },
+  },
+
+  methods: {
+    goToPro(parentPath) {
+      this.$emit("update:modelValue", false);
+      if (this.$route.path === parentPath) {
+        return;
+      } else {
+        this.$router.push({ path: parentPath });
+      }
     },
   },
 };
