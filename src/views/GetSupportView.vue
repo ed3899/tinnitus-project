@@ -14,7 +14,15 @@
       :style="[weAreOnDevMode ? brownBorder : '']"
       class="pa-1"
     >
-      <v-col cols="7" :style="[weAreOnDevMode ? brownBorder : '']" class="pa-1">
+      <v-col
+        cols="12"
+        sm="12"
+        md="7"
+        lg="7"
+        xl="7"
+        :style="[weAreOnDevMode ? brownBorder : '']"
+        class="pa-1"
+      >
         <!-- Local info -->
         <v-row
           no-gutters
@@ -115,6 +123,7 @@
             </p>
           </v-row>
 
+          <!-- Table -->
           <v-lazy
             v-model="isDecibelTableLoaded"
             :options="lazy.options"
@@ -142,7 +151,11 @@
       <v-col
         cols="4"
         :style="[weAreOnDevMode ? brownBorder : '']"
-        class="pa-1 d-flex flex-column justify-space-around align-center"
+        :class="[
+          $vuetify.breakpoint.smAndDown
+            ? 'd-none'
+            : 'pa-1 d-flex flex-column justify-space-around align-center',
+        ]"
       >
         <DonateNowCard :height="'30%'" :width="'80%'" :elevation="8" />
         <LatestNewsCards
@@ -206,6 +219,7 @@ import {
 
 export default {
   name: "GetSupportView",
+  
   components: { LatestNewsCards, DonateNowCard },
   data: () => ({
     refs: {
