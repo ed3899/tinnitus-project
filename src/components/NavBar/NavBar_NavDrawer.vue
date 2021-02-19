@@ -1,24 +1,36 @@
 <template>
-  <v-navigation-drawer v-model="value" height="70%" app temporary>
-    <v-list nav dense>
+  <v-navigation-drawer v-model="value" app temporary width="75vw">
+    <v-list nav>
+      <!-- Parent -->
       <v-list-group
-        v-for="({ name, path }, i) in normalizedRoutes"
-        :key="name + path + i"
-        prepend-icon="mdi-account-circle"
+        v-for="({ path: parentPath, name, icon: parentIcon, children },
+        i) in normalizedRoutes"
+        :key="name + parentPath + i"
+        :prepend-icon="parentIcon"
+        no-action
+        :group="parentPath"
       >
-        <template v-slot:activator>
-          <v-list-item-title v-text="name"></v-list-item-title>
+        <template #activator>
+          <v-list-item-content>
+            <v-list-item-title v-text="name"></v-list-item-title>
+          </v-list-item-content>
         </template>
 
-        <v-list-item-group active-class="deep-purple--text text--accent-4">
-          <v-list-item v-for="([title, icon], i) in admins" :key="i" link>
-            <v-list-item-title v-text="title"></v-list-item-title>
-
-            <v-list-item-icon>
-              <v-icon v-text="icon"></v-icon>
-            </v-list-item-icon>
-          </v-list-item>
-        </v-list-item-group>
+        <!-- Children -->
+        <v-list-item
+          v-for="({ path: childPath, name }, i) in children"
+          :key="childPath + name + i"
+          :to="{ path: `${parentPath}/${childPath}` }"
+          exact
+          exact-active-class="teal accent-1 black--text"
+        >
+          <v-list-item-content>
+            <v-list-item-title
+              v-text="name"
+              class="text-capitalize"
+            ></v-list-item-title>
+          </v-list-item-content>
+        </v-list-item>
       </v-list-group>
     </v-list>
   </v-navigation-drawer>
@@ -34,12 +46,7 @@ export default {
   props: ["modelValue"],
   emits: ["update:modelValue"],
 
-  data: () => ({
-    admins: [
-      ["Management", "mdi-account-multiple-outline"],
-      ["Settings", "mdi-cog-outline"],
-    ],
-  }),
+  data: () => ({}),
 
   computed: {
     value: {

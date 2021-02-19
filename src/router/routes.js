@@ -94,7 +94,7 @@ export const routes = [
   {
     path: routePaths.support.path,
     name: routePaths.support.name,
-    icon: "mdi-book-search",
+    icon: "mdi-account-supervisor",
     component: () => import("../views/GetSupportView.vue"),
     children: [
       {
