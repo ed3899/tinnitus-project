@@ -6,19 +6,18 @@
         v-for="({ path: parentPath, name, icon: parentIcon, children },
         i) in normalizedRoutes"
         :key="name + parentPath + i"
-        v-touch="{ right: () => goToPro(parentPath) }"
+        v-touch="{ right: () => goToRoute(parentPath) }"
         no-action
-        :group="parentPath"
       >
         <template #prependIcon>
-          <v-icon @click="goToPro(parentPath)" v-text="parentIcon"></v-icon>
+          <v-icon @click="goToRoute(parentPath)" v-text="parentIcon"></v-icon>
         </template>
 
         <template #activator>
           <v-list-item-content>
             <v-list-item-title
               v-text="name"
-              @click="goToPro(parentPath)"
+              @click="goToRoute(parentPath)"
             ></v-list-item-title>
           </v-list-item-content>
         </template>
@@ -70,7 +69,7 @@ export default {
   },
 
   methods: {
-    goToPro(parentPath) {
+    goToRoute(parentPath) {
       this.$emit("update:modelValue", false);
       if (this.$route.path === parentPath) {
         return;

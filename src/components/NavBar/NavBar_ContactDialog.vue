@@ -1,5 +1,10 @@
 <template>
-  <v-dialog :value="isOpen" persistent max-width="600px">
+  <v-dialog
+    :value="isOpen"
+    persistent
+    max-width="600px"
+    :fullscreen="$vuetify.breakpoint.smAndDown"
+  >
     <!-- Activator btn -->
     <template #activator="{ on, attrs }">
       <v-btn

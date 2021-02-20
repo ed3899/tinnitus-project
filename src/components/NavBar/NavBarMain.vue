@@ -6,6 +6,8 @@
       :height="$vuetify.breakpoint.smAndDown ? 100 : 75"
       elevation="13"
       :class="navBarClass"
+      hide-on-scroll
+      scroll-threshold="200"
     >
       <!-- Hamburguer menu -->
       <v-app-bar-nav-icon
@@ -27,11 +29,11 @@
           lg="5"
           xl="5"
           :class="[
-            $vuetify.breakpoint.smAndDown ? 'd-flex justify-center mb-1' : '',
+            $vuetify.breakpoint.smAndDown ? 'd-flex justify-center' : '',
           ]"
         >
           <v-app-bar-title
-            :class="[$vuetify.breakpoint.smAndDown ? 'mt-10' : '']"
+            :class="[$vuetify.breakpoint.smAndDown ? 'mt-7' : '']"
             >The Tinnitus Community Project</v-app-bar-title
           >
         </v-col>
