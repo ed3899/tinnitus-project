@@ -7,10 +7,9 @@
   >
     <!-- Hero -->
     <v-row
-      no-gutters
       justify="center"
       :style="[weAreOnDevMode ? brownBorder : '']"
-      class="mx-n5 mt-n5 mb-3 pa-0"
+      class="mt-n5 mb-3 pa-0"
     >
       <v-img
         max-height="60vh"

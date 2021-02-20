@@ -219,7 +219,7 @@ import {
 
 export default {
   name: "GetSupportView",
-  
+
   components: { LatestNewsCards, DonateNowCard },
   data: () => ({
     refs: {

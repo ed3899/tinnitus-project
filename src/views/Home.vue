@@ -8,7 +8,7 @@
     :style="[weAreOnDevMode ? brownBorder : '']"
   >
     <!-- Carousel -->
-    <v-row class>
+    <v-row no-gutters class="mt-n1">
       <Carousel :height="$vuetify.breakpoint.smAndDown ? '50vh' : '70vh'" />
     </v-row>
 
