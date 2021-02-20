@@ -151,6 +151,7 @@
       </v-row>
     </v-lazy>
 
+    <!-- Will only show based on a cookie -->
     <NewsletterPopUp :isVisible="isNewsletterVisible" />
   </v-container>
 

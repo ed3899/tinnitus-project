@@ -3,8 +3,8 @@
     <v-card
       color="green"
       elevation="21"
-      width="50vw"
-      height="50vh"
+      :width="$vuetify.breakpoint.smAndDown ? '80vw' : '50vw'"
+      :height="$vuetify.breakpoint.smAndDown ? '55vh' : '50vh'"
       class="d-flex flex-column justify-space-around"
     >
       <v-btn
@@ -18,7 +18,16 @@
       </v-btn>
 
       <v-card-title class="text-h2 d-flex justify-center">
-        <h4 class="text-h4">Join our newsletter!</h4>
+        <h4
+          :class="[
+            {
+              'text-center newletter-title-fix': $vuetify.breakpoint.smAndDown,
+            },
+            'text-h4',
+          ]"
+        >
+          Join our newsletter!
+        </h4>
       </v-card-title>
 
       <v-card-text>
@@ -71,4 +80,8 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.newletter-title-fix {
+  word-break: normal !important;
+}
+</style>
