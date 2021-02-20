@@ -10,6 +10,7 @@
         @click="goToRoute(parentPath)"
         :prepend-icon="parentIcon"
         :value="currentRoute === parentPath"
+        :group="parentPath"
       >
         <template #activator>
           <v-list-item-content>
