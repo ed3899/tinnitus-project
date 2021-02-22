@@ -2,10 +2,8 @@
   <v-card>
     <v-form
       :ref="htmlTagsRefs.main"
-      name="contact-dialog-form"
       method="post"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
+      @submit.prevent="handleSubmit"
     >
       <input type="hidden" name="form-name" value="contact-dialog-form" />
 
@@ -389,14 +387,21 @@ export default {
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
       };
-      axios.post(
-        "/",
-        this.encode({
-          "form-name": "contact-dialog-form",
-          ...this.completeForm,
-        }),
-        axiosConfig
-      );
+      axios
+        .post(
+          "/home",
+          this.encode({
+            "form-name": "contact-dialog-form",
+            ...this.completeForm,
+          }),
+          axiosConfig
+        )
+        .then(() => {
+          console.log("Form submitted");
+        })
+        .catch(() => {
+          console.log("Something went wrong");
+        });
     },
 
     cancelForm() {
