@@ -1,6 +1,14 @@
 <template>
   <v-card>
-    <v-form :ref="htmlTagsRefs.main">
+    <v-form
+      :ref="htmlTagsRefs.main"
+      name="contact-dialog-form"
+      method="post"
+      data-netlify="true"
+      data-netlify-honeypot="bot-field"
+    >
+      <input type="hidden" name="form-name" value="contact-dialog-form" />
+
       <v-card-title>
         <span class="headline text-capitalize">Send us your thoughts</span>
       </v-card-title>
