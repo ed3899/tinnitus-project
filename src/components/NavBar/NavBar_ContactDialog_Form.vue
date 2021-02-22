@@ -25,6 +25,7 @@
               label="First Name*"
               clearable
               required
+              name="first-name"
             >
             </v-text-field>
           </v-col>
@@ -36,6 +37,7 @@
               counter
               maxlength="25"
               label="Middle Name"
+              name="middle-name"
             ></v-text-field>
           </v-col>
 
@@ -48,6 +50,7 @@
               maxlength="25"
               label="Last name*"
               required
+              name="last-name"
             ></v-text-field>
           </v-col>
 
@@ -59,6 +62,7 @@
               :rules="rules.email"
               label="Email*"
               required
+              name="email"
             ></v-text-field>
           </v-col>
 
@@ -70,6 +74,7 @@
               :rules="rules.age"
               label="Age*"
               required
+              name="selectedAgeRange"
             ></v-select>
           </v-col>
 
@@ -90,7 +95,11 @@
                   :style="[weAreOnDevMode ? greenBorder : '']"
                   class="my-1 text-capitalize"
                 >
-                  <v-radio :label="option" :value="option"></v-radio>
+                  <v-radio
+                    :label="option"
+                    :value="option"
+                    name="inquiry-type"
+                  ></v-radio>
                 </v-row>
 
                 <!-- Other -->
@@ -106,6 +115,7 @@
                     :label="option"
                     :value="option"
                     class="mr-3"
+                    name="inquiry-type"
                   ></v-radio>
                   <v-text-field
                     v-model="inquirySubject"
@@ -114,6 +124,7 @@
                     clearable
                     :disabled="isOtherTextDisabled"
                     class="mr-3"
+                    name="inquiry-subject"
                   ></v-text-field>
                 </v-row>
               </template>
@@ -127,10 +138,10 @@
               :rules="rules.textArea"
               :counter="maxTextAreaCharacters"
               outlined
-              name="input-7-4"
               filled
               auto-grow
               label="How can we help you?"
+              name="message"
             ></v-textarea>
           </v-col>
         </v-row>
@@ -143,6 +154,7 @@
               label="Subscribe to our newsletter"
               color="info"
               inset
+              name="subscribeToNewsletter"
             ></v-switch>
           </v-col>
         </v-row>
@@ -157,8 +169,8 @@
           cancel
         </v-btn>
 
-        <v-btn text :class="saveBtnClass" @click="cancelForm">
-          save
+        <v-btn text :class="saveBtnClass" type="submit">
+          submit
         </v-btn>
       </v-card-actions>
     </v-form>
@@ -174,6 +186,9 @@ import { formDialogModule } from "../../store/modules/index";
 
 //% Util
 import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
+
+//% Packages
+import axios from "axios";
 
 export default {
   name: "NavBarContactDialogForm",
@@ -208,8 +223,9 @@ export default {
 
     maxTextAreaCharacters: 1000,
   }),
+
   computed: {
-    //% Vuex
+    //% Form fields
     firstName: {
       get() {
         return this.$store.state.formDialog.firstName;
@@ -318,6 +334,20 @@ export default {
       },
     },
 
+    completeForm() {
+      return {
+        firstName: this.firstName,
+        middleName: this.middleName,
+        lastName: this.lastName,
+        email: this.email,
+        selectedAgeRange: this.selectedAgeRange,
+        inquiryType: this.inquiryType,
+        inquirySubject: this.inquirySubject,
+        textArea: this.textArea,
+        subscribeToNewsletter: this.subscribeToNewsletter,
+      };
+    },
+
     isOtherTextDisabled() {
       //Disable if is different from other
       const notOther = this.$store.state.formDialog.inquiry.type !== "other";
@@ -344,7 +374,30 @@ export default {
     brownBorder,
     greenBorder,
   },
+
   methods: {
+    encode(data) {
+      return Object.keys(data)
+        .map(
+          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
+        )
+        .join("&");
+    },
+
+    handleSubmit() {
+      const axiosConfig = {
+        header: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+      axios.post(
+        "/",
+        this.encode({
+          "form-name": "contact-dialog-form",
+          ...this.completeForm,
+        }),
+        axiosConfig
+      );
+    },
+
     cancelForm() {
       //Set isOpen on formDialog in Vuex
       this.$store.commit({
