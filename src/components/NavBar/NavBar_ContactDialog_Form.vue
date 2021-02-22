@@ -221,6 +221,7 @@ export default {
         });
       },
     },
+
     middleName: {
       get() {
         return this.$store.state.formDialog.middleName;
@@ -232,6 +233,7 @@ export default {
         });
       },
     },
+
     lastName: {
       get() {
         return this.$store.state.formDialog.lastName;
@@ -243,6 +245,7 @@ export default {
         });
       },
     },
+
     email: {
       get() {
         return this.$store.state.formDialog.email;
@@ -254,6 +257,7 @@ export default {
         });
       },
     },
+
     selectedAgeRange: {
       get() {
         return this.$store.state.formDialog.ageRange;
@@ -265,6 +269,7 @@ export default {
         });
       },
     },
+
     inquiryType: {
       get() {
         return this.$store.state.formDialog.inquiry.type;
@@ -276,6 +281,7 @@ export default {
         });
       },
     },
+
     inquirySubject: {
       get() {
         return this.$store.state.formDialog.inquiry.subject;
@@ -287,6 +293,7 @@ export default {
         });
       },
     },
+
     textArea: {
       get() {
         return this.$store.state.formDialog.textArea;
@@ -298,6 +305,7 @@ export default {
         });
       },
     },
+
     subscribeToNewsletter: {
       get() {
         return this.$store.state.formDialog.subscribeToNewsletter;
