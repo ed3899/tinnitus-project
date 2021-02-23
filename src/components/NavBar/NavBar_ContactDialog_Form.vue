@@ -8,6 +8,12 @@
     >
       <input type="hidden" name="form-name" value="contact-dialog-form" />
 
+      <p class="d-none">
+        <label
+          >Don’t fill this out if you’re human: <input name="bot-field"
+        /></label>
+      </p>
+
       <v-card-title>
         <span class="headline text-capitalize">Send us your thoughts</span>
       </v-card-title>
