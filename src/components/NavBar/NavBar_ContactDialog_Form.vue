@@ -1,11 +1,6 @@
 <template>
   <v-card>
-    <v-form
-      :ref="htmlTagsRefs.main"
-      method="post"
-      @submit.prevent="handleSubmit"
-      data-netlify-recaptcha="true"
-    >
+    <v-form :ref="htmlTagsRefs.main" method="post" @submit.prevent="recaptcha">
       <input type="hidden" name="form-name" value="contact-dialog-form" />
 
       <p class="d-none">
@@ -164,8 +159,6 @@
         >
           cancel
         </v-btn>
-
-        <div data-netlify-recaptcha="true"></div>
 
         <v-btn
           text
@@ -390,14 +383,13 @@ export default {
         .join("&");
     },
 
-    //
     async handleSubmit() {
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
       };
 
       this.saveLoading = true;
-      //Trigger branch deploy
+
       try {
         await axios.post(
           "/home",
@@ -414,6 +406,21 @@ export default {
       } finally {
         this.saveLoading = false;
       }
+    },
+
+    async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded();
+
+      // Execute reCAPTCHA with action "login".
+      const token = await this.$recaptcha("submit");
+
+      const verify = await axios({
+        method: "post",
+        url: `http://localhost:8080/recaptcha/api/siteverify?secret=${process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE}&response=${token}`,
+      });
+
+      console.log(verify);
     },
 
     closeAndResetForm() {

@@ -1,16 +1,18 @@
-import Vue from 'vue'
-import App from './App.vue'
-import './registerServiceWorker'
-import router from './router'
-import store from './store'
-import vuetify from './plugins/vuetify';
+import Vue from "vue";
+import App from "./App.vue";
+import "./registerServiceWorker";
+import router from "./router";
+import store from "./store";
+import vuetify from "./plugins/vuetify";
+import { VueReCaptcha } from "vue-recaptcha-v3";
 
-Vue.config.productionTip = false
+Vue.config.productionTip = false;
+
+Vue.use(VueReCaptcha, { siteKey: process.env.VUE_APP_CAPTCHA_V3_SITE_KEY });
 
 new Vue({
   router,
   store,
   vuetify,
   render: h => h(App),
-  mounted: () => document.dispatchEvent(new Event("x-app-rendered")),
-}).$mount('#app')
+}).$mount("#app");
