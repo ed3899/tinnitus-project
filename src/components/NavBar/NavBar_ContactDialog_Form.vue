@@ -4,6 +4,7 @@
       :ref="htmlTagsRefs.main"
       method="post"
       @submit.prevent="handleSubmit"
+      data-netlify-recaptcha="true"
     >
       <input type="hidden" name="form-name" value="contact-dialog-form" />
 
@@ -150,9 +151,15 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn text :class="cancelBtnClass" @click="cancelForm">
+        <v-btn
+          text
+          :class="[cancelBtnClass, 'mr-5']"
+          @click="closeAndResetForm"
+        >
           cancel
         </v-btn>
+
+        <div data-netlify-recaptcha="true"></div>
 
         <v-btn text :class="saveBtnClass" type="submit">
           submit
@@ -385,13 +392,14 @@ export default {
         )
         .then(() => {
           console.log("Form submitted");
+          this.closeAndResetForm();
         })
         .catch(() => {
           console.log("Something went wrong");
         });
     },
 
-    cancelForm() {
+    closeAndResetForm() {
       //Set isOpen on formDialog in Vuex
       this.$store.commit({
         type: `${formDialogModule.name}/${formDialogMutations.CLOSE_DIALOG}`,
