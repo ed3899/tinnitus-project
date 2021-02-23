@@ -171,6 +171,8 @@
         </v-btn>
       </v-card-actions>
     </v-form>
+
+    <FormSuccess :snackbarDisplay="displaySuccessSnack" />
   </v-card>
 </template>
 
@@ -187,8 +189,15 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 //% Packages
 import axios from "axios";
 
+//% Components
+import FormSuccess from "../Snackbars/FormSuccess.vue";
+
 export default {
   name: "NavBarContactDialogForm",
+
+  components: {
+    FormSuccess,
+  },
 
   data: () => ({
     htmlTagsRefs: {
@@ -221,6 +230,8 @@ export default {
     maxTextAreaCharacters: 1000,
 
     saveLoading: false,
+
+    displaySuccessSnack: false,
   }),
 
   computed: {
@@ -415,12 +426,16 @@ export default {
       // Execute reCAPTCHA with action "login".
       const token = await this.$recaptcha("submit");
 
-      const verify = await axios({
+      const verifiedRes = await axios({
         method: "post",
         url: `http://localhost:8080/recaptcha/api/siteverify?secret=${process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE}&response=${token}`,
       });
 
-      console.log(verify);
+      if (verifiedRes.data.success) {
+        this.handleSubmit();
+      } else {
+        console.log("There was a problem submitting your form");
+      }
     },
 
     closeAndResetForm() {
