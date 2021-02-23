@@ -167,7 +167,13 @@
 
         <div data-netlify-recaptcha="true"></div>
 
-        <v-btn text :class="saveBtnClass" type="submit">
+        <v-btn
+          text
+          :class="saveBtnClass"
+          type="submit"
+          :loading="saveLoading"
+          :disabled="saveLoading"
+        >
           submit
         </v-btn>
       </v-card-actions>
@@ -220,6 +226,8 @@ export default {
     ],
 
     maxTextAreaCharacters: 1000,
+
+    saveLoading: false,
   }),
 
   computed: {
@@ -383,26 +391,29 @@ export default {
     },
 
     //
-    handleSubmit() {
+    async handleSubmit() {
       const axiosConfig = {
         header: { "Content-Type": "application/x-www-form-urlencoded" },
       };
-      axios
-        .post(
+
+      this.saveLoading = true;
+
+      try {
+        await axios.post(
           "/home",
           this.encode({
             "form-name": "contact-dialog-form",
             ...this.completeForm,
           }),
           axiosConfig
-        )
-        .then(() => {
-          console.log("Form submitted");
-          this.closeAndResetForm();
-        })
-        .catch(() => {
-          console.log("Something went wrong");
-        });
+        );
+
+        this.closeAndResetForm();
+      } catch (e) {
+        console.error(`${e.name}:${e.message}`);
+      } finally {
+        this.saveLoading = false;
+      }
     },
 
     closeAndResetForm() {
