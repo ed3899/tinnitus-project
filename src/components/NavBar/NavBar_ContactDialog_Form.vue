@@ -1,190 +1,199 @@
 <template>
   <v-card>
-    <v-form :ref="htmlTagsRefs.main" method="post" @submit.prevent="recaptcha">
-      <input type="hidden" name="form-name" value="contact-dialog-form" />
+    <ValidationObserver ref="observer" #default="{invalid, handleSubmit}">
+      <v-form
+        :ref="htmlTagsRefs.main"
+        method="post"
+        @submit.prevent="handleSubmit(recaptcha)"
+      >
+        <input type="hidden" name="form-name" value="contact-dialog-form" />
 
-      <p class="d-none">
-        <label
-          >Don’t fill this out if you’re human: <input name="bot-field"
-        /></label>
-      </p>
+        <p class="d-none">
+          <label
+            >Don’t fill this out if you’re human: <input name="bot-field"
+          /></label>
+        </p>
 
-      <v-card-title>
-        <span class="headline text-capitalize">Send us your thoughts</span>
-      </v-card-title>
+        <v-card-title>
+          <span class="headline text-capitalize">Send us your thoughts</span>
+        </v-card-title>
 
-      <v-card-text>
-        <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
-          <!-- Name -->
-          <v-col cols="12" sm="6" md="4">
-            <ValidationProvider
-              #default="{ errors , valid }"
-              rules="required|max:25"
-              name="First Name"
-            >
-              <v-text-field
-                v-model="firstName"
-                maxlength="25"
-                counter
-                label="First Name*"
-                clearable
-                required
-                :error-messages="errors"
-                :success-messages="valid ? 'Looking good!' : ''"
+        <v-card-text>
+          <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
+            <!-- Name -->
+            <v-col cols="12" sm="6" md="4">
+              <ValidationProvider
+                #default="{ errors , valid }"
+                rules="required|max:25"
+                name="First Name"
               >
-              </v-text-field>
-            </ValidationProvider>
-          </v-col>
-
-          <!-- Middle name -->
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field
-              v-model="middleName"
-              counter
-              maxlength="25"
-              label="Middle Name"
-            ></v-text-field>
-          </v-col>
-
-          <!-- Last name -->
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field
-              v-model="lastName"
-              :rules="rules.lastName"
-              counter
-              maxlength="25"
-              label="Last name*"
-              required
-            ></v-text-field>
-          </v-col>
-
-          <!-- Email -->
-          <v-col cols="12">
-            <v-text-field
-              v-model="email"
-              type="email"
-              :rules="rules.email"
-              label="Email*"
-              required
-            ></v-text-field>
-          </v-col>
-
-          <!-- Age -->
-          <v-col cols="12">
-            <v-select
-              v-model="selectedAgeRange"
-              :items="ages"
-              :rules="rules.age"
-              label="Age*"
-              required
-            ></v-select>
-          </v-col>
-
-          <!-- Inquiry type -->
-          <v-col cols="12" class="py-0">
-            <v-radio-group
-              v-model="inquiryType"
-              :rules="rules.inquiryType"
-              label="Select your inquiry type:"
-            >
-              <template v-for="{ option } in radioOptions">
-                <!-- The rest -->
-                <v-row
-                  no-gutters
-                  v-if="option != 'other'"
-                  :key="option"
-                  align="center"
-                  :style="[weAreOnDevMode ? greenBorder : '']"
-                  class="my-1 text-capitalize"
+                <v-text-field
+                  v-model="firstName"
+                  maxlength="25"
+                  counter
+                  label="First Name*"
+                  clearable
+                  required
+                  :error-messages="errors"
+                  :success-messages="valid ? 'Looking good!' : ''"
                 >
-                  <v-radio :label="option" :value="option"></v-radio>
-                </v-row>
+                </v-text-field>
+              </ValidationProvider>
+            </v-col>
 
-                <!-- Other -->
-                <v-row
-                  no-gutters
-                  v-else
-                  :key="option"
-                  align="center"
-                  :style="[weAreOnDevMode ? greenBorder : '']"
-                  class="my-1 text-capitalize"
-                >
-                  <v-radio
-                    :label="option"
-                    :value="option"
-                    class="mr-3"
-                  ></v-radio>
-                  <v-text-field
-                    v-model="inquirySubject"
-                    dense
-                    single-line
-                    clearable
-                    :disabled="isOtherTextDisabled"
-                    class="mr-3"
-                  ></v-text-field>
-                </v-row>
-              </template>
-            </v-radio-group>
-          </v-col>
+            <!-- Middle name -->
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field
+                v-model="middleName"
+                counter
+                maxlength="25"
+                label="Middle Name"
+              ></v-text-field>
+            </v-col>
 
-          <!-- Textarea -->
-          <v-col cols="12 py-0">
-            <v-textarea
-              v-model="textArea"
-              :rules="rules.textArea"
-              :counter="maxTextAreaCharacters"
-              outlined
-              filled
-              auto-grow
-              label="How can we help you?"
-            ></v-textarea>
-          </v-col>
-        </v-row>
+            <!-- Last name -->
+            <v-col cols="12" sm="6" md="4">
+              <v-text-field
+                v-model="lastName"
+                :rules="rules.lastName"
+                counter
+                maxlength="25"
+                label="Last name*"
+                required
+              ></v-text-field>
+            </v-col>
 
-        <!-- Newsletter sign-up -->
-        <v-row class="temp-border my-1">
-          <v-col cols="12" sm="6">
-            <v-switch
-              v-model="subscribeToNewsletter"
-              label="Subscribe to our newsletter"
-              color="info"
-              inset
-            ></v-switch>
-          </v-col>
-        </v-row>
+            <!-- Email -->
+            <v-col cols="12">
+              <v-text-field
+                v-model="email"
+                type="email"
+                :rules="rules.email"
+                label="Email*"
+                required
+              ></v-text-field>
+            </v-col>
 
-        <small class="d-block">*indicates required field</small>
+            <!-- Age -->
+            <v-col cols="12">
+              <v-select
+                v-model="selectedAgeRange"
+                :items="ages"
+                :rules="rules.age"
+                label="Age*"
+                required
+              ></v-select>
+            </v-col>
 
-        <small class="d-block"
-          >This site is protected by reCAPTCHA and the Google
-          <a href="https://policies.google.com/privacy">Privacy Policy</a> and
-          <a href="https://policies.google.com/terms">Terms of Service</a>
-          apply.
-        </small>
-      </v-card-text>
+            <!-- Inquiry type -->
+            <v-col cols="12" class="py-0">
+              <v-radio-group
+                v-model="inquiryType"
+                :rules="rules.inquiryType"
+                label="Select your inquiry type:"
+              >
+                <template v-for="{ option } in radioOptions">
+                  <!-- The rest -->
+                  <v-row
+                    no-gutters
+                    v-if="option != 'other'"
+                    :key="option"
+                    align="center"
+                    :style="[weAreOnDevMode ? greenBorder : '']"
+                    class="my-1 text-capitalize"
+                  >
+                    <v-radio :label="option" :value="option"></v-radio>
+                  </v-row>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
+                  <!-- Other -->
+                  <v-row
+                    no-gutters
+                    v-else
+                    :key="option"
+                    align="center"
+                    :style="[weAreOnDevMode ? greenBorder : '']"
+                    class="my-1 text-capitalize"
+                  >
+                    <v-radio
+                      :label="option"
+                      :value="option"
+                      class="mr-3"
+                    ></v-radio>
+                    <v-text-field
+                      v-model="inquirySubject"
+                      dense
+                      single-line
+                      clearable
+                      :disabled="isOtherTextDisabled"
+                      class="mr-3"
+                    ></v-text-field>
+                  </v-row>
+                </template>
+              </v-radio-group>
+            </v-col>
 
-        <v-btn
-          text
-          :class="[cancelBtnClass, 'mr-3']"
-          @click="closeAndResetForm"
-        >
-          cancel
-        </v-btn>
+            <!-- Textarea -->
+            <v-col cols="12 py-0">
+              <v-textarea
+                v-model="textArea"
+                :rules="rules.textArea"
+                :counter="maxTextAreaCharacters"
+                outlined
+                filled
+                auto-grow
+                label="How can we help you?"
+              ></v-textarea>
+            </v-col>
+          </v-row>
 
-        <v-btn
-          text
-          :class="[saveBtnClass, 'mr-3']"
-          type="submit"
-          :loading="saveLoading"
-          :disabled="saveLoading"
-        >
-          submit
-        </v-btn>
-      </v-card-actions>
-    </v-form>
+          <!-- Newsletter sign-up -->
+          <v-row class="temp-border my-1">
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="subscribeToNewsletter"
+                label="Subscribe to our newsletter"
+                color="info"
+                inset
+              ></v-switch>
+            </v-col>
+          </v-row>
+
+          <small class="d-block">*indicates required field</small>
+
+          <small class="d-block"
+            >This site is protected by reCAPTCHA and the Google
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms">Terms of Service</a>
+            apply.
+          </small>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text :class="[resetBtnClass, 'mr-3']" @click="clearForm"
+            >reset
+          </v-btn>
+
+          <v-btn
+            text
+            :class="[cancelBtnClass, 'mr-3']"
+            @click="closeAndResetForm"
+          >
+            cancel
+          </v-btn>
+
+          <v-btn
+            text
+            :class="[saveBtnClass, 'mr-3']"
+            :loading="saveLoading"
+            :disabled="invalid || saveLoading"
+            type="submit"
+          >
+            submit
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </ValidationObserver>
   </v-card>
 </template>
 
@@ -205,7 +214,7 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 import axios from "axios";
 
 //% VeeValidate
-import { ValidationProvider, extend } from "vee-validate";
+import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
 import { required } from "vee-validate/dist/rules";
 
 extend("required", {
@@ -228,6 +237,7 @@ export default {
 
   components: {
     ValidationProvider,
+    ValidationObserver,
   },
 
   data: () => ({
@@ -396,6 +406,13 @@ export default {
     },
 
     //%Btn classes
+    resetBtnClass() {
+      return {
+        "deep-purple darken-1 white--text": !this.$vuetify.theme.dark,
+        "deep-purple darken-4 white--text": this.$vuetify.theme.dark,
+      };
+    },
+
     cancelBtnClass() {
       return {
         "red darken-1 white--text": !this.$vuetify.theme.dark,
@@ -482,9 +499,10 @@ export default {
       this.$refs[this.htmlTagsRefs.main].reset();
     },
 
-    hideRecaptcha() {
-      const recaptcha = this.$recaptchaInstance;
-      recaptcha.hideBadge();
+    clearForm() {
+      //Reset local form state
+      this.$refs[this.htmlTagsRefs.main].reset();
+      this.$refs.observer.reset();
     },
   },
 };
