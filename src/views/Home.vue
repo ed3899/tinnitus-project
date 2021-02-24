@@ -153,6 +153,8 @@
 
     <!-- Will only show based on a cookie -->
     <NewsletterPopUp :isVisible="isNewsletterVisible" />
+    <!-- Form success snackbar -->
+    <FormSuccess />
   </v-container>
 
   <!-- Router view -->
@@ -184,6 +186,7 @@ import {
 import Carousel from "../components/Carousel/CarouselChildren.vue";
 import NewsSlider from "../components/NewsSlider/NewsSlider.vue";
 import NewsletterPopUp from "../components/NewsletterPopUp/NewsletterPopUp.vue";
+import FormSuccess from "../components/Snackbars/FormSuccess.vue";
 
 export default {
   name: "HomeView",
@@ -192,6 +195,7 @@ export default {
     Carousel,
     NewsSlider,
     NewsletterPopUp,
+    FormSuccess,
   },
 
   data: () => ({

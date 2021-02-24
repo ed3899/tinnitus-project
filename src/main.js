@@ -8,7 +8,12 @@ import { VueReCaptcha } from "vue-recaptcha-v3";
 
 Vue.config.productionTip = false;
 
-Vue.use(VueReCaptcha, { siteKey: process.env.VUE_APP_CAPTCHA_V3_SITE_KEY });
+Vue.use(VueReCaptcha, {
+  siteKey: process.env.VUE_APP_CAPTCHA_V3_SITE_KEY,
+  loaderOptions: {
+    autoHideBadge: true,
+  },
+});
 
 new Vue({
   router,

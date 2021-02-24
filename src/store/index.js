@@ -21,6 +21,9 @@ export default new Vuex.Store({
       { icon: "mdi-linkedin" },
     ],
 
+    //Snackbar
+    isSnackbarVisible: false,
+
     // %Lazy
     lazy: {
       options: {
@@ -50,6 +53,9 @@ export default new Vuex.Store({
       if (thereAreMatchedRoutes) {
         createBreadcrumbs();
       }
+    },
+    [mainStoreMutations.DISPLAY_SNACKBAR](state, { value }) {
+      state.isSnackbarVisible = value;
     },
   },
   modules: {

@@ -147,6 +147,13 @@
         </v-row>
 
         <small>*indicates required field</small>
+        <br />
+        <small
+          >This site is protected by reCAPTCHA and the Google
+          <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+          <a href="https://policies.google.com/terms">Terms of Service</a>
+          apply.
+        </small>
       </v-card-text>
 
       <v-card-actions>
@@ -171,15 +178,16 @@
         </v-btn>
       </v-card-actions>
     </v-form>
-
-    <FormSuccess :snackbarDisplay="displaySuccessSnack" />
   </v-card>
 </template>
 
 <script>
 //% Vuex
 //Mutations
-import { formDialogMutations } from "../../store/mutations/index";
+import {
+  formDialogMutations,
+  mainStoreMutations,
+} from "../../store/mutations/index";
 //Modules
 import { formDialogModule } from "../../store/modules/index";
 
@@ -189,15 +197,8 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 //% Packages
 import axios from "axios";
 
-//% Components
-import FormSuccess from "../Snackbars/FormSuccess.vue";
-
 export default {
   name: "NavBarContactDialogForm",
-
-  components: {
-    FormSuccess,
-  },
 
   data: () => ({
     htmlTagsRefs: {
@@ -412,6 +413,11 @@ export default {
         );
 
         this.closeAndResetForm();
+
+        this.$store.commit({
+          type: mainStoreMutations.DISPLAY_SNACKBAR,
+          value: true,
+        });
       } catch (e) {
         console.error(`${e.name}:${e.message}`);
       } finally {
@@ -433,8 +439,6 @@ export default {
 
       if (verifiedRes.data.success) {
         this.handleSubmit();
-      } else {
-        console.log("There was a problem submitting your form");
       }
     },
 
@@ -446,6 +450,11 @@ export default {
 
       //Reset local form state
       this.$refs[this.htmlTagsRefs.main].reset();
+    },
+
+    hideRecaptcha() {
+      const recaptcha = this.$recaptchaInstance;
+      recaptcha.hideBadge();
     },
   },
 };
