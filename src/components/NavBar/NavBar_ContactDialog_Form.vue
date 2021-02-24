@@ -146,9 +146,9 @@
           </v-col>
         </v-row>
 
-        <small>*indicates required field</small>
-        <br />
-        <small
+        <small class="d-block">*indicates required field</small>
+
+        <small class="d-block"
           >This site is protected by reCAPTCHA and the Google
           <a href="https://policies.google.com/privacy">Privacy Policy</a> and
           <a href="https://policies.google.com/terms">Terms of Service</a>
@@ -161,7 +161,7 @@
 
         <v-btn
           text
-          :class="[cancelBtnClass, 'mr-5']"
+          :class="[cancelBtnClass, 'mr-3']"
           @click="closeAndResetForm"
         >
           cancel
@@ -169,7 +169,7 @@
 
         <v-btn
           text
-          :class="saveBtnClass"
+          :class="[saveBtnClass, 'mr-3']"
           type="submit"
           :loading="saveLoading"
           :disabled="saveLoading"
