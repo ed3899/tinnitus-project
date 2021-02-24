@@ -17,16 +17,23 @@
         <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
           <!-- Name -->
           <v-col cols="12" sm="6" md="4">
-            <v-text-field
-              v-model="firstName"
-              :rules="rules.firstName"
-              maxlength="25"
-              counter
-              label="First Name*"
-              clearable
-              required
+            <ValidationProvider
+              #default="{ errors , valid }"
+              rules="required|max:25"
+              name="First Name"
             >
-            </v-text-field>
+              <v-text-field
+                v-model="firstName"
+                maxlength="25"
+                counter
+                label="First Name*"
+                clearable
+                required
+                :error-messages="errors"
+                :success-messages="valid ? 'Looking good!' : ''"
+              >
+              </v-text-field>
+            </ValidationProvider>
           </v-col>
 
           <!-- Middle name -->
@@ -197,8 +204,31 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 //% Packages
 import axios from "axios";
 
+//% VeeValidate
+import { ValidationProvider, extend } from "vee-validate";
+import { required } from "vee-validate/dist/rules";
+
+extend("required", {
+  ...required,
+  message: "We need your name!",
+});
+
+extend("max", {
+  validate(value, { max }) {
+    return value.length <= max;
+  },
+  params: ["max"],
+  message: (fieldName, { max }) => {
+    return `The ${fieldName} field must have ${max} characters at most`;
+  },
+});
+
 export default {
   name: "NavBarContactDialogForm",
+
+  components: {
+    ValidationProvider,
+  },
 
   data: () => ({
     htmlTagsRefs: {
