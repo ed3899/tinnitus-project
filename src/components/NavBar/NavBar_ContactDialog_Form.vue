@@ -85,51 +85,10 @@
 
             <!-- Inquiry type -->
             <v-col cols="12" class="py-0">
-              <v-radio-group
-                v-model="inquiryType"
-                :rules="rules.inquiryType"
-                label="Select your inquiry type:"
-              >
-                <template v-for="{ option } in radioOptions">
-                  <!-- The rest -->
-                  <v-row
-                    no-gutters
-                    v-if="option != 'other'"
-                    :key="option"
-                    align="center"
-                    :style="[weAreOnDevMode ? greenBorder : '']"
-                    class="my-1 text-capitalize"
-                  >
-                    <v-radio :label="option" :value="option"></v-radio>
-                  </v-row>
-
-                  <!-- Other -->
-                  <v-row
-                    no-gutters
-                    v-else
-                    :key="option"
-                    align="center"
-                    :style="[weAreOnDevMode ? greenBorder : '']"
-                    class="my-1 text-capitalize"
-                  >
-                    <v-radio
-                      :label="option"
-                      :value="option"
-                      class="mr-3"
-                    ></v-radio>
-                    <v-text-field
-                      v-model="inquirySubject"
-                      dense
-                      single-line
-                      clearable
-                      :disabled="isOtherTextDisabled"
-                      class="mr-3"
-                    ></v-text-field>
-                  </v-row>
-                </template>
-              </v-radio-group>
-
               <RadioGroup
+                :value="inquiryType"
+                @input:inquiry-type="inquiryType = $event"
+                @input:inquiry-subject="inquirySubject = $event"
                 :name="'Inquiry Type'"
                 :label="'Select your inquiry type:'"
                 :radio-options="radioOptions"
@@ -139,15 +98,13 @@
 
             <!-- Textarea -->
             <v-col cols="12 py-0">
-              <v-textarea
-                v-model="textArea"
-                :rules="rules.textArea"
-                :counter="maxTextAreaCharacters"
-                outlined
-                filled
-                auto-grow
-                label="How can we help you?"
-              ></v-textarea>
+              <TextArea
+                :value="textArea"
+                @input="textArea = $event"
+                :name="'Message'"
+                :label="'How can we help you?'"
+                :rules="{ required: true, minmax: { min: 50, max: 1000 } }"
+              />
             </v-col>
           </v-row>
 
@@ -219,6 +176,7 @@ import axios from "axios";
 import TextField from "../FormFields/TextField.vue";
 import Select from "../FormFields/Select.vue";
 import RadioGroup from "../FormFields/RadioGroup.vue";
+import TextArea from "../FormFields/TextArea.vue";
 
 export default {
   name: "NavBarContactDialogForm",
@@ -227,21 +185,13 @@ export default {
     TextField,
     Select,
     RadioGroup,
+    TextArea,
   },
 
   data: () => ({
     htmlTagsRefs: {
       main: "popup-form",
       observer: "popup-form-validation-observer",
-    },
-
-    rules: {
-      inquiryType: [v => !!v || "Inquiry type is required"],
-      textArea: [
-        v => !!v || "Inquiry message is required",
-        v =>
-          (!!v && v.length) >= 50 || "Message has to be at least 50 characters",
-      ],
     },
 
     ages: ["0-17", "18-29", "30-54", "54+"],
@@ -257,8 +207,6 @@ export default {
     maxTextAreaCharacters: 1000,
 
     saveLoading: false,
-
-    displaySuccessSnack: false,
   }),
 
   computed: {
@@ -392,13 +340,6 @@ export default {
     },
 
     //%Btn classes
-    resetBtnClass() {
-      return {
-        "deep-purple darken-1 white--text": !this.$vuetify.theme.dark,
-        "deep-purple darken-4 white--text": this.$vuetify.theme.dark,
-      };
-    },
-
     cancelBtnClass() {
       return {
         "red darken-1 white--text": !this.$vuetify.theme.dark,

@@ -14,6 +14,7 @@
       :success-messages="
         valid && changed && successMsgActive ? 'Looking good!' : ''
       "
+      @change="valueChange"
     >
       <template v-for="{ option } in radioOptions">
         <!-- The rest -->
@@ -136,6 +137,12 @@ export default {
 
     inquirySubject(val) {
       this.$emit("input:inquiry-subject", val);
+    },
+  },
+
+  methods: {
+    valueChange() {
+      this.inquirySubject = "";
     },
   },
 };
