@@ -25,33 +25,26 @@
           <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
             <!-- Name -->
             <v-col cols="12" sm="6" md="4">
-              <ValidationProvider
-                #default="{ errors , valid }"
+              <TextField
+                :value="firstName"
+                @input="firstName = $event"
                 :rules="{ required: true, max: 25 }"
-                name="First Name"
-              >
-                <v-text-field
-                  v-model="firstName"
-                  maxlength="25"
-                  counter
-                  label="First Name*"
-                  clearable
-                  required
-                  :error-messages="errors"
-                  :success-messages="valid ? 'Looking good!' : ''"
-                >
-                </v-text-field>
-              </ValidationProvider>
+                :label="'First Name*'"
+                :name="'First Name'"
+              />
             </v-col>
 
             <!-- Middle name -->
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                v-model="middleName"
-                counter
-                maxlength="25"
-                label="Middle Name"
-              ></v-text-field>
+              <TextField
+                :value="middleName"
+                @input="middleName = $event"
+                :rules="{ minmax: { min: 5, max: 25 } }"
+                :label="'Middle Name'"
+                :required="false"
+                :successMsgActive="false"
+                :name="'Middle Name'"
+              />
             </v-col>
 
             <!-- Last name -->
@@ -213,15 +206,14 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 //% Packages
 import axios from "axios";
 
-//% VeeValidate
-import { ValidationProvider, ValidationObserver } from "vee-validate";
+//% Components
+import TextField from "../FormFields/TextField.vue";
 
 export default {
   name: "NavBarContactDialogForm",
 
   components: {
-    ValidationProvider,
-    ValidationObserver,
+    TextField,
   },
 
   data: () => ({
