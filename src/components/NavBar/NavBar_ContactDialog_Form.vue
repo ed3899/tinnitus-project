@@ -1,6 +1,9 @@
 <template>
   <v-card>
-    <ValidationObserver ref="observer" #default="{invalid, handleSubmit}">
+    <ValidationObserver
+      :ref="htmlTagsRefs.observer"
+      #default="{invalid, handleSubmit}"
+    >
       <v-form
         :ref="htmlTagsRefs.main"
         method="post"
@@ -24,7 +27,7 @@
             <v-col cols="12" sm="6" md="4">
               <ValidationProvider
                 #default="{ errors , valid }"
-                rules="required|max:25"
+                :rules="{ required: true, max: 25 }"
                 name="First Name"
               >
                 <v-text-field
@@ -170,9 +173,6 @@
 
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn text :class="[resetBtnClass, 'mr-3']" @click="clearForm"
-            >reset
-          </v-btn>
 
           <v-btn
             text
@@ -214,23 +214,7 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 import axios from "axios";
 
 //% VeeValidate
-import { ValidationProvider, ValidationObserver, extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
-
-extend("required", {
-  ...required,
-  message: "We need your name!",
-});
-
-extend("max", {
-  validate(value, { max }) {
-    return value.length <= max;
-  },
-  params: ["max"],
-  message: (fieldName, { max }) => {
-    return `The ${fieldName} field must have ${max} characters at most`;
-  },
-});
+import { ValidationProvider, ValidationObserver } from "vee-validate";
 
 export default {
   name: "NavBarContactDialogForm",
@@ -243,6 +227,7 @@ export default {
   data: () => ({
     htmlTagsRefs: {
       main: "popup-form",
+      observer: "popup-form-validation-observer",
     },
 
     rules: {
@@ -434,6 +419,23 @@ export default {
   },
 
   methods: {
+    async recaptcha() {
+      // (optional) Wait until recaptcha has been loaded.
+      await this.$recaptchaLoaded();
+
+      // Execute reCAPTCHA with action "login".
+      const token = await this.$recaptcha("submit");
+
+      const verifiedRes = await axios({
+        method: "post",
+        url: `http://localhost:8080/recaptcha/api/siteverify?secret=${process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE}&response=${token}`,
+      });
+
+      if (verifiedRes.data.success) {
+        this.handleSubmit();
+      }
+    },
+
     encode(data) {
       return Object.keys(data)
         .map(
@@ -472,23 +474,6 @@ export default {
       }
     },
 
-    async recaptcha() {
-      // (optional) Wait until recaptcha has been loaded.
-      await this.$recaptchaLoaded();
-
-      // Execute reCAPTCHA with action "login".
-      const token = await this.$recaptcha("submit");
-
-      const verifiedRes = await axios({
-        method: "post",
-        url: `http://localhost:8080/recaptcha/api/siteverify?secret=${process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE}&response=${token}`,
-      });
-
-      if (verifiedRes.data.success) {
-        this.handleSubmit();
-      }
-    },
-
     closeAndResetForm() {
       //Set isOpen on formDialog in Vuex
       this.$store.commit({
@@ -497,12 +482,9 @@ export default {
 
       //Reset local form state
       this.$refs[this.htmlTagsRefs.main].reset();
-    },
 
-    clearForm() {
-      //Reset local form state
-      this.$refs[this.htmlTagsRefs.main].reset();
-      this.$refs.observer.reset();
+      //Reset validation obs
+      this.$refs[this.htmlTagsRefs.observer].reset();
     },
   },
 };
