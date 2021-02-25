@@ -1,12 +1,14 @@
 import { setInteractionMode, extend } from "vee-validate";
-import { required } from "vee-validate/dist/rules";
+import { required, email } from "vee-validate/dist/rules";
 
 setInteractionMode("eager");
 
 extend("required", {
   ...required,
 
-  message: "We need your your name!",
+  message(fieldName) {
+    return `We need your ${fieldName.toLowerCase()}!`;
+  },
 });
 
 extend("minmax", {
@@ -30,5 +32,12 @@ extend("max", {
 
   message: (fieldName, { max }) => {
     return `The ${fieldName} field must have ${max} characters at most`;
+  },
+});
+
+extend("email", {
+  ...email,
+  message() {
+    return `Please enter a valid email`;
   },
 });

@@ -4,30 +4,25 @@
     :rules="rules"
     :name="name"
     :vid="vid"
-    tag="div"
     :mode="interactionMode"
+    tag="div"
   >
-    <v-text-field
+    <v-select
       v-model="modelValue"
-      @click:clear="modelValue = ''"
+      :items="items"
       :label="label"
-      :error-messages="errors"
+      :required="required"
       :success-messages="
         valid && changed && successMsgActive ? 'Looking good!' : ''
       "
-      :required="required"
-      :maxlength="maxlength"
-      :counter="counter"
-      clearable
-      :type="type"
-    >
-    </v-text-field>
+      :error-messages="errors"
+    ></v-select>
   </ValidationProvider>
 </template>
 
 <script>
 export default {
-  name: "TextField",
+  name: "Select",
 
   emits: ["input"],
 
@@ -58,11 +53,6 @@ export default {
       required: true,
     },
 
-    counter: {
-      type: Boolean,
-      default: true,
-    },
-
     required: {
       type: Boolean,
       default: true,
@@ -78,14 +68,9 @@ export default {
       default: true,
     },
 
-    maxlength: {
-      type: Number,
-      default: 25,
-    },
-
-    type: {
-      type: String,
-      default: "text",
+    items: {
+      type: Array,
+      required: true,
     },
   },
 

@@ -28,7 +28,7 @@
               <TextField
                 :value="firstName"
                 @input="firstName = $event"
-                :rules="{ required: true, max: 25 }"
+                :rules="{ required: true, minmax: { min: 5, max: 25 } }"
                 :label="'First Name*'"
                 :name="'First Name'"
               />
@@ -49,36 +49,38 @@
 
             <!-- Last name -->
             <v-col cols="12" sm="6" md="4">
-              <v-text-field
-                v-model="lastName"
-                :rules="rules.lastName"
-                counter
-                maxlength="25"
-                label="Last name*"
-                required
-              ></v-text-field>
+              <TextField
+                :value="lastName"
+                @input="lastName = $event"
+                :rules="{ required: true, minmax: { min: 5, max: 25 } }"
+                :label="'Last Name'"
+                :name="'Last Name'"
+              />
             </v-col>
 
             <!-- Email -->
             <v-col cols="12">
-              <v-text-field
-                v-model="email"
-                type="email"
-                :rules="rules.email"
-                label="Email*"
-                required
-              ></v-text-field>
+              <TextField
+                :value="email"
+                @input="email = $event"
+                :rules="{ required: true, email: true }"
+                :label="'Email*'"
+                :name="'Email'"
+                :required="true"
+                :type="'email'"
+              />
             </v-col>
 
             <!-- Age -->
             <v-col cols="12">
-              <v-select
-                v-model="selectedAgeRange"
+              <Select
+                :value="selectedAgeRange"
+                @input="selectedAgeRange = $event"
                 :items="ages"
-                :rules="rules.age"
-                label="Age*"
-                required
-              ></v-select>
+                :name="'Age Range'"
+                :label="'Age Range'"
+                :rules="{ required: true }"
+              />
             </v-col>
 
             <!-- Inquiry type -->
@@ -126,6 +128,13 @@
                   </v-row>
                 </template>
               </v-radio-group>
+
+              <RadioGroup
+                :name="'Inquiry Type'"
+                :label="'Select your inquiry type:'"
+                :radio-options="radioOptions"
+                :rules="{ required: true }"
+              />
             </v-col>
 
             <!-- Textarea -->
@@ -208,12 +217,16 @@ import axios from "axios";
 
 //% Components
 import TextField from "../FormFields/TextField.vue";
+import Select from "../FormFields/Select.vue";
+import RadioGroup from "../FormFields/RadioGroup.vue";
 
 export default {
   name: "NavBarContactDialogForm",
 
   components: {
     TextField,
+    Select,
+    RadioGroup,
   },
 
   data: () => ({
@@ -223,10 +236,6 @@ export default {
     },
 
     rules: {
-      firstName: [v => !!v || "Name is required"],
-      lastName: [v => !!v || "Last name is required"],
-      email: [v => !!v || "Email is required"],
-      age: [v => !!v || "Age is required"],
       inquiryType: [v => !!v || "Inquiry type is required"],
       textArea: [
         v => !!v || "Inquiry message is required",
