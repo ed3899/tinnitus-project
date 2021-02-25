@@ -61,7 +61,7 @@ import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 export default {
   name: "RadioGroup",
 
-  emits: ["input:inquiry-type", "input:inquiry-subject"],
+  emits: ["update:inquiry-type", "update:inquiry-subject"],
 
   props: {
     value: {
@@ -133,11 +133,11 @@ export default {
   watch: {
     inquiryType(val) {
       // allows us to use v-model on our input.
-      this.$emit("input:inquiry-type", val);
+      this.$emit("update:inquiry-type", val);
     },
 
     inquirySubject(val) {
-      this.$emit("input:inquiry-subject", val);
+      this.$emit("update:inquiry-subject", val);
     },
   },
 

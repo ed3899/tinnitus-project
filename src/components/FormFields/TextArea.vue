@@ -27,7 +27,7 @@
 export default {
   name: "TextArea",
 
-  emits: ["input"],
+  emits: ["update:value"],
 
   props: {
     value: {
@@ -84,7 +84,7 @@ export default {
   watch: {
     modelValue(val) {
       // allows us to use v-model on our input.
-      this.$emit("input", val);
+      this.$emit("update:value", val);
     },
   },
 };

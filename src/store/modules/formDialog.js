@@ -2,7 +2,9 @@ import { formDialogMutations } from "../mutations/index.js";
 
 export const module = {
   name: "formDialog",
+
   namespaced: true,
+
   state: () => ({
     firstName: "",
     middleName: "",
@@ -17,6 +19,7 @@ export const module = {
     subscribeToNewsletter: false,
     isOpen: false,
   }),
+
   mutations: {
     [formDialogMutations.SET_FIRST_NAME](state, { value }) {
       state.firstName = value;
@@ -54,6 +57,8 @@ export const module = {
       state.isOpen = false;
     },
   },
+
   actions: {},
+  
   getters: {},
 };

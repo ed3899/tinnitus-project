@@ -26,8 +26,7 @@
             <!-- Name -->
             <v-col cols="12" sm="6" md="4">
               <TextField
-                :value="firstName"
-                @input="firstName = $event"
+                :value.sync="firstName"
                 :rules="{ required: true, minmax: { min: 5, max: 25 } }"
                 :label="'First Name*'"
                 :name="'First Name'"
@@ -37,8 +36,7 @@
             <!-- Middle name -->
             <v-col cols="12" sm="6" md="4">
               <TextField
-                :value="middleName"
-                @input="middleName = $event"
+                :value.sync="middleName"
                 :rules="{ minmax: { min: 5, max: 25 } }"
                 :label="'Middle Name'"
                 :required="false"
@@ -50,8 +48,7 @@
             <!-- Last name -->
             <v-col cols="12" sm="6" md="4">
               <TextField
-                :value="lastName"
-                @input="lastName = $event"
+                :value.sync="lastName"
                 :rules="{ minmax: { min: 5, max: 25 } }"
                 :label="'Last Name'"
                 :name="'Last Name'"
@@ -63,8 +60,7 @@
             <!-- Email -->
             <v-col cols="12">
               <TextField
-                :value="email"
-                @input="email = $event"
+                :value.sync="email"
                 :rules="{ required: true, email: true }"
                 :label="'Email*'"
                 :name="'Email'"
@@ -87,8 +83,8 @@
             <v-col cols="12" class="py-0">
               <RadioGroup
                 :value="inquiryType"
-                @input:inquiry-type="inquiryType = $event"
-                @input:inquiry-subject="inquirySubject = $event"
+                @update:inquiry-type="inquiryType = $event"
+                @update:inquiry-subject="inquirySubject = $event"
                 :name="'Inquiry Type'"
                 :label="'Select your inquiry type:'"
                 :radio-options="radioOptions"
@@ -99,8 +95,7 @@
             <!-- Textarea -->
             <v-col cols="12 my-2 py-0">
               <TextArea
-                :value="textArea"
-                @input="textArea = $event"
+                :value.sync="textArea"
                 :name="'Message'"
                 :label="'How can we help you?'"
                 :rules="{ required: true, minmax: { min: 50, max: 1000 } }"

@@ -29,7 +29,7 @@
 export default {
   name: "TextField",
 
-  emits: ["input"],
+  emits: ["update:value"],
 
   props: {
     value: {
@@ -95,8 +95,9 @@ export default {
 
   watch: {
     modelValue(val) {
-      // allows us to use v-model on our input.
-      this.$emit("input", val);
+      // allows us to use v-model on our input. //caught by value.sync -
+      // go to https://v3.vuejs.org/guide/migration/v-model.html#using-v-bind-sync
+      this.$emit("update:value", val);
     },
   },
 };
