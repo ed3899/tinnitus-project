@@ -1,4 +1,7 @@
 import { formDialogMutations } from "../mutations/index.js";
+import { formDialogActions } from "../actions/index.js";
+import axios from "axios";
+import { encode } from "../../utils/index";
 
 export const module = {
   name: "formDialog",
@@ -58,7 +61,41 @@ export const module = {
     },
   },
 
-  actions: {},
-  
-  getters: {},
+  actions: {
+    async [formDialogActions.POST_FORM]({ getters }) {
+      const axiosConfig = {
+        header: { "Content-Type": "application/x-www-form-urlencoded" },
+      };
+
+      try {
+        const res = await axios.post(
+          "/home",
+          encode({
+            "form-name": "contact-dialog-form",
+            ...getters.completeForm,
+          }),
+          axiosConfig
+        );
+      } catch (error) {
+        console.error(`${error.name}:${error.message}`);
+        return error;
+      }
+    },
+  },
+
+  getters: {
+    completeForm(state) {
+      return {
+        firstName: state.firstName,
+        middleName: state.middleName,
+        lastName: state.lastName,
+        email: state.email,
+        ageRange: state.ageRange,
+        inquiryType: state.inquiry.type,
+        inquirySubject: state.inquiry.subject,
+        textArea: state.textArea,
+        subscribeToNewsletter: state.subscribeToNewsletter,
+      };
+    },
+  },
 };

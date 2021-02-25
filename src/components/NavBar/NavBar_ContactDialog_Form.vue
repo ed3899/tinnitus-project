@@ -158,6 +158,11 @@ import {
   formDialogMutations,
   mainStoreMutations,
 } from "../../store/mutations/index";
+
+//Actions
+import { formDialogActions } from "../../store/actions/index";
+
+import { mapGetters } from "vuex";
 //Modules
 import { formDialogModule } from "../../store/modules/index";
 
@@ -314,20 +319,6 @@ export default {
       },
     },
 
-    completeForm() {
-      return {
-        "first-name": this.firstName,
-        "middle-name": this.middleName,
-        "last-name": this.lastName,
-        email: this.email,
-        "selected-age-range": this.selectedAgeRange,
-        "inquiry-type": this.inquiryType,
-        "inquiry-subject": this.inquirySubject,
-        message: this.textArea,
-        "subscribe-to-newsletter": this.subscribeToNewsletter,
-      };
-    },
-
     isOtherTextDisabled() {
       //Disable if is different from other
       const notOther = this.$store.state.formDialog.inquiry.type !== "other";
@@ -373,30 +364,17 @@ export default {
       }
     },
 
-    encode(data) {
-      return Object.keys(data)
-        .map(
-          key => `${encodeURIComponent(key)}=${encodeURIComponent(data[key])}`
-        )
-        .join("&");
-    },
-
     async handleSubmit() {
-      const axiosConfig = {
-        header: { "Content-Type": "application/x-www-form-urlencoded" },
-      };
-
-      this.saveLoading = true;
-
       try {
-        await axios.post(
-          "/home",
-          this.encode({
-            "form-name": "contact-dialog-form",
-            ...this.completeForm,
-          }),
-          axiosConfig
-        );
+        this.saveLoading = true;
+
+        const res = await this.$store.dispatch({
+          type: `${formDialogModule.name}/${formDialogActions.POST_FORM}`,
+        });
+
+        if (res instanceof Error) {
+          throw new Error(res.message);
+        }
 
         this.closeAndResetForm();
 
@@ -404,8 +382,8 @@ export default {
           type: mainStoreMutations.DISPLAY_SNACKBAR,
           value: true,
         });
-      } catch (e) {
-        console.error(`${e.name}:${e.message}`);
+      } catch (error) {
+        console.error(`${error.name}:${error.message}`);
       } finally {
         this.saveLoading = false;
       }
