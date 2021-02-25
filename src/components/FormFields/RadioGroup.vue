@@ -15,6 +15,7 @@
         valid && changed && successMsgActive ? 'Looking good!' : ''
       "
       @change="valueChange"
+      mandatory
     >
       <template v-for="{ option } in radioOptions">
         <!-- The rest -->

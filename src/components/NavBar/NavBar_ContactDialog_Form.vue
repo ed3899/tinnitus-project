@@ -52,9 +52,11 @@
               <TextField
                 :value="lastName"
                 @input="lastName = $event"
-                :rules="{ required: true, minmax: { min: 5, max: 25 } }"
+                :rules="{ minmax: { min: 5, max: 25 } }"
                 :label="'Last Name'"
                 :name="'Last Name'"
+                :required="false"
+                :successMsgActive="false"
               />
             </v-col>
 
@@ -66,7 +68,6 @@
                 :rules="{ required: true, email: true }"
                 :label="'Email*'"
                 :name="'Email'"
-                :required="true"
                 :type="'email'"
               />
             </v-col>
@@ -74,11 +75,10 @@
             <!-- Age -->
             <v-col cols="12">
               <Select
-                :value="selectedAgeRange"
-                @input="selectedAgeRange = $event"
+                :value.sync="selectedAgeRange"
                 :items="ages"
                 :name="'Age Range'"
-                :label="'Age Range'"
+                :label="'Age Range*'"
                 :rules="{ required: true }"
               />
             </v-col>
@@ -97,7 +97,7 @@
             </v-col>
 
             <!-- Textarea -->
-            <v-col cols="12 py-0">
+            <v-col cols="12 my-2 py-0">
               <TextArea
                 :value="textArea"
                 @input="textArea = $event"
