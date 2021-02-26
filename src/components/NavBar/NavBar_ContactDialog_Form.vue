@@ -355,7 +355,7 @@ export default {
       // (optional) Wait until recaptcha has been loaded.
       await this.$recaptchaLoaded();
 
-      // Execute reCAPTCHA with action "login".
+      // Execute reCAPTCHA with action
       const token = await this.$recaptcha("submit");
 
       const verifiedRes = await axios({
@@ -364,14 +364,14 @@ export default {
       });
 
       if (verifiedRes.data.success) {
-        this.handleSubmit();
+        this.submitForm();
       }
     },
 
-    async handleSubmit() {
-      try {
-        this.saveLoading = true;
+    async submitForm() {
+      this.saveLoading = true;
 
+      try {
         const res = await this.$store.dispatch({
           type: `${formDialogModule.name}/${formDialogActions.POST_FORM}`,
         });
@@ -406,7 +406,7 @@ export default {
       //Reset local form state
       this.$refs[this.htmlTagsRefs.main].reset();
 
-      //Reset validation obs
+      //Reset validation observer
       this.$refs[this.htmlTagsRefs.observer].reset();
     },
   },
