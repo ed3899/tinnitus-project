@@ -148,6 +148,9 @@
         </v-card-actions>
       </v-form>
     </ValidationObserver>
+
+    <!-- Snackbar failure -->
+    <FormFailure />
   </v-card>
 </template>
 
@@ -162,7 +165,6 @@ import {
 //Actions
 import { formDialogActions } from "../../store/actions/index";
 
-import { mapGetters } from "vuex";
 //Modules
 import { formDialogModule } from "../../store/modules/index";
 
@@ -177,6 +179,7 @@ import TextField from "../FormFields/TextField.vue";
 import Select from "../FormFields/Select.vue";
 import RadioGroup from "../FormFields/RadioGroup.vue";
 import TextArea from "../FormFields/TextArea.vue";
+import FormFailure from "../Snackbars/FormFailure.vue";
 
 export default {
   name: "NavBarContactDialogForm",
@@ -186,6 +189,7 @@ export default {
     Select,
     RadioGroup,
     TextArea,
+    FormFailure,
   },
 
   data: () => ({
@@ -373,6 +377,10 @@ export default {
         });
 
         if (res instanceof Error) {
+          this.$store.commit({
+            type: mainStoreMutations.DISPLAY_FAILURE_SNACKBAR,
+            value: true,
+          });
           throw new Error(res.message);
         }
 

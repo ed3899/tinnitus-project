@@ -1,5 +1,5 @@
 <template>
-  <v-snackbar v-model="snackbar" :timeout="3000">
+  <v-snackbar v-model="snackbar" timeout="13000" bottom app elevation="8" multi-line >
     <h5 class="text-h5">
       Yey! Your form has been submitted. Well be answering you in between 2-3
       business days
