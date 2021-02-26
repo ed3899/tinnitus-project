@@ -15,12 +15,12 @@ Vue.component("ValidationProvider", ValidationProvider);
 Vue.config.productionTip = false;
 
 // Adding recaptcha
-Vue.use(VueReCaptcha, {
-  siteKey: process.env.VUE_APP_CAPTCHA_V3_SITE_KEY,
-  loaderOptions: {
-    autoHideBadge: true,
-  },
-});
+// Vue.use(VueReCaptcha, {
+//   siteKey: process.env.VUE_APP_CAPTCHA_V3_SITE_KEY,
+//   loaderOptions: {
+//     autoHideBadge: true,
+//   },
+// });
 
 new Vue({
   router,
