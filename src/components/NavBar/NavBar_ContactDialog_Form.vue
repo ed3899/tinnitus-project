@@ -7,7 +7,7 @@
       <v-form
         :ref="htmlTagsRefs.main"
         method="post"
-        @submit.prevent="handleSubmit(recaptcha)"
+        @submit.prevent="handleSubmit(submitForm)"
       >
         <input type="hidden" name="form-name" value="contact-dialog-form" />
 
