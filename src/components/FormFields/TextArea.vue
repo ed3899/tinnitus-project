@@ -75,6 +75,11 @@ export default {
       type: Boolean,
       default: true,
     },
+
+    "netlify-input-name": {
+      type: String,
+      required: true,
+    },
   },
 
   data: () => ({

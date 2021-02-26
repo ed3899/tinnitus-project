@@ -16,6 +16,7 @@
         valid && changed && successMsgActive ? 'Looking good!' : ''
       "
       :error-messages="errors"
+      :name="netlifyFormInputName"
     ></v-select>
   </ValidationProvider>
 </template>
@@ -70,6 +71,11 @@ export default {
 
     items: {
       type: Array,
+      required: true,
+    },
+
+    "netlify-form-input-name": {
+      type: String,
       required: true,
     },
   },

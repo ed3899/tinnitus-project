@@ -27,7 +27,11 @@
           :style="[weAreOnDevMode ? greenBorder : '']"
           class="my-1 text-capitalize"
         >
-          <v-radio :label="option" :value="option"></v-radio>
+          <v-radio
+            :label="option"
+            :value="option"
+            :name="netlifyFormInputRadioName"
+          ></v-radio>
         </v-row>
 
         <!-- Other -->
@@ -39,7 +43,13 @@
           :style="[weAreOnDevMode ? greenBorder : '']"
           class="my-1 text-capitalize"
         >
-          <v-radio :label="option" :value="option" class="mr-3"></v-radio>
+          <v-radio
+            :label="option"
+            :value="option"
+            class="mr-3"
+            :name="netlifyFormInputRadioName"
+          ></v-radio>
+
           <v-text-field
             v-model="inquirySubject"
             :disabled="isOtherTextDisabled"
@@ -47,6 +57,7 @@
             single-line
             clearable
             class="mr-3"
+            :name="netlifyFormInputTextName"
           ></v-text-field>
         </v-row>
       </template>
@@ -107,6 +118,16 @@ export default {
 
     radioOptions: {
       type: Array,
+      required: true,
+    },
+
+    "netlify-form-input-radio-name": {
+      type: String,
+      required: true,
+    },
+
+    "netlify-form-input-text-name": {
+      type: String,
       required: true,
     },
   },

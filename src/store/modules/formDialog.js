@@ -76,6 +76,8 @@ export const module = {
           }),
           axiosConfig
         );
+
+        console.log(res);
       } catch (error) {
         console.error(`${error.name}:${error.message}`);
         return error;
@@ -86,15 +88,16 @@ export const module = {
   getters: {
     completeForm(state) {
       return {
-        firstName: state.firstName,
-        middleName: state.middleName,
-        lastName: state.lastName,
+        //These have to matched the form in the entry index.html
+        "first-name": state.firstName,
+        "middle-name": state.middleName,
+        "last-name": state.lastName,
         email: state.email,
-        ageRange: state.ageRange,
-        inquiryType: state.inquiry.type,
-        inquirySubject: state.inquiry.subject,
-        textArea: state.textArea,
-        subscribeToNewsletter: state.subscribeToNewsletter,
+        "selected-age-range": state.ageRange,
+        "inquiry-type": state.inquiry.type,
+        "inquiry-subject": state.inquiry.subject,
+        message: state.textArea,
+        "subscribe-to-newsletter": state.subscribeToNewsletter,
       };
     },
   },

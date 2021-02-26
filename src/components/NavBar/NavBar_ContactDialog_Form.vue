@@ -30,6 +30,7 @@
                 :rules="{ required: true, minmax: { min: 5, max: 25 } }"
                 :label="'First Name*'"
                 :name="'First Name'"
+                :netlify-form-input-name="'first-name'"
               />
             </v-col>
 
@@ -42,6 +43,7 @@
                 :required="false"
                 :successMsgActive="false"
                 :name="'Middle Name'"
+                :netlify-form-input-name="'middle-name'"
               />
             </v-col>
 
@@ -54,6 +56,7 @@
                 :name="'Last Name'"
                 :required="false"
                 :successMsgActive="false"
+                :netlify-form-input-name="'last-name'"
               />
             </v-col>
 
@@ -65,6 +68,7 @@
                 :label="'Email*'"
                 :name="'Email'"
                 :type="'email'"
+                :netlify-form-input-name="'email'"
               />
             </v-col>
 
@@ -76,6 +80,7 @@
                 :name="'Age Range'"
                 :label="'Age Range*'"
                 :rules="{ required: true }"
+                :netlify-form-input-name="'selected-age-range'"
               />
             </v-col>
 
@@ -89,6 +94,8 @@
                 :label="'Select your inquiry type:'"
                 :radio-options="radioOptions"
                 :rules="{ required: true }"
+                :netlify-form-input-radio-name="'inquiry-type'"
+                :netlify-form-input-text-name="'inquiry-subject'"
               />
             </v-col>
 
@@ -99,6 +106,7 @@
                 :name="'Message'"
                 :label="'How can we help you?'"
                 :rules="{ required: true, minmax: { min: 50, max: 1000 } }"
+                :netlify-input-name="'message'"
               />
             </v-col>
           </v-row>
@@ -111,6 +119,7 @@
                 label="Subscribe to our newsletter"
                 color="info"
                 inset
+                name="subscribe-to-newsletter"
               ></v-switch>
             </v-col>
           </v-row>

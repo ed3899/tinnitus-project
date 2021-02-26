@@ -20,6 +20,7 @@
       :counter="counter"
       clearable
       :type="type"
+      :name="netlifyFormInputName"
     >
     </v-text-field>
   </ValidationProvider>
@@ -86,6 +87,12 @@ export default {
     type: {
       type: String,
       default: "text",
+    },
+
+    "netlify-form-input-name": {
+      type: String,
+      default: "",
+      required: true,
     },
   },
 
