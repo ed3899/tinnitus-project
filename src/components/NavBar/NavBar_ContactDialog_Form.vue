@@ -27,7 +27,7 @@
             <v-col cols="12" sm="6" md="4">
               <TextField
                 :value.sync="firstName"
-                :rules="{ required: true, minmax: { min: 5, max: 25 } }"
+                :rules="{ required: true, minmax: { min: 2, max: 25 } }"
                 :label="'First Name*'"
                 :name="'First Name'"
                 :netlify-form-input-name="'first-name'"
@@ -38,7 +38,7 @@
             <v-col cols="12" sm="6" md="4">
               <TextField
                 :value.sync="middleName"
-                :rules="{ minmax: { min: 5, max: 25 } }"
+                :rules="{ minmax: { min: 2, max: 25 } }"
                 :label="'Middle Name'"
                 :required="false"
                 :successMsgActive="false"
@@ -51,7 +51,7 @@
             <v-col cols="12" sm="6" md="4">
               <TextField
                 :value.sync="lastName"
-                :rules="{ minmax: { min: 5, max: 25 } }"
+                :rules="{ minmax: { min: 2, max: 25 } }"
                 :label="'Last Name'"
                 :name="'Last Name'"
                 :required="false"
@@ -76,7 +76,7 @@
             <v-col cols="12">
               <Select
                 :value.sync="selectedAgeRange"
-                :items="ages"
+                :items="['0-17', '18-29', '30-54', '54+']"
                 :name="'Age Range'"
                 :label="'Age Range*'"
                 :rules="{ required: true }"
@@ -92,7 +92,13 @@
                 @update:inquiry-subject="inquirySubject = $event"
                 :name="'Inquiry Type'"
                 :label="'Select your inquiry type:'"
-                :radio-options="radioOptions"
+                :radio-options="[
+                  { option: 'business' },
+                  {
+                    option: 'just saying thank you!',
+                  },
+                  { option: 'other' },
+                ]"
                 :rules="{ required: true }"
                 :netlify-form-input-radio-name="'inquiry-type'"
                 :netlify-form-input-text-name="'inquiry-subject'"
@@ -206,18 +212,6 @@ export default {
       main: "popup-form",
       observer: "popup-form-validation-observer",
     },
-
-    ages: ["0-17", "18-29", "30-54", "54+"],
-
-    radioOptions: [
-      {
-        option: "business",
-      },
-      { option: "just saying thank you!" },
-      { option: "other" },
-    ],
-
-    maxTextAreaCharacters: 1000,
 
     saveLoading: false,
   }),
