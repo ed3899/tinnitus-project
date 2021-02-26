@@ -63,20 +63,7 @@ export const module = {
 
   actions: {
     async [formDialogActions.POST_FORM]({ getters }) {
-      // const axiosConfig = {
-      //   header: { "Content-Type": "application/x-www-form-urlencoded" },
-      // };
-
       try {
-        // const res = await axios.post(
-        //   "/home",
-        //   encode({
-        //     "form-name": "contact-dialog-form",
-        //     ...getters.completeForm,
-        //   }),
-        //   axiosConfig
-        // );
-
         const res2 = await axios({
           method: "post",
           url: "/home",
@@ -87,7 +74,6 @@ export const module = {
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         });
 
-        // console.log(res.data);
         console.log(res2.data);
       } catch (error) {
         console.error(`${error.name}:${error.message}`);

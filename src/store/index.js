@@ -35,7 +35,6 @@ export default new Vuex.Store({
   }),
 
   mutations: {
-
     [mainStoreMutations.CREATE_BREADCRUMBS](state, { component }) {
       const matchedRoutesArray = component.$route.matched;
       const thereAreMatchedRoutes = matchedRoutesArray.length > 0;
@@ -61,7 +60,7 @@ export default new Vuex.Store({
     [mainStoreMutations.DISPLAY_SNACKBAR](state, { value }) {
       state.isSnackbarVisible = value;
     },
-    
+
     [mainStoreMutations.DISPLAY_FAILURE_SNACKBAR](state, { value }) {
       if (!state.isSnackbarVisible) {
         state.isSnackbarFailureVisible = value;

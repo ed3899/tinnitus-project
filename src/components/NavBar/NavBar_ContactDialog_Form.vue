@@ -7,7 +7,7 @@
       <v-form
         :ref="htmlTagsRefs.main"
         method="post"
-        @submit.prevent="handleSubmit(submitForm)"
+        @submit.prevent="handleSubmit(recaptcha)"
       >
         <input type="hidden" name="form-name" value="contact-dialog-form" />
 
@@ -91,7 +91,7 @@
                 @update:inquiry-type="inquiryType = $event"
                 @update:inquiry-subject="inquirySubject = $event"
                 :name="'Inquiry Type'"
-                :label="'Select your inquiry type:'"
+                :label="'Select your inquiry type*:'"
                 :radio-options="[
                   { option: 'business' },
                   {
@@ -110,7 +110,7 @@
               <TextArea
                 :value.sync="textArea"
                 :name="'Message'"
-                :label="'How can we help you?'"
+                :label="'How can we help you?*'"
                 :rules="{ required: true, minmax: { min: 50, max: 1000 } }"
                 :netlify-input-name="'message'"
               />
