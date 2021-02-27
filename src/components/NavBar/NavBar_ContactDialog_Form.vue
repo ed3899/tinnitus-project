@@ -356,7 +356,6 @@ export default {
   methods: {
     async recaptcha() {
       //Netlify env
-      const { VUE_APP_DEPLOY_BRANCH } = process.env;
       this.saveLoading = true;
 
       try {
@@ -369,10 +368,9 @@ export default {
         //Dynamic proxy for Netlify URL
         const dynamicProxy = weAreOnDevMode()
           ? "http://localhost:8080"
-          : VUE_APP_DEPLOY_BRANCH;
+          : "https://www.google.com";
 
         console.log("Dynamic proxy", dynamicProxy);
-        console.log(VUE_APP_DEPLOY_BRANCH);
 
         const verifiedRes = await axios({
           method: "post",
