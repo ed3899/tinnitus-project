@@ -10,6 +10,7 @@ publish = "/dist"
 from = "/*"
 to = "/index.html"
 status = 200
+
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/master/docs/netlify-dev.md#project-detection
 #[dev]
@@ -17,3 +18,5 @@ status = 200
 #  port = 3000 # Port that the dev server will be listening on
 #  publish = "dist" # Folder with the static content for _redirect file
 ## more info on configuring this file: https://www.netlify.com/docs/netlify-toml-reference/
+[context.development_netlify-forms.environment]
+VUE_APP_DEPLOY_BRANCH = "https://development-netlify-forms--tinnitus-project-by-ed-01-2021.netlify.app/"

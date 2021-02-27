@@ -367,20 +367,13 @@ export default {
         const token = await this.$recaptcha("submit");
 
         //Dynamic proxy for Netlify URL
-        const dynamicProxy = weAreOnDevMode
+        const dynamicProxy = weAreOnDevMode()
           ? "http://localhost:8080"
-          : VUE_APP_DEPLOY_URL || VUE_APP_DEPLOY_PRIME_URL;
+          : VUE_APP_DEPLOY_BRANCH;
 
-        //
         console.log("Dynamic proxy", dynamicProxy);
         console.log("We are on dev", weAreOnDevMode);
-        console.log(VUE_APP_DEPLOY_URL);
-        console.log(VUE_APP_DEPLOY_PRIME_URL);
-        console.log("Process deploy", process.env.VUE_APP_DEPLOY_URL);
-        console.log(
-          "Process deploy prime",
-          process.env.VUE_APP_DEPLOY_PRIME_URL
-        );
+        console.log(VUE_APP_DEPLOY_BRANCH);
 
         const verifiedRes = await axios({
           method: "post",
