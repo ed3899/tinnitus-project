@@ -372,7 +372,6 @@ export default {
           : VUE_APP_DEPLOY_BRANCH;
 
         console.log("Dynamic proxy", dynamicProxy);
-        console.log("We are on dev", weAreOnDevMode);
         console.log(VUE_APP_DEPLOY_BRANCH);
 
         const verifiedRes = await axios({
