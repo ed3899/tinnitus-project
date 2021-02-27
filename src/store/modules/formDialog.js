@@ -64,7 +64,7 @@ export const module = {
   actions: {
     async [formDialogActions.POST_FORM]({ getters }) {
       try {
-        const res2 = await axios({
+        await axios({
           method: "post",
           url: "/home",
           data: encode({
@@ -73,8 +73,6 @@ export const module = {
           }),
           headers: { "Content-Type": "application/x-www-form-urlencoded" },
         });
-
-        console.log(res2.data);
       } catch (error) {
         console.error(`${error.name}:${error.message}`);
         return error;
