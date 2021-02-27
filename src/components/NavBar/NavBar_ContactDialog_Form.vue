@@ -359,6 +359,7 @@ export default {
       this.saveLoading = true;
 
       try {
+        const { VUE_APP_DEPLOY_BRANCH } = process.env;
         // (optional) Wait until recaptcha has been loaded.
         await this.$recaptchaLoaded();
 
@@ -368,7 +369,7 @@ export default {
         //Dynamic proxy for Netlify URL
         const dynamicProxy = weAreOnDevMode()
           ? "http://localhost:8080"
-          : "https://www.google.com";
+          : VUE_APP_DEPLOY_BRANCH;
 
         console.log("Dynamic proxy", dynamicProxy);
 
