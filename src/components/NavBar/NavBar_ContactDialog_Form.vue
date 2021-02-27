@@ -361,9 +361,18 @@ export default {
       // Execute reCAPTCHA with action
       const token = await this.$recaptcha("submit");
 
+      //Dynamic proxy for Netlify URL env
+      const dynamicProxy = weAreOnDevMode
+        ? "http://localhost:8080"
+        : process.env.URL;
+
       const verifiedRes = await axios({
         method: "post",
-        url: `http://localhost:8080/recaptcha/api/siteverify?secret=${process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE}&response=${token}`,
+        url: `${dynamicProxy}/recaptcha/api/siteverify`,
+        params: {
+          secret: process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE,
+          response: token,
+        },
       });
 
       if (verifiedRes.data.success) {
