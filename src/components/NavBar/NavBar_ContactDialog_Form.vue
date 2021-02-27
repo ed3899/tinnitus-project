@@ -356,7 +356,7 @@ export default {
   methods: {
     async recaptcha() {
       //Netlify env
-      const { VUE_APP_DEPLOY_URL, VUE_APP_DEPLOY_PRIME_URL } = process.env;
+      const { VUE_APP_DEPLOY_BRANCH } = process.env;
       this.saveLoading = true;
 
       try {
