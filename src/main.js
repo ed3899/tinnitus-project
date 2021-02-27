@@ -17,9 +17,9 @@ Vue.config.productionTip = false;
 // Adding recaptcha
 Vue.use(VueReCaptcha, {
   siteKey: process.env.VUE_APP_CAPTCHA_V3_SITE_KEY,
-  loaderOptions: {
-    autoHideBadge: true,
-  },
+  // loaderOptions: {
+  //   autoHideBadge: true,
+  // },
 });
 
 new Vue({

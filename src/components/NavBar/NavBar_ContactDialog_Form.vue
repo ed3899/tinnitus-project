@@ -383,7 +383,6 @@ export default {
           this.submitForm();
         }
       } catch (error) {
-        console.error(error);
         console.error(`${error.name}:${error.message}`);
       } finally {
         this.saveLoading = false;
