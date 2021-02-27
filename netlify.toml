@@ -12,9 +12,11 @@ to = "/index.html"
 status = 200
 
 [[redirects]]
-from = "/development-netlify-forms--tinnitus-project-by-ed-01-2021.netlify.app/recaptcha/*"
-to = "https://www.google.com/:splat"
+from = "/recaptcha/*"
+to = "https://www.google.com/recaptcha/:splat"
+force = true
 status = 200
+headers = { X-From = "Netlify" }
 
 ## (optional) Settings for Netlify Dev
 ## https://github.com/netlify/cli/blob/master/docs/netlify-dev.md#project-detection
