@@ -371,12 +371,16 @@ export default {
           ? "http://localhost:8080"
           : VUE_APP_DEPLOY_URL || VUE_APP_DEPLOY_PRIME_URL;
 
+        //
         console.log("Dynamic proxy", dynamicProxy);
         console.log("We are on dev", weAreOnDevMode);
         console.log(VUE_APP_DEPLOY_URL);
         console.log(VUE_APP_DEPLOY_PRIME_URL);
         console.log("Process deploy", process.env.VUE_APP_DEPLOY_URL);
-        console.log("Process deploy prime", process.env.VUE_APP_DEPLOY_PRIME_URL);
+        console.log(
+          "Process deploy prime",
+          process.env.VUE_APP_DEPLOY_PRIME_URL
+        );
 
         const verifiedRes = await axios({
           method: "post",
