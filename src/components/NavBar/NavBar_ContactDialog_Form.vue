@@ -355,6 +355,8 @@ export default {
 
   methods: {
     async recaptcha() {
+      //Netlify env
+      const { DEPLOY_URL, DEPLOY_PRIME_URL } = process.env;
       this.saveLoading = true;
 
       try {
@@ -364,10 +366,10 @@ export default {
         // Execute reCAPTCHA with action
         const token = await this.$recaptcha("submit");
 
-        //Dynamic proxy for Netlify URL env
+        //Dynamic proxy for Netlify URL
         const dynamicProxy = weAreOnDevMode
           ? "http://localhost:8080"
-          : process.env.URL;
+          : DEPLOY_URL || DEPLOY_PRIME_URL;
 
         const verifiedRes = await axios({
           method: "post",
