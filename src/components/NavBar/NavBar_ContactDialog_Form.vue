@@ -371,6 +371,10 @@ export default {
           ? "http://localhost:8080"
           : DEPLOY_URL || DEPLOY_PRIME_URL;
 
+        console.log(dynamicProxy);
+        console.log(DEPLOY_URL);
+        console.log(DEPLOY_PRIME_URL);
+
         const verifiedRes = await axios({
           method: "post",
           url: `${dynamicProxy}/recaptcha/api/siteverify`,
