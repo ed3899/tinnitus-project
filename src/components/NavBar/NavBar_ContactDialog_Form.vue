@@ -355,35 +355,41 @@ export default {
 
   methods: {
     async recaptcha() {
-      // (optional) Wait until recaptcha has been loaded.
-      await this.$recaptchaLoaded();
+      this.saveLoading = true;
 
-      // Execute reCAPTCHA with action
-      const token = await this.$recaptcha("submit");
+      try {
+        // (optional) Wait until recaptcha has been loaded.
+        await this.$recaptchaLoaded();
 
-      //Dynamic proxy for Netlify URL env
-      const dynamicProxy = weAreOnDevMode
-        ? "http://localhost:8080"
-        : process.env.URL;
+        // Execute reCAPTCHA with action
+        const token = await this.$recaptcha("submit");
 
-      const verifiedRes = await axios({
-        method: "post",
-        url: `${dynamicProxy}/recaptcha/api/siteverify`,
-        params: {
-          secret: process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE,
-          response: token,
-        },
-        headers: { "Access-Control-Allow-Origin": "https://www.google.com" },
-      });
+        //Dynamic proxy for Netlify URL env
+        const dynamicProxy = weAreOnDevMode
+          ? "http://localhost:8080"
+          : process.env.URL;
 
-      if (verifiedRes.data.success) {
-        this.submitForm();
+        const verifiedRes = await axios({
+          method: "post",
+          url: `${dynamicProxy}/recaptcha/api/siteverify`,
+          params: {
+            secret: process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE,
+            response: token,
+          },
+          headers: { "Access-Control-Allow-Origin": "https://www.google.com" },
+        });
+
+        if (verifiedRes.data.success) {
+          this.submitForm();
+        }
+      } catch (error) {
+        console.error(`${error.name}:${error.message}`);
+      } finally {
+        this.saveLoading = false;
       }
     },
 
     async submitForm() {
-      this.saveLoading = true;
-
       try {
         const res = await this.$store.dispatch({
           type: `${formDialogModule.name}/${formDialogActions.POST_FORM}`,
@@ -405,8 +411,6 @@ export default {
         });
       } catch (error) {
         console.error(`${error.name}:${error.message}`);
-      } finally {
-        this.saveLoading = false;
       }
     },
 
