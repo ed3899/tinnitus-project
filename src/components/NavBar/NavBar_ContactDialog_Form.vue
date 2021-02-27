@@ -373,6 +373,7 @@ export default {
           secret: process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE,
           response: token,
         },
+        headers: { "Access-Control-Allow-Origin": "https://www.google.com" },
       });
 
       if (verifiedRes.data.success) {

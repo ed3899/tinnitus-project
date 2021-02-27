@@ -4,7 +4,7 @@ module.exports = {
   devServer: {
     proxy: {
       "^/recaptcha": {
-        target: " https://www.google.com",
+        target: "https://www.google.com",
         ws: true,
         changeOrigin: true,
       },
