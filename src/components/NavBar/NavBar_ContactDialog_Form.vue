@@ -374,6 +374,8 @@ export default {
         console.log(dynamicProxy);
         console.log(DEPLOY_URL);
         console.log(DEPLOY_PRIME_URL);
+        console.log(process.env.DEPLOY_URL);
+        console.log(process.env.DEPLOY_PRIME_URL);
 
         const verifiedRes = await axios({
           method: "post",
