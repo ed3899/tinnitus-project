@@ -1,8 +1,13 @@
 import { formDialogMutations } from "../mutations/index.js";
+import { formDialogActions } from "../actions/index.js";
+import axios from "axios";
+import { encode } from "../../utils/index";
 
 export const module = {
   name: "formDialog",
+
   namespaced: true,
+
   state: () => ({
     firstName: "",
     middleName: "",
@@ -17,6 +22,7 @@ export const module = {
     subscribeToNewsletter: false,
     isOpen: false,
   }),
+
   mutations: {
     [formDialogMutations.SET_FIRST_NAME](state, { value }) {
       state.firstName = value;
@@ -54,6 +60,40 @@ export const module = {
       state.isOpen = false;
     },
   },
-  actions: {},
-  getters: {},
+
+  actions: {
+    async [formDialogActions.POST_FORM]({ getters }) {
+      try {
+        await axios({
+          method: "post",
+          url: "/home",
+          data: encode({
+            "form-name": "contact-dialog-form",
+            ...getters.completeForm,
+          }),
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        });
+      } catch (error) {
+        console.error(`${error.name}:${error.message}`);
+        return error;
+      }
+    },
+  },
+
+  getters: {
+    completeForm(state) {
+      return {
+        //These have to matched the form in the entry index.html
+        "first-name": state.firstName,
+        "middle-name": state.middleName,
+        "last-name": state.lastName,
+        email: state.email,
+        "selected-age-range": state.ageRange,
+        "inquiry-type": state.inquiry.type,
+        "inquiry-subject": state.inquiry.subject,
+        message: state.textArea,
+        "subscribe-to-newsletter": state.subscribeToNewsletter,
+      };
+    },
+  },
 };

@@ -1,215 +1,223 @@
 <template>
   <v-card>
-    <v-form
-      :ref="htmlTagsRefs.main"
-      name="contact-dialog-form"
-      method="POST"
-      data-netlify="true"
-      data-netlify-honeypot="bot-field"
+    <ValidationObserver
+      :ref="htmlTagsRefs.observer"
+      #default="{invalid, handleSubmit}"
     >
-      <input type="hidden" name="form-name" value="contact-dialog-form" />
+      <v-form
+        :ref="htmlTagsRefs.main"
+        method="post"
+        @submit.prevent="handleSubmit(recaptcha)"
+      >
+        <input type="hidden" name="form-name" value="contact-dialog-form" />
 
-      <v-card-title>
-        <span class="headline text-capitalize">Send us your thoughts</span>
-      </v-card-title>
+        <p class="d-none">
+          <label
+            >Don’t fill this out if you’re human: <input name="bot-field"
+          /></label>
+        </p>
 
-      <v-card-text>
-        <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
-          <!-- Name -->
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field
-              v-model="firstName"
-              :rules="rules.firstName"
-              maxlength="25"
-              counter
-              label="First Name*"
-              clearable
-              required
-            >
-            </v-text-field>
-          </v-col>
+        <v-card-title>
+          <span class="headline text-capitalize">Send us your thoughts</span>
+        </v-card-title>
 
-          <!-- Middle name -->
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field
-              v-model="middleName"
-              counter
-              maxlength="25"
-              label="Middle Name"
-            ></v-text-field>
-          </v-col>
+        <v-card-text>
+          <v-row :style="[weAreOnDevMode ? brownBorder : '']" class="mb-1">
+            <!-- Name -->
+            <v-col cols="12" sm="6" md="4">
+              <TextField
+                :value.sync="firstName"
+                :rules="{ required: true, minmax: { min: 2, max: 25 } }"
+                :label="'First Name*'"
+                :name="'First Name'"
+                :netlify-form-input-name="'first-name'"
+              />
+            </v-col>
 
-          <!-- Last name -->
-          <v-col cols="12" sm="6" md="4">
-            <v-text-field
-              v-model="lastName"
-              :rules="rules.lastName"
-              counter
-              maxlength="25"
-              label="Last name*"
-              required
-            ></v-text-field>
-          </v-col>
+            <!-- Middle name -->
+            <v-col cols="12" sm="6" md="4">
+              <TextField
+                :value.sync="middleName"
+                :rules="{ minmax: { min: 2, max: 25 } }"
+                :label="'Middle Name'"
+                :required="false"
+                :successMsgActive="false"
+                :name="'Middle Name'"
+                :netlify-form-input-name="'middle-name'"
+              />
+            </v-col>
 
-          <!-- Email -->
-          <v-col cols="12">
-            <v-text-field
-              v-model="email"
-              type="email"
-              :rules="rules.email"
-              label="Email*"
-              required
-            ></v-text-field>
-          </v-col>
+            <!-- Last name -->
+            <v-col cols="12" sm="6" md="4">
+              <TextField
+                :value.sync="lastName"
+                :rules="{ minmax: { min: 2, max: 25 } }"
+                :label="'Last Name'"
+                :name="'Last Name'"
+                :required="false"
+                :successMsgActive="false"
+                :netlify-form-input-name="'last-name'"
+              />
+            </v-col>
 
-          <!-- Age -->
-          <v-col cols="12">
-            <v-select
-              v-model="selectedAgeRange"
-              :items="ages"
-              :rules="rules.age"
-              label="Age*"
-              required
-            ></v-select>
-          </v-col>
+            <!-- Email -->
+            <v-col cols="12">
+              <TextField
+                :value.sync="email"
+                :rules="{ required: true, email: true }"
+                :label="'Email*'"
+                :name="'Email'"
+                :type="'email'"
+                :netlify-form-input-name="'email'"
+              />
+            </v-col>
 
-          <!-- Inquiry type -->
-          <v-col cols="12" class="py-0">
-            <v-radio-group
-              v-model="inquiryType"
-              :rules="rules.inquiryType"
-              label="Select your inquiry type:"
-            >
-              <template v-for="{ option } in radioOptions">
-                <!-- The rest -->
-                <v-row
-                  no-gutters
-                  v-if="option != 'other'"
-                  :key="option"
-                  align="center"
-                  :style="[weAreOnDevMode ? greenBorder : '']"
-                  class="my-1 text-capitalize"
-                >
-                  <v-radio :label="option" :value="option"></v-radio>
-                </v-row>
+            <!-- Age -->
+            <v-col cols="12">
+              <Select
+                :value.sync="selectedAgeRange"
+                :items="['0-17', '18-29', '30-54', '54+']"
+                :name="'Age Range'"
+                :label="'Age Range*'"
+                :rules="{ required: true }"
+                :netlify-form-input-name="'selected-age-range'"
+              />
+            </v-col>
 
-                <!-- Other -->
-                <v-row
-                  no-gutters
-                  v-else
-                  :key="option"
-                  align="center"
-                  :style="[weAreOnDevMode ? greenBorder : '']"
-                  class="my-1 text-capitalize"
-                >
-                  <v-radio
-                    :label="option"
-                    :value="option"
-                    class="mr-3"
-                  ></v-radio>
-                  <v-text-field
-                    v-model="inquirySubject"
-                    dense
-                    single-line
-                    clearable
-                    :disabled="isOtherTextDisabled"
-                    class="mr-3"
-                  ></v-text-field>
-                </v-row>
-              </template>
-            </v-radio-group>
-          </v-col>
+            <!-- Inquiry type -->
+            <v-col cols="12" class="py-0">
+              <RadioGroup
+                :value="inquiryType"
+                @update:inquiry-type="inquiryType = $event"
+                @update:inquiry-subject="inquirySubject = $event"
+                :name="'Inquiry Type'"
+                :label="'Select your inquiry type*:'"
+                :radio-options="[
+                  { option: 'business' },
+                  {
+                    option: 'just saying thank you!',
+                  },
+                  { option: 'other' },
+                ]"
+                :rules="{ required: true }"
+                :netlify-form-input-radio-name="'inquiry-type'"
+                :netlify-form-input-text-name="'inquiry-subject'"
+              />
+            </v-col>
 
-          <!-- Textarea -->
-          <v-col cols="12 py-0">
-            <v-textarea
-              v-model="textArea"
-              :rules="rules.textArea"
-              :counter="maxTextAreaCharacters"
-              outlined
-              name="input-7-4"
-              filled
-              auto-grow
-              label="How can we help you?"
-            ></v-textarea>
-          </v-col>
-        </v-row>
+            <!-- Textarea -->
+            <v-col cols="12 my-2 py-0">
+              <TextArea
+                :value.sync="textArea"
+                :name="'Message'"
+                :label="'How can we help you?*'"
+                :rules="{ required: true, minmax: { min: 50, max: 1000 } }"
+                :netlify-input-name="'message'"
+              />
+            </v-col>
+          </v-row>
 
-        <!-- Newsletter sign-up -->
-        <v-row class="temp-border my-1">
-          <v-col cols="12" sm="6">
-            <v-switch
-              v-model="subscribeToNewsletter"
-              label="Subscribe to our newsletter"
-              color="info"
-              inset
-            ></v-switch>
-          </v-col>
-        </v-row>
+          <!-- Newsletter sign-up -->
+          <v-row class="temp-border my-1">
+            <v-col cols="12" sm="6">
+              <v-switch
+                v-model="subscribeToNewsletter"
+                label="Subscribe to our newsletter"
+                color="info"
+                inset
+                name="subscribe-to-newsletter"
+              ></v-switch>
+            </v-col>
+          </v-row>
 
-        <small>*indicates required field</small>
-      </v-card-text>
+          <small class="d-block">*indicates required field</small>
 
-      <v-card-actions>
-        <v-spacer></v-spacer>
+          <small class="d-block"
+            >This site is protected by reCAPTCHA and the Google
+            <a href="https://policies.google.com/privacy">Privacy Policy</a> and
+            <a href="https://policies.google.com/terms">Terms of Service</a>
+            apply.
+          </small>
+        </v-card-text>
 
-        <v-btn text :class="cancelBtnClass" @click="cancelForm">
-          cancel
-        </v-btn>
+        <v-card-actions>
+          <v-spacer></v-spacer>
 
-        <v-btn text :class="saveBtnClass" @click="cancelForm">
-          save
-        </v-btn>
-      </v-card-actions>
-    </v-form>
+          <v-btn
+            text
+            :class="[cancelBtnClass, 'mr-3']"
+            @click="closeAndResetForm"
+          >
+            cancel
+          </v-btn>
+
+          <v-btn
+            text
+            :class="[saveBtnClass, 'mr-3']"
+            :loading="saveLoading"
+            :disabled="invalid || saveLoading"
+            type="submit"
+          >
+            submit
+          </v-btn>
+        </v-card-actions>
+      </v-form>
+    </ValidationObserver>
+
+    <!-- Snackbar failure -->
+    <FormFailure />
   </v-card>
 </template>
 
 <script>
 //% Vuex
 //Mutations
-import { formDialogMutations } from "../../store/mutations/index";
+import {
+  formDialogMutations,
+  mainStoreMutations,
+} from "../../store/mutations/index";
+
+//Actions
+import { formDialogActions } from "../../store/actions/index";
+
 //Modules
 import { formDialogModule } from "../../store/modules/index";
 
 //% Util
 import { weAreOnDevMode, brownBorder, greenBorder } from "../../utils/index";
 
+//% Packages
+import axios from "axios";
+
+//% Components
+import TextField from "../FormFields/TextField.vue";
+import Select from "../FormFields/Select.vue";
+import RadioGroup from "../FormFields/RadioGroup.vue";
+import TextArea from "../FormFields/TextArea.vue";
+import FormFailure from "../Snackbars/FormFailure.vue";
+
 export default {
   name: "NavBarContactDialogForm",
+
+  components: {
+    TextField,
+    Select,
+    RadioGroup,
+    TextArea,
+    FormFailure,
+  },
 
   data: () => ({
     htmlTagsRefs: {
       main: "popup-form",
+      observer: "popup-form-validation-observer",
     },
 
-    rules: {
-      firstName: [v => !!v || "Name is required"],
-      lastName: [v => !!v || "Last name is required"],
-      email: [v => !!v || "Email is required"],
-      age: [v => !!v || "Age is required"],
-      inquiryType: [v => !!v || "Inquiry type is required"],
-      textArea: [
-        v => !!v || "Inquiry message is required",
-        v =>
-          (!!v && v.length) >= 50 || "Message has to be at least 50 characters",
-      ],
-    },
-
-    ages: ["0-17", "18-29", "30-54", "54+"],
-
-    radioOptions: [
-      {
-        option: "business",
-      },
-      { option: "just saying thank you!" },
-      { option: "other" },
-    ],
-
-    maxTextAreaCharacters: 1000,
+    saveLoading: false,
   }),
+
   computed: {
-    //% Vuex
+    //% Form fields
     firstName: {
       get() {
         return this.$store.state.formDialog.firstName;
@@ -221,6 +229,7 @@ export default {
         });
       },
     },
+
     middleName: {
       get() {
         return this.$store.state.formDialog.middleName;
@@ -232,6 +241,7 @@ export default {
         });
       },
     },
+
     lastName: {
       get() {
         return this.$store.state.formDialog.lastName;
@@ -243,6 +253,7 @@ export default {
         });
       },
     },
+
     email: {
       get() {
         return this.$store.state.formDialog.email;
@@ -254,6 +265,7 @@ export default {
         });
       },
     },
+
     selectedAgeRange: {
       get() {
         return this.$store.state.formDialog.ageRange;
@@ -265,6 +277,7 @@ export default {
         });
       },
     },
+
     inquiryType: {
       get() {
         return this.$store.state.formDialog.inquiry.type;
@@ -276,6 +289,7 @@ export default {
         });
       },
     },
+
     inquirySubject: {
       get() {
         return this.$store.state.formDialog.inquiry.subject;
@@ -287,6 +301,7 @@ export default {
         });
       },
     },
+
     textArea: {
       get() {
         return this.$store.state.formDialog.textArea;
@@ -298,6 +313,7 @@ export default {
         });
       },
     },
+
     subscribeToNewsletter: {
       get() {
         return this.$store.state.formDialog.subscribeToNewsletter;
@@ -336,8 +352,62 @@ export default {
     brownBorder,
     greenBorder,
   },
+  //
   methods: {
-    cancelForm() {
+    async recaptcha() {
+      this.saveLoading = true;
+
+      try {
+        // (optional) Wait until recaptcha has been loaded.
+        await this.$recaptchaLoaded();
+
+        // Execute reCAPTCHA with action
+        const token = await this.$recaptcha("submit");
+
+        const {
+          data: { isHuman },
+        } = await axios({
+          method: "post",
+          url: `/.netlify/functions/recaptchav3`,
+          data: {
+            token,
+          },
+        });
+
+        if (isHuman) this.submitForm();
+      } catch (error) {
+        console.error(`${error.name}:${error.message}`);
+      } finally {
+        this.saveLoading = false;
+      }
+    },
+
+    async submitForm() {
+      try {
+        const res = await this.$store.dispatch({
+          type: `${formDialogModule.name}/${formDialogActions.POST_FORM}`,
+        });
+
+        if (res instanceof Error) {
+          this.$store.commit({
+            type: mainStoreMutations.DISPLAY_FAILURE_SNACKBAR,
+            value: true,
+          });
+          throw new Error(res.message);
+        }
+
+        this.closeAndResetForm();
+
+        this.$store.commit({
+          type: mainStoreMutations.DISPLAY_SNACKBAR,
+          value: true,
+        });
+      } catch (error) {
+        console.error(`${error.name}:${error.message}`);
+      }
+    },
+
+    closeAndResetForm() {
       //Set isOpen on formDialog in Vuex
       this.$store.commit({
         type: `${formDialogModule.name}/${formDialogMutations.CLOSE_DIALOG}`,
@@ -345,6 +415,9 @@ export default {
 
       //Reset local form state
       this.$refs[this.htmlTagsRefs.main].reset();
+
+      //Reset validation observer
+      this.$refs[this.htmlTagsRefs.observer].reset();
     },
   },
 };
