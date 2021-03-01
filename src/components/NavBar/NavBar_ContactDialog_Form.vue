@@ -355,37 +355,26 @@ export default {
 
   methods: {
     async recaptcha() {
-      //Netlify env
       this.saveLoading = true;
 
       try {
-        const { VUE_APP_DEPLOY_BRANCH } = process.env;
         // (optional) Wait until recaptcha has been loaded.
         await this.$recaptchaLoaded();
 
         // Execute reCAPTCHA with action
         const token = await this.$recaptcha("submit");
 
-        //Dynamic proxy for Netlify URL
-        const dynamicProxy = weAreOnDevMode()
-          ? "http://localhost:8080"
-          : VUE_APP_DEPLOY_BRANCH;
-
-        console.log("Dynamic proxy", dynamicProxy);
-
-        const verifiedRes = await axios({
+        const {
+          data: { isHuman },
+        } = await axios({
           method: "post",
-          url: `${dynamicProxy}/recaptcha/api/siteverify`,
-          params: {
-            secret: process.env.VUE_APP_CAPTCHA_V3_SERVER_SIDE,
-            response: token,
+          url: `/.netlify/functions/recaptchav3`,
+          data: {
+            token,
           },
-          headers: { "Access-Control-Allow-Origin": "https://www.google.com" },
         });
 
-        if (verifiedRes.data.success) {
-          this.submitForm();
-        }
+        if (isHuman) this.submitForm();
       } catch (error) {
         console.error(`${error.name}:${error.message}`);
       } finally {

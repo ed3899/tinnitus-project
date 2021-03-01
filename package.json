@@ -9,6 +9,7 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
+    "debug": "netlify dev --inspect",
     "netlify": "netlify",
     "netlify-init": "netlify init",
     "netlify-login": "netlify login",

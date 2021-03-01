@@ -31,21 +31,5 @@ export default {
     brownBorder,
     greenBorder,
   },
-
-  mounted() {
-    fetch("/.netlify/functions/hello")
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(e => console.log(e));
-
-    fetch("/.netlify/functions/post", {
-      method: "POST",
-      mode: "same-origin",
-      body: JSON.stringify("Some data from the client"),
-    })
-      .then(res => res.json())
-      .then(data => console.log(data))
-      .catch(e => console.log(e));
-  },
 };
 </script>

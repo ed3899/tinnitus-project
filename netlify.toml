@@ -10,7 +10,6 @@ to = "/index.html"
 status = 200
 
 [context.development_netlify-forms.environment]
-VUE_APP_DEPLOY_BRANCH = "https://development-netlify-forms--tinnitus-project-by-ed-01-2021.netlify.app"
 NODE_ENV = "production"
 
 [dev]
