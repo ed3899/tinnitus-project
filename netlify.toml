@@ -10,7 +10,10 @@ to = "/index.html"
 status = 200
 
 [context.development_netlify-forms.environment]
-NODE_ENV = "production"
+NODE_ENV = "pre-production"
+
+[context.development]
+environment = { NODE_ENV = "pre-production" }
 
 [dev]
 framework = "#custom"
